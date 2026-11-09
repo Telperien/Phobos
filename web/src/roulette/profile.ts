@@ -1,13 +1,13 @@
 import type { PhobiaSummary } from '../api/client'
-import { CATEGORIES } from '../catalogue/categories'
+import { CATEGORY_CODES } from '../catalogue/categories'
 import type { LevelNumber } from '../exposure/levels'
-import { type ExitChoice, type Verdict, verdictFor } from '../exposure/verdict'
+import { toneOf, VERDICT_KINDS, type Verdict, type VerdictKind, verdictFor } from '../exposure/verdict'
 import { isFaced, type Logbook, type LogEntry } from '../logbook/logbook'
 
 export interface FearProfile {
   opened: number
   faced: number
-  verdicts: { title: string; tone: Verdict['tone']; count: number }[]
+  verdicts: { kind: VerdictKind; tone: Verdict['tone']; count: number }[]
   /** Category code with the strongest reactions, or null when nothing scared the visitor. */
   dominantCategory: string | null
   worst: { slug: string; name: string; level: LevelNumber } | null
@@ -18,15 +18,8 @@ interface Opened {
   entry: LogEntry
 }
 
-const VERDICT_ORDER: { level: LevelNumber; choice: ExitChoice }[] = [
-  { level: 1, choice: 'stop' },
-  { level: 2, choice: 'stop' },
-  { level: 3, choice: 'stop' },
-  { level: 1, choice: 'notPhobic' },
-]
-
 /** An early stop says more about the fear than a late one; "not phobic" says nothing. */
-const fearScore = ({ lastExit }: LogEntry) => (lastExit?.choice === 'stop' ? 4 - lastExit.level : 0)
+const fearScore = ({ lastExit }: LogEntry) => (lastExit?.choice === 'stop' ? 6 - lastExit.level : 0)
 
 /** Sums up the visitor's logbook: verdicts, most feared category, worst reaction. */
 export function fearProfile(logbook: Logbook, catalogue: readonly PhobiaSummary[]): FearProfile {
@@ -34,17 +27,18 @@ export function fearProfile(logbook: Logbook, catalogue: readonly PhobiaSummary[
     const entry = logbook[phobia.slug]
     return entry ? [{ phobia, entry }] : []
   })
-  const titles = opened.flatMap(({ entry: { lastExit } }) =>
-    lastExit ? [verdictFor(lastExit.level, lastExit.choice).title] : [],
+  const kinds = opened.flatMap(({ entry: { lastExit } }) =>
+    lastExit ? [verdictFor(lastExit.level, lastExit.choice).kind] : [],
   )
 
   return {
     opened: opened.length,
     faced: opened.filter(({ entry }) => isFaced(entry)).length,
-    verdicts: VERDICT_ORDER.map(({ level, choice }) => {
-      const { title, tone } = verdictFor(level, choice)
-      return { title, tone, count: titles.filter((seen) => seen === title).length }
-    }),
+    verdicts: VERDICT_KINDS.map((kind) => ({
+      kind,
+      tone: toneOf(kind),
+      count: kinds.filter((seen) => seen === kind).length,
+    })),
     dominantCategory: dominantCategory(opened),
     worst: worstReaction(opened),
   }
@@ -53,7 +47,7 @@ export function fearProfile(logbook: Logbook, catalogue: readonly PhobiaSummary[
 function dominantCategory(opened: readonly Opened[]) {
   let dominant: string | null = null
   let highest = 0
-  for (const { code } of CATEGORIES) {
+  for (const code of CATEGORY_CODES) {
     const score = opened
       .filter(({ phobia }) => phobia.category === code)
       .reduce((sum, { entry }) => sum + fearScore(entry), 0)

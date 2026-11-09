@@ -49,18 +49,18 @@ describe('recordExit', () => {
 })
 
 describe('isFaced', () => {
-  it('is true only once level 3 has been reached', () => {
-    expect(isFaced(recordProgress(EMPTY_LOGBOOK, 'a', 3, NOW).a)).toBe(true)
-    expect(isFaced(recordProgress(EMPTY_LOGBOOK, 'a', 2, NOW).a)).toBe(false)
+  it('is true only once level 5 has been reached', () => {
+    expect(isFaced(recordProgress(EMPTY_LOGBOOK, 'a', 5, NOW).a)).toBe(true)
+    expect(isFaced(recordProgress(EMPTY_LOGBOOK, 'a', 4, NOW).a)).toBe(false)
     expect(isFaced(undefined)).toBe(false)
   })
 })
 
 describe('facedSlugs', () => {
-  it('lists the phobias faced up to level 3', () => {
-    let logbook = recordProgress(EMPTY_LOGBOOK, 'acrophobia', 3, NOW)
+  it('lists the phobias faced up to level 5', () => {
+    let logbook = recordProgress(EMPTY_LOGBOOK, 'acrophobia', 5, NOW)
     logbook = recordProgress(logbook, 'coulrophobia', 2, NOW)
-    logbook = recordExit(logbook, 'arachnophobia', { level: 3, choice: 'notPhobic' }, NOW)
+    logbook = recordExit(logbook, 'arachnophobia', { level: 5, choice: 'notPhobic' }, NOW)
 
     expect(facedSlugs(logbook)).toEqual(['acrophobia', 'arachnophobia'])
   })

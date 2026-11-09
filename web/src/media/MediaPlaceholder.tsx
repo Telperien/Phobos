@@ -1,5 +1,8 @@
+import { useT } from '../i18n/context'
+
 /** Emplacement d'image en attendant les images IA : planche photographique hachurée. */
 export function MediaPlaceholder({ plate, caption }: { plate: string; caption: string }) {
+  const t = useT()
   return (
     <figure className="relative flex aspect-[4/3] w-full flex-col justify-between overflow-hidden border border-ash bg-ink-2 p-4">
       <div
@@ -10,7 +13,7 @@ export function MediaPlaceholder({ plate, caption }: { plate: string; caption: s
         }}
       />
       <Corners />
-      <span className="relative label-mono text-clinical">Planche {plate}</span>
+      <span className="relative label-mono text-clinical">{t.journey.plate(plate)}</span>
       <figcaption className="relative max-w-xs font-serif text-sm italic text-bone/60">{caption}</figcaption>
     </figure>
   )

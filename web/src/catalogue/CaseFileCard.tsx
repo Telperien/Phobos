@@ -1,9 +1,10 @@
 import { Link } from '@tanstack/react-router'
 import type { PhobiaSummary } from '../api/client'
+import { useLang, useT } from '../i18n/context'
 import { isFaced, type LogEntry } from '../logbook/logbook'
 import { caseLabel } from '../ui/caseLabel'
 import { Stamp } from '../ui/Stamp'
-import { categoryLabel } from './categories'
+import { categoryName } from './categories'
 
 const TILTS = ['-rotate-[0.8deg]', 'rotate-[0.5deg]', '-rotate-[0.3deg]', 'rotate-[0.9deg]']
 
@@ -14,13 +15,15 @@ interface CaseFileCardProps {
 }
 
 export function CaseFileCard({ phobia, index, entry }: CaseFileCardProps) {
+  const lang = useLang()
+  const t = useT()
   const faced = isFaced(entry)
 
   return (
     <Link
-      to="/dossiers/$slug"
-      params={{ slug: phobia.slug }}
-      aria-label={`Dossier ${caseLabel(phobia.caseNumber)}, ${phobia.name}${faced ? ' — affronté' : ''}`}
+      to="/$lang/dossiers/$slug"
+      params={{ lang, slug: phobia.slug }}
+      aria-label={t.card.label(caseLabel(phobia.caseNumber), phobia.name, faced)}
       className={`group relative block pt-6 transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-0 ${
         TILTS[index % TILTS.length]
       }`}
@@ -32,8 +35,8 @@ export function CaseFileCard({ phobia, index, entry }: CaseFileCardProps) {
 
       <article className="paper relative flex min-h-64 flex-col gap-3 p-5">
         <div className="flex items-baseline justify-between gap-4 border-b border-ink/25 pb-2">
-          <span className="label-mono text-ink/60">{categoryLabel(phobia.category)}</span>
-          <span className="label-mono text-ink/40">Exposition 3 niv.</span>
+          <span className="label-mono text-ink/60">{categoryName(t.categories, phobia.category)}</span>
+          <span className="label-mono text-ink/40">{t.card.exposure}</span>
         </div>
 
         <h3 className="font-display text-4xl leading-[0.9] font-extrabold uppercase group-hover:animate-flicker">
@@ -43,12 +46,12 @@ export function CaseFileCard({ phobia, index, entry }: CaseFileCardProps) {
         <p className="font-serif text-base leading-snug text-ink/85">{phobia.summary}</p>
 
         <p className="mt-auto pt-2 label-mono text-ink/55">
-          {entry ? `Niveau atteint : ${entry.reachedLevel} / 3` : 'Jamais ouvert'}
+          {entry ? t.card.reached(entry.reachedLevel) : t.card.neverOpened}
         </p>
 
         {faced && (
           <Stamp tone="rust" className="absolute right-4 bottom-4">
-            Affronté
+            {t.caseFile.faced}
           </Stamp>
         )}
       </article>

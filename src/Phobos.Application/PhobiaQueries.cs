@@ -5,7 +5,7 @@ namespace Phobos.Application;
 /// <summary>Read side of the catalogue: list, case file, random draw. Only published phobias are visible.</summary>
 public sealed class PhobiaQueries(IPhobiaCatalogue catalogue, IRandomIndex random)
 {
-    private static readonly int[] LevelNumbers = [1, 2, 3];
+    private static readonly int[] LevelNumbers = [1, 2, 3, 4, 5];
 
     public async Task<IReadOnlyList<PhobiaSummary>> ListAsync(
         Language language, Category? category, CancellationToken cancellationToken)
@@ -51,7 +51,9 @@ public sealed class PhobiaQueries(IPhobiaCatalogue catalogue, IRandomIndex rando
     {
         var text = phobia.TranslationFor(language);
         var levels = LevelNumbers
-            .Select(number => new ExposureLevelView(number, phobia.MediaForLevel(number).Select(View).ToList()))
+            .Select(number => new ExposureLevelView(number, phobia.Media
+                .Where(media => (media.Kind == MediaKind.YouTube ? ExposureMedia.VideoLevel : media.Level) == number)
+                .Select(View).ToList()))
             .ToList();
         return new PhobiaDetail(
             phobia.Slug, phobia.CaseNumber, CategoryCodes.Code(phobia.Category), Languages.Code(text.Language),

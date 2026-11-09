@@ -1,29 +1,27 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
-import { catalogueQuery, LANG } from '../api/client'
+import { catalogueQuery } from '../api/client'
 import { CaseFileGrid } from '../catalogue/CaseFileGrid'
-import { CATEGORIES } from '../catalogue/categories'
+import { CATEGORY_CODES } from '../catalogue/categories'
 import {
   type CatalogueFilter,
   filterCatalogue,
   parseCatalogueSearch,
   toCatalogueSearch,
 } from '../catalogue/filter'
+import { useLang, useT } from '../i18n/context'
 import { isFaced } from '../logbook/logbook'
 import { useLogbook } from '../logbook/store'
 import { LoadFailure, LoadingLine } from '../ui/LoadState'
 
-const STATUS_OPTIONS = [
-  { value: 'all', label: 'Toutes' },
-  { value: 'faced', label: 'Affrontées' },
-  { value: 'todo', label: 'À tenter' },
-] as const
+const STATUSES = ['all', 'faced', 'todo'] as const
 
 export function CataloguePage() {
-  const filter = parseCatalogueSearch(useSearch({ from: '/dossiers' }))
-  const navigate = useNavigate({ from: '/dossiers' })
+  const t = useT()
+  const filter = parseCatalogueSearch(useSearch({ from: '/$lang/dossiers' }))
+  const navigate = useNavigate({ from: '/$lang/dossiers' })
   const logbook = useLogbook()
-  const catalogue = useQuery(catalogueQuery(LANG))
+  const catalogue = useQuery(catalogueQuery(useLang()))
 
   const change = (patch: Partial<CatalogueFilter>) =>
     navigate({ search: toCatalogueSearch({ ...filter, ...patch }), replace: true })
@@ -36,20 +34,20 @@ export function CataloguePage() {
     <div className="mx-auto max-w-6xl px-4 py-12">
       <header className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col gap-2">
-          <p className="label-mono text-clinical">Archives — accès libre</p>
-          <h1 className="font-display text-6xl font-black uppercase sm:text-7xl">Dossiers</h1>
+          <p className="label-mono text-clinical">{t.catalogue.kicker}</p>
+          <h1 className="font-display text-6xl font-black break-words uppercase sm:text-7xl">
+            {t.catalogue.title}
+          </h1>
         </div>
         <FacedCounter faced={faced} total={all.length} />
       </header>
 
       <Filters filter={filter} onChange={change} />
 
-      {catalogue.isPending && <LoadingLine>Ouverture des archives…</LoadingLine>}
+      {catalogue.isPending && <LoadingLine>{t.catalogue.loading}</LoadingLine>}
       {catalogue.isError && <LoadFailure onRetry={() => catalogue.refetch()} />}
       {catalogue.isSuccess && shown.length === 0 && (
-        <p className="py-16 font-serif text-lg text-bone/70">
-          Aucun dossier ne correspond. Les archives gardent leurs secrets.
-        </p>
+        <p className="py-16 font-serif text-lg text-bone/70">{t.catalogue.empty}</p>
       )}
 
       <CaseFileGrid phobias={shown} className="pt-10" />
@@ -58,13 +56,14 @@ export function CataloguePage() {
 }
 
 function FacedCounter({ faced, total }: { faced: number; total: number }) {
+  const t = useT()
   return (
     <div className="flex min-w-64 flex-col gap-2">
       <p className="flex items-baseline justify-between gap-4">
         <span className="font-display text-4xl font-black">
           {faced} <span className="text-clinical">/ {total}</span>
         </span>
-        <span className="label-mono text-clinical">affrontées</span>
+        <span className="label-mono text-clinical">{t.catalogue.faced}</span>
       </p>
       <div className="h-1.5 bg-ash">
         <div
@@ -83,6 +82,7 @@ function Filters({
   filter: CatalogueFilter
   onChange: (patch: Partial<CatalogueFilter>) => void
 }) {
+  const t = useT()
   const chip = (active: boolean) =>
     `border px-3 py-1.5 label-mono transition-colors ${
       active ? 'border-bone bg-bone text-ink' : 'border-ash text-bone/70 hover:border-bone/60 hover:text-bone'
@@ -92,49 +92,49 @@ function Filters({
     <div className="flex flex-col gap-4 border-y border-ash py-5">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <label className="flex flex-1 items-center gap-3 border-b border-bone/30 pb-1 focus-within:border-bone md:max-w-sm">
-          <span className="label-mono text-clinical">Rechercher</span>
+          <span className="label-mono text-clinical">{t.catalogue.search}</span>
           <input
             type="search"
             value={filter.query}
             onChange={(event) => onChange({ query: event.target.value })}
-            placeholder="araignée, vide, clown…"
+            placeholder={t.catalogue.searchPlaceholder}
             className="w-full bg-transparent font-serif text-lg text-bone placeholder:text-bone/30 focus:outline-none"
           />
         </label>
-        <fieldset className="flex gap-1.5">
-          <legend className="sr-only">Statut</legend>
-          {STATUS_OPTIONS.map((option) => (
+        <fieldset className="flex flex-wrap gap-1.5">
+          <legend className="sr-only">{t.catalogue.statusLegend}</legend>
+          {STATUSES.map((status) => (
             <button
-              key={option.value}
+              key={status}
               type="button"
-              aria-pressed={filter.status === option.value}
-              onClick={() => onChange({ status: option.value })}
-              className={chip(filter.status === option.value)}
+              aria-pressed={filter.status === status}
+              onClick={() => onChange({ status })}
+              className={chip(filter.status === status)}
             >
-              {option.label}
+              {t.catalogue.status[status]}
             </button>
           ))}
         </fieldset>
       </div>
       <fieldset className="flex flex-wrap gap-1.5">
-        <legend className="sr-only">Catégorie</legend>
+        <legend className="sr-only">{t.catalogue.categoryLegend}</legend>
         <button
           type="button"
           aria-pressed={filter.category === 'all'}
           onClick={() => onChange({ category: 'all' })}
           className={chip(filter.category === 'all')}
         >
-          Toutes catégories
+          {t.catalogue.allCategories}
         </button>
-        {CATEGORIES.map((category) => (
+        {CATEGORY_CODES.map((code) => (
           <button
-            key={category.code}
+            key={code}
             type="button"
-            aria-pressed={filter.category === category.code}
-            onClick={() => onChange({ category: category.code })}
-            className={chip(filter.category === category.code)}
+            aria-pressed={filter.category === code}
+            onClick={() => onChange({ category: code })}
+            className={chip(filter.category === code)}
           >
-            {category.label}
+            {t.categories[code]}
           </button>
         ))}
       </fieldset>

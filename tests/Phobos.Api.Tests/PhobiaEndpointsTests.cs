@@ -58,12 +58,12 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
     }
 
     [Fact]
-    public async Task Returns_a_case_file_with_its_three_levels()
+    public async Task Returns_a_case_file_with_its_five_levels()
     {
         var detail = await GetJsonAsync<PhobiaDetail>("/api/de/phobias/cynophobia");
 
         Assert.Equal(("Kynophobie", "de", 7), (detail.Name, detail.Language, detail.CaseNumber));
-        Assert.Equal([1, 2, 3], detail.Levels.Select(level => level.Number));
+        Assert.Equal([1, 2, 3, 4, 5], detail.Levels.Select(level => level.Number));
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
 
         Assert.Equal([new MediaView("image", "/media/selachophobia/1-a.webp", 0)], detail.Levels[0].Media);
         Assert.Empty(detail.Levels[1].Media);
-        Assert.Equal([new MediaView("youtube", "dQw4w9WgXcQ", 30)], detail.Levels[2].Media);
+        Assert.Equal([new MediaView("youtube", "dQw4w9WgXcQ", 30)], detail.Levels[4].Media);
     }
 
     [Fact]

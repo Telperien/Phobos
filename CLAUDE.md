@@ -23,4 +23,5 @@ Site React + .NET 10 pour découvrir ses phobies (3 niveaux d'exposition, modes 
 - Base locale : PostgreSQL, utilisateur `phobos` / `phobos_dev` ; les tests créent et suppriment leurs bases `phobos_test_*`.
 - Code généré par EF (`Migrations/`) exclu de CRAP, Stryker et jscpd.
 - API sur le port 5080, site Vite sur 5173 (proxy `/api`).
-- Interface en français par défaut ; pas de rose, ambiance « archives cliniques ».
+- Interface en 5 langues sous `/fr`, `/en`, `/es`, `/de`, `/it` ; pas de rose, ambiance « archives cliniques ».
+- Textes de l'interface : jamais en dur dans les composants. `web/src/i18n/messages/fr.ts` est la référence ; une clé ajoutée l'est dans les 5 langues (TypeScript et `messages.test.ts` le vérifient). Tutoiement, formulations neutres en genre.

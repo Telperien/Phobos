@@ -1,6 +1,6 @@
 import type { PhobiaSummary } from '../api/client'
 import { isFaced, type Logbook } from '../logbook/logbook'
-import { CATEGORIES } from './categories'
+import { isCategoryCode } from './categories'
 
 export interface CatalogueFilter {
   category: string
@@ -39,7 +39,7 @@ const STATUSES = new Set(['faced', 'todo'])
 export function parseCatalogueSearch(search: Record<string, unknown>): CatalogueFilter {
   const { category, q, status } = search
   return {
-    category: CATEGORIES.some((known) => known.code === category) ? (category as string) : ALL.category,
+    category: isCategoryCode(category) ? category : ALL.category,
     query: typeof q === 'string' ? q : ALL.query,
     status:
       typeof status === 'string' && STATUSES.has(status) ? (status as CatalogueFilter['status']) : ALL.status,

@@ -4,7 +4,7 @@ import { HoldToReveal } from './HoldToReveal'
 
 function renderHold(onReveal = vi.fn()) {
   render(
-    <HoldToReveal durationMs={1000} onReveal={onReveal}>
+    <HoldToReveal durationMs={1000} onReveal={onReveal} warning="Contenu sensible">
       <img alt="Araignée en gros plan" src="/x.webp" />
     </HoldToReveal>,
   )

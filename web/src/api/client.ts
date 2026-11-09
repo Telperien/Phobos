@@ -6,9 +6,6 @@ export type PhobiaSummary = components['schemas']['PhobiaSummary']
 export type PhobiaDetail = components['schemas']['PhobiaDetail']
 export type MediaView = components['schemas']['MediaView']
 
-/** Interface language. Becomes a route parameter in step 5. */
-export const LANG = 'fr'
-
 const api = createClient<paths>({ baseUrl: window.location.origin })
 
 export const catalogueQuery = (lang: string) =>

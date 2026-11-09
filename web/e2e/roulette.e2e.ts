@@ -12,7 +12,7 @@ async function faceEverythingExcept(page: Page, kept: string[]) {
       const entries = Object.fromEntries(
         faced.map((slug) => [
           slug,
-          { reachedLevel: 3, lastExit: { level: 3, choice: 'stop' }, updatedAt: new Date().toISOString() },
+          { reachedLevel: 5, lastExit: { level: 5, choice: 'stop' }, updatedAt: new Date().toISOString() },
         ]),
       )
       localStorage.setItem('phobos.logbook', JSON.stringify({ version: 1, entries }))
@@ -22,7 +22,7 @@ async function faceEverythingExcept(page: Page, kept: string[]) {
 }
 
 test('the roulette serves one case file after another without repeating itself', async ({ page }) => {
-  await page.goto('/roulette')
+  await page.goto('/fr/roulette')
   await expect(page.getByText('Tour 1 · Tirage 1')).toBeVisible()
 
   const names = [await caseFileName(page).textContent()]
@@ -37,7 +37,7 @@ test('the roulette serves one case file after another without repeating itself',
 })
 
 test('a verdict leads to the next draw and feeds the fear profile', async ({ page }) => {
-  await page.goto('/roulette')
+  await page.goto('/fr/roulette')
   const first = await caseFileName(page).textContent()
 
   await page.getByRole('button', { name: /j’ai compris/i }).click()
@@ -55,12 +55,12 @@ test('the "not faced yet" option only draws what is left, then says everything w
 }) => {
   await faceEverythingExcept(page, ['pediophobia'])
 
-  await page.goto('/roulette?skipFaced=true')
+  await page.goto('/fr/roulette?skipFaced=true')
   await expect(page.getByRole('checkbox', { name: /pas encore affrontées/i })).toBeChecked()
   await expect(caseFileName(page)).toHaveText('Pédiophobie')
 
   await faceEverythingExcept(page, [])
-  await page.goto('/roulette?skipFaced=true')
+  await page.goto('/fr/roulette?skipFaced=true')
   await expect(page.getByText('Tout affronté')).toBeVisible()
 
   await page.getByRole('button', { name: /tirer parmi tous les dossiers/i }).click()

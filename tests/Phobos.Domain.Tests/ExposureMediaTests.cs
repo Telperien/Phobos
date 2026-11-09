@@ -5,7 +5,9 @@ public sealed class ExposureMediaTests
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
-    public void Images_belong_to_levels_1_and_2(int level)
+    [InlineData(3)]
+    [InlineData(4)]
+    public void Images_belong_to_levels_1_to_4(int level)
     {
         var media = ExposureMedia.Image(level, "arachnophobia/a.webp");
 
@@ -16,8 +18,8 @@ public sealed class ExposureMediaTests
 
     [Theory]
     [InlineData(0)]
-    [InlineData(3)]
-    public void Images_are_refused_outside_levels_1_and_2(int level)
+    [InlineData(5)]
+    public void Images_are_refused_outside_levels_1_to_4(int level)
     {
         Assert.Throws<DomainRuleException>(() => ExposureMedia.Image(level, "arachnophobia/a.webp"));
     }
@@ -31,11 +33,11 @@ public sealed class ExposureMediaTests
     }
 
     [Fact]
-    public void Videos_are_youtube_clips_on_level_3()
+    public void Videos_are_youtube_clips_on_level_5()
     {
         var media = ExposureMedia.YouTube("dQw4w9WgXcQ", startSeconds: 42);
 
-        Assert.Equal(3, media.Level);
+        Assert.Equal(5, media.Level);
         Assert.Equal(MediaKind.YouTube, media.Kind);
         Assert.Equal("dQw4w9WgXcQ", media.Source);
         Assert.Equal(42, media.StartSeconds);

@@ -5,11 +5,11 @@ namespace Phobos.Domain;
 public enum MediaKind { Image, YouTube }
 
 /// <summary>
-/// One piece of exposure material. Levels 1 and 2 show images, level 3 shows a YouTube video.
+/// One piece of exposure material. Levels 1 to 4 show images, level 5 shows a YouTube video.
 /// </summary>
 public sealed partial class ExposureMedia
 {
-    public const int VideoLevel = 3;
+    public const int VideoLevel = 5;
 
     public int Level { get; private set; }
     public MediaKind Kind { get; private set; }
@@ -29,7 +29,7 @@ public sealed partial class ExposureMedia
 
     public static ExposureMedia Image(int level, string storageKey)
     {
-        if (level is not (1 or 2)) throw new DomainRuleException($"Images belong to levels 1 and 2, not {level}.");
+        if (level is < 1 or >= VideoLevel) throw new DomainRuleException($"Images belong to levels 1 to 4, not {level}.");
         if (string.IsNullOrWhiteSpace(storageKey)) throw new DomainRuleException("An image needs a storage key.");
         return new ExposureMedia(level, MediaKind.Image, storageKey, 0);
     }

@@ -1,9 +1,9 @@
-import type { LevelNumber } from '../exposure/levels'
+import { FINAL_LEVEL, type LevelNumber } from '../exposure/levels'
 import type { ExitChoice } from '../exposure/verdict'
 
 /**
  * Logbook kept in the visitor's browser (no account): for each phobia, the highest level reached
- * and the last way out. A phobia is "faced" once level 3 has been reached.
+ * and the last way out. A phobia is "faced" once level 5 has been reached.
  */
 export const LOGBOOK_KEY = 'phobos.logbook'
 const VERSION = 1
@@ -41,7 +41,7 @@ export const recordExit = (
   now: Date,
 ): Logbook => update(logbook, slug, exit.level, now, exit)
 
-export const isFaced = (entry: LogEntry | undefined) => entry?.reachedLevel === 3
+export const isFaced = (entry: LogEntry | undefined) => entry?.reachedLevel === FINAL_LEVEL
 
 export const facedSlugs = (logbook: Logbook) =>
   Object.entries(logbook)

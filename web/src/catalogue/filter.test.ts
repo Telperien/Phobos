@@ -47,7 +47,7 @@ describe('filterCatalogue', () => {
 
   it('separates the phobias faced from the ones still to try', () => {
     const logbook = recordProgress(
-      recordProgress(EMPTY_LOGBOOK, 'acrophobia', 3, new Date()),
+      recordProgress(EMPTY_LOGBOOK, 'acrophobia', 5, new Date()),
       'trypophobia',
       2,
       new Date(),
@@ -61,7 +61,7 @@ describe('filterCatalogue', () => {
   })
 
   it('combines the filters', () => {
-    const logbook = recordProgress(EMPTY_LOGBOOK, 'acrophobia', 3, new Date())
+    const logbook = recordProgress(EMPTY_LOGBOOK, 'acrophobia', 5, new Date())
 
     expect(
       filterCatalogue(CATALOGUE, { category: 'nature-and-spaces', query: 'vide', status: 'todo' }, logbook),

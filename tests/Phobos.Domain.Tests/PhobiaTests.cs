@@ -125,6 +125,6 @@ public sealed class PhobiaTests
 
         Assert.Equal([cute], phobia.MediaForLevel(1));
         Assert.Equal([close, closer], phobia.MediaForLevel(2));
-        Assert.Equal([video], phobia.MediaForLevel(3));
+        Assert.Equal([video], phobia.MediaForLevel(5));
     }
 }

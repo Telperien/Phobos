@@ -1,13 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
-import { drawPhobia, LANG } from '../api/client'
+import { drawPhobia, phobiaQuery } from '../api/client'
+import { sessionStore } from '../browserStorage'
 import { CaseFileJourney } from '../exposure/CaseFileJourney'
+import { useLang, useT } from '../i18n/context'
 import { facedSlugs } from '../logbook/logbook'
 import { useLogbook } from '../logbook/store'
 import { FearProfilePanel } from '../roulette/FearProfilePanel'
-import { parseRouletteSearch, type Round, spin, tabStorage, toRouletteSearch } from '../roulette/round'
+import { parseRouletteSearch, type Round, spin, toRouletteSearch } from '../roulette/round'
 import { ActionButton } from '../ui/ActionButton'
 import { caseLabel } from '../ui/caseLabel'
 import { LoadFailure } from '../ui/LoadState'
@@ -15,20 +17,36 @@ import { Stamp } from '../ui/Stamp'
 
 /** Infinite roulette: case files drawn one after another, without repetition until the deck is exhausted. */
 export function RoulettePage() {
-  const { skipFaced } = parseRouletteSearch(useSearch({ from: '/roulette' }))
-  const navigate = useNavigate({ from: '/roulette' })
+  const lang = useLang()
+  const t = useT()
+  const { skipFaced } = parseRouletteSearch(useSearch({ from: '/$lang/roulette' }))
+  const navigate = useNavigate({ from: '/$lang/roulette' })
   const logbook = useLogbook()
+  const queryClient = useQueryClient()
+
   // Each draw keeps the options it was asked with: changing them mid-journey only affects the next draw.
   const [request, setRequest] = useState(() => ({ number: 0, skipFaced }))
 
+  // The draw does not depend on the language: switching language translates the case file drawn.
   const draw = useQuery({
-    queryKey: ['roulette', LANG, request.number],
-    queryFn: () =>
-      spin(tabStorage(), (seen) => drawPhobia(LANG, seen, request.skipFaced ? facedSlugs(logbook) : [])),
+    queryKey: ['roulette', request.number],
+    queryFn: async () => {
+      const exclude = request.skipFaced ? facedSlugs(logbook) : []
+      const { phobia, round } = await spin(sessionStore(), (seen) => drawPhobia(lang, seen, exclude))
+      if (phobia) queryClient.setQueryData(phobiaQuery(lang, phobia.slug).queryKey, phobia)
+      return { slug: phobia?.slug ?? null, round }
+    },
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: 0,
     retry: 1,
   })
+  const slug = draw.data?.slug
+  const shown = useQuery({
+    ...phobiaQuery(lang, slug ?? ''),
+    enabled: Boolean(slug),
+    placeholderData: keepPreviousData,
+  })
+  const phobia = slug ? shown.data : undefined
 
   const drawAgain = (withSkipFaced = skipFaced) => {
     setRequest(({ number }) => ({ number: number + 1, skipFaced: withSkipFaced }))
@@ -40,14 +58,14 @@ export function RoulettePage() {
   return (
     <div className="pb-16">
       <RouletteBar
-        round={draw.data?.phobia ? draw.data.round : undefined}
+        round={phobia ? draw.data?.round : undefined}
         skipFaced={skipFaced}
         onSkipFacedChange={setSkipFaced}
-        onSkip={draw.data?.phobia ? () => drawAgain() : undefined}
+        onSkip={phobia ? () => drawAgain() : undefined}
       />
 
       <AnimatePresence mode="wait">
-        {draw.data?.phobia ? (
+        {phobia ? (
           <motion.div
             key={request.number}
             initial={{ opacity: 0, y: 40, rotate: -1.5 }}
@@ -56,19 +74,21 @@ export function RoulettePage() {
             transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
           >
             <CaseFileJourney
-              phobia={draw.data.phobia}
+              phobia={phobia}
               next={
                 <ActionButton variant="primary" onClick={() => drawAgain()}>
-                  Tirer la suivante <span aria-hidden="true">→</span>
+                  {t.roulette.drawNext} <span aria-hidden="true">→</span>
                 </ActionButton>
               }
             />
           </motion.div>
         ) : (
           <motion.div key="waiting" exit={{ opacity: 0 }} className="mx-auto max-w-6xl px-4 py-10">
-            {draw.isPending && <Drum />}
-            {draw.isError && <LoadFailure onRetry={() => draw.refetch()} />}
-            {draw.data?.phobia === null && (
+            {(draw.isPending || shown.isLoading) && <Drum />}
+            {(draw.isError || shown.isError || shown.data === null) && (
+              <LoadFailure onRetry={() => drawAgain()} />
+            )}
+            {draw.data?.slug === null && (
               <NothingLeft
                 skipFaced={request.skipFaced}
                 onDrawEverything={() => {
@@ -100,14 +120,15 @@ function RouletteBar({
   onSkipFacedChange: (value: boolean) => void
   onSkip: (() => void) | undefined
 }) {
+  const t = useT()
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-4 border-b border-ash px-4 pt-8 pb-5 sm:flex-row sm:items-center sm:justify-between">
       <p className="label-mono text-rust-bright" aria-live="polite">
-        Roulette
+        {t.roulette.label}
         {round && (
           <span className="text-clinical">
-            {' '}
-            · Tour {round.number} · Tirage {round.seen.length}
+            {' · '}
+            {t.roulette.round(round.number, round.seen.length)}
           </span>
         )}
       </p>
@@ -119,7 +140,7 @@ function RouletteBar({
             onChange={(event) => onSkipFacedChange(event.target.checked)}
             className="size-4 accent-rust-bright"
           />
-          Seulement celles que je n’ai pas encore affrontées
+          {t.roulette.skipFaced}
         </label>
         {onSkip && (
           <button
@@ -127,7 +148,7 @@ function RouletteBar({
             onClick={onSkip}
             className="self-start label-mono text-clinical hover:text-bone"
           >
-            Passer ce dossier →
+            {t.roulette.skip}
           </button>
         )}
       </div>
@@ -137,6 +158,7 @@ function RouletteBar({
 
 /** Case numbers rolling while the draw is on its way. Still when the visitor prefers less motion. */
 function Drum() {
+  const t = useT()
   const reducedMotion = useReducedMotion()
   const [number, setNumber] = useState(1)
 
@@ -151,7 +173,7 @@ function Drum() {
       <span className="font-display text-7xl font-black text-bone/90 tabular-nums" aria-hidden="true">
         {reducedMotion ? 'N°???' : caseLabel(number)}
       </span>
-      <span className="label-mono text-clinical">La roulette tourne…</span>
+      <span className="label-mono text-clinical">{t.roulette.spinning}</span>
     </div>
   )
 }
@@ -165,18 +187,17 @@ function NothingLeft({
   onDrawEverything: () => void
   onRetry: () => void
 }) {
+  const t = useT()
   if (!skipFaced) return <LoadFailure onRetry={onRetry} />
 
   return (
     <div className="flex flex-col items-start gap-6 py-10">
       <Stamp tone="sickly" className="text-5xl">
-        Tout affronté
+        {t.roulette.allFacedStamp}
       </Stamp>
-      <p className="max-w-lg font-serif text-lg text-bone/80">
-        Chaque dossier a été affronté jusqu’au niveau 3 : il n’en reste aucun à tenter.
-      </p>
+      <p className="max-w-lg font-serif text-lg text-bone/80">{t.roulette.allFaced}</p>
       <ActionButton variant="primary" onClick={onDrawEverything}>
-        Tirer parmi tous les dossiers
+        {t.roulette.drawEverything}
       </ActionButton>
     </div>
   )

@@ -1,20 +1,21 @@
-import { EXPOSURE_LEVELS, type LevelNumber } from './levels'
+import { useT } from '../i18n/context'
+import { EXPOSURE_LEVELS, FINAL_LEVEL, type LevelNumber } from './levels'
 
 export function FearGauge({ level }: { level: LevelNumber }) {
-  const current = EXPOSURE_LEVELS[level - 1]
+  const t = useT()
 
   return (
     // biome-ignore lint/a11y/useSemanticElements: a native <meter> cannot draw labelled segments
     <div
       role="meter"
-      aria-label="Jauge de frisson"
+      aria-label={t.journey.gauge}
       aria-valuemin={1}
-      aria-valuemax={3}
+      aria-valuemax={FINAL_LEVEL}
       aria-valuenow={level}
-      aria-valuetext={`Niveau ${level} sur 3 : ${current.name}`}
+      aria-valuetext={t.journey.gaugeValue(level, t.levels[level].name)}
     >
-      <ol className="grid grid-cols-3 gap-1.5">
-        {EXPOSURE_LEVELS.map(({ number, name }) => {
+      <ol className="grid grid-cols-5 gap-1.5">
+        {EXPOSURE_LEVELS.map((number) => {
           const reached = number <= level
           return (
             <li key={number} data-reached={reached} className="group flex flex-col gap-2">
@@ -26,7 +27,7 @@ export function FearGauge({ level }: { level: LevelNumber }) {
               <span
                 className={`label-mono tracking-normal sm:tracking-[0.2em] ${reached ? 'text-bone' : 'text-clinical/60'}`}
               >
-                <span className="text-rust-bright">0{number}</span> {name}
+                <span className="text-rust-bright">0{number}</span> {t.levels[number].name}
               </span>
             </li>
           )

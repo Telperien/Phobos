@@ -2,21 +2,26 @@ import type { LevelNumber } from './levels'
 
 export type ExitChoice = 'notPhobic' | 'stop'
 
+/** In order from the strongest reaction to none. The wording lives in the messages. */
+export const VERDICT_KINDS = ['veryPhobic', 'phobic', 'sensitive', 'notPhobic'] as const
+export type VerdictKind = (typeof VERDICT_KINDS)[number]
+
 export interface Verdict {
-  title: string
-  detail: string
+  kind: VerdictKind
   tone: 'safe' | 'alarm'
 }
 
-const STOP_VERDICTS: Record<LevelNumber, Omit<Verdict, 'tone'>> = {
-  1: { title: 'Très phobique', detail: 'Arrêt dès la première image. Le dossier reste ouvert.' },
-  2: { title: 'Phobique', detail: 'Tu as tenu l’image douce, pas la suite.' },
-  3: { title: 'Sensible', detail: 'Tu as tenu longtemps. La vidéo a eu raison de toi.' },
+const STOP_KINDS: Record<LevelNumber, VerdictKind> = {
+  1: 'veryPhobic',
+  2: 'phobic',
+  3: 'phobic',
+  4: 'sensitive',
+  5: 'sensitive',
 }
 
+export const toneOf = (kind: VerdictKind): Verdict['tone'] => (kind === 'notPhobic' ? 'safe' : 'alarm')
+
 export function verdictFor(level: LevelNumber, choice: ExitChoice): Verdict {
-  if (choice === 'notPhobic') {
-    return { title: 'Pas phobique', detail: `Déclaré au niveau ${level}. On note, sans juger.`, tone: 'safe' }
-  }
-  return { ...STOP_VERDICTS[level], tone: 'alarm' }
+  const kind = choice === 'notPhobic' ? 'notPhobic' : STOP_KINDS[level]
+  return { kind, tone: toneOf(kind) }
 }

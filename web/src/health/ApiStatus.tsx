@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useT } from '../i18n/context'
 
 async function fetchHealth(): Promise<{ status: string }> {
   const response = await fetch('/api/health')
@@ -7,13 +8,14 @@ async function fetchHealth(): Promise<{ status: string }> {
 }
 
 export function ApiStatus() {
+  const t = useT()
   const { isPending, isSuccess } = useQuery({ queryKey: ['health'], queryFn: fetchHealth })
 
-  if (isPending) return <StatusLine tone="text-bone/50">Connexion…</StatusLine>
+  if (isPending) return <StatusLine tone="text-bone/50">{t.status.connecting}</StatusLine>
   return isSuccess ? (
-    <StatusLine tone="text-sickly">API en ligne</StatusLine>
+    <StatusLine tone="text-sickly">{t.status.online}</StatusLine>
   ) : (
-    <StatusLine tone="text-rust">API injoignable</StatusLine>
+    <StatusLine tone="text-rust">{t.status.offline}</StatusLine>
   )
 }
 

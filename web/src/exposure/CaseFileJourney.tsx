@@ -2,7 +2,8 @@ import { Link } from '@tanstack/react-router'
 import { AnimatePresence, motion } from 'motion/react'
 import { type ReactNode, useEffect, useReducer } from 'react'
 import type { MediaView, PhobiaDetail } from '../api/client'
-import { categoryLabel } from '../catalogue/categories'
+import { categoryName } from '../catalogue/categories'
+import { useLang, useT } from '../i18n/context'
 import { isFaced, type LogEntry } from '../logbook/logbook'
 import { saveExit, saveProgress, useLogbook } from '../logbook/store'
 import { MediaPlaceholder } from '../media/MediaPlaceholder'
@@ -14,21 +15,22 @@ import { EntryWarning } from './EntryWarning'
 import { FearGauge } from './FearGauge'
 import { HoldToReveal } from './HoldToReveal'
 import { journeyReducer, START } from './journey'
-import { EXPOSURE_LEVELS, type LevelNumber } from './levels'
+import { FINAL_LEVEL, type LevelNumber } from './levels'
 import { type ExitChoice, verdictFor } from './verdict'
 
 /**
- * A case file and its exposure journey: levels 1 to 3, then the verdict.
+ * A case file and its exposure journey: levels 1 to 5, then the verdict.
  * `next` is the main way forward offered with the verdict (next case file, next draw…).
  */
 export function CaseFileJourney({ phobia, next: nextAction }: { phobia: PhobiaDetail; next: ReactNode }) {
+  const t = useT()
   const [journey, dispatch] = useReducer(journeyReducer, START)
   const entry = useLogbook()[phobia.slug]
   const { level, outcome } = journey
 
   const next = () => {
     dispatch({ type: 'next' })
-    saveProgress(phobia.slug, Math.min(level + 1, 3) as LevelNumber)
+    saveProgress(phobia.slug, Math.min(level + 1, FINAL_LEVEL) as LevelNumber)
   }
   const exit = (choice: ExitChoice) => {
     dispatch({ type: 'exit', choice })
@@ -64,16 +66,16 @@ export function CaseFileJourney({ phobia, next: nextAction }: { phobia: PhobiaDe
                 <LevelHeader level={level} />
                 <LevelMedia level={level} phobia={phobia} />
                 <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  {level < 3 && (
+                  {level < FINAL_LEVEL && (
                     <ActionButton variant="primary" onClick={next}>
-                      Niveau suivant <span aria-hidden="true">→</span>
+                      {t.journey.next} <span aria-hidden="true">→</span>
                     </ActionButton>
                   )}
                   <ActionButton variant="safe" onClick={() => exit('notPhobic')}>
-                    Je ne suis pas phobique
+                    {t.journey.notPhobic}
                   </ActionButton>
                   <ActionButton variant="escape" onClick={() => exit('stop')}>
-                    Pitié, on arrête ici
+                    {t.journey.stop}
                   </ActionButton>
                 </div>
               </motion.div>
@@ -92,18 +94,25 @@ function JourneyStart({ slug }: { slug: string }) {
 }
 
 function Dossier({ phobia, entry }: { phobia: PhobiaDetail; entry: LogEntry | undefined }) {
+  const lang = useLang()
+  const t = useT()
+
   return (
     <aside className="relative self-start pt-6 lg:sticky lg:top-24">
-      <Link to="/dossiers" className="absolute -top-4 left-0 label-mono text-clinical hover:text-bone">
-        ← Archives
+      <Link
+        to="/$lang/dossiers"
+        params={{ lang }}
+        className="absolute -top-4 left-0 label-mono text-clinical hover:text-bone"
+      >
+        {t.caseFile.back}
       </Link>
       <span className="absolute top-2 left-0 bg-paper-dark px-4 pt-1.5 pb-2 font-mono text-xs font-semibold tracking-widest text-ink [clip-path:polygon(0_0,88%_0,100%_100%,0_100%)]">
-        Dossier {caseLabel(phobia.caseNumber)}
+        {t.caseFile.file(caseLabel(phobia.caseNumber))}
       </span>
       <article className="paper relative mt-4 flex flex-col gap-4 p-6 sm:p-8">
         <div className="flex justify-between border-b border-ink/25 pb-2 label-mono text-ink/60">
-          <span>{categoryLabel(phobia.category)}</span>
-          <span>Réf. PHB-{phobia.caseNumber}</span>
+          <span>{categoryName(t.categories, phobia.category)}</span>
+          <span>{t.caseFile.reference(phobia.caseNumber)}</span>
         </div>
         <h1 className="font-display text-[clamp(2.1rem,8.5vw,4.5rem)] leading-[0.85] font-black break-words uppercase">
           {phobia.name}
@@ -111,22 +120,22 @@ function Dossier({ phobia, entry }: { phobia: PhobiaDetail; entry: LogEntry | un
         <p className="font-serif italic text-ink/70">{phobia.etymology}</p>
         <p className="font-serif text-lg leading-relaxed text-ink/90">{phobia.description}</p>
         <p className="-rotate-1 border-l-2 border-rust pl-3 font-serif text-base italic text-rust">
-          Note : {phobia.annotation}
+          {t.caseFile.note(phobia.annotation)}
         </p>
         <div className="flex items-end justify-between gap-4 border-t border-ink/25 pt-3">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-3 font-mono text-xs text-ink/70">
             <div>
-              <dt className="text-ink/45">Niveau atteint</dt>
-              <dd className="text-sm text-rust">{entry ? `${entry.reachedLevel} / 3` : '—'}</dd>
+              <dt className="text-ink/45">{t.caseFile.reachedLevel}</dt>
+              <dd className="text-sm text-rust">{entry ? `${entry.reachedLevel} / ${FINAL_LEVEL}` : '—'}</dd>
             </div>
             <div>
-              <dt className="text-ink/45">Statut</dt>
-              <dd className="text-sm">{entry ? 'En observation' : 'Jamais exposé'}</dd>
+              <dt className="text-ink/45">{t.caseFile.status}</dt>
+              <dd className="text-sm">{entry ? t.caseFile.underObservation : t.caseFile.neverExposed}</dd>
             </div>
           </dl>
           {isFaced(entry) && (
             <Stamp tone="rust" className="shrink-0">
-              Affronté
+              {t.caseFile.faced}
             </Stamp>
           )}
         </div>
@@ -136,11 +145,12 @@ function Dossier({ phobia, entry }: { phobia: PhobiaDetail; entry: LogEntry | un
 }
 
 function LevelHeader({ level }: { level: LevelNumber }) {
-  const { name, hint } = EXPOSURE_LEVELS[level - 1]
+  const t = useT()
+  const { name, hint } = t.levels[level]
   return (
     <header className="flex flex-col gap-1">
-      <p className="label-mono text-rust-bright">Niveau 0{level} / 03</p>
-      <h2 id="exposure-title" className="font-display text-5xl font-black uppercase">
+      <p className="label-mono text-rust-bright">{t.journey.levelLabel(level)}</p>
+      <h2 id="exposure-title" className="font-display text-5xl font-black break-words uppercase">
         {name}
       </h2>
       <p className="font-serif text-bone/70">{hint}</p>
@@ -149,19 +159,20 @@ function LevelHeader({ level }: { level: LevelNumber }) {
 }
 
 function LevelMedia({ level, phobia }: { level: LevelNumber; phobia: PhobiaDetail }) {
+  const t = useT()
   const media = phobia.levels[level - 1]?.media ?? []
 
-  if (level === 3) {
+  if (level === FINAL_LEVEL) {
     const video = media.find((item) => item.kind === 'youtube')
     return video ? (
       <YouTubeFacade videoId={video.source} startSeconds={video.startSeconds} title={phobia.name} />
     ) : (
-      <MediaPlaceholder plate="03-A" caption="Vidéo à venir. Le dossier est encore en cours d’instruction." />
+      <MediaPlaceholder plate="05-A" caption={t.journey.videoPending} />
     )
   }
 
   const images = <ImagePlates level={level} media={media} name={phobia.name} />
-  return level === 1 ? images : <HoldToReveal warning="Contenu sensible — niveau 02">{images}</HoldToReveal>
+  return level === 1 ? images : <HoldToReveal warning={t.journey.sensitive}>{images}</HoldToReveal>
 }
 
 function ImagePlates({
@@ -173,11 +184,12 @@ function ImagePlates({
   media: readonly MediaView[]
   name: string
 }) {
+  const t = useT()
   if (media.length === 0) {
     return (
       <MediaPlaceholder
         plate={`0${level}-A`}
-        caption={level === 1 ? 'Image douce à venir.' : 'Images franches à venir. Profite du répit.'}
+        caption={level === 1 ? t.journey.softPending : t.journey.harshPending}
       />
     )
   }
@@ -188,7 +200,7 @@ function ImagePlates({
         <img
           key={item.source}
           src={item.source}
-          alt={`${name}, planche 0${level}-${String.fromCharCode(65 + index)}`}
+          alt={t.journey.imageAlt(name, `0${level}-${String.fromCharCode(65 + index)}`)}
           className="aspect-[4/3] w-full border border-ash object-cover"
           draggable={false}
         />
@@ -208,7 +220,10 @@ function VerdictPanel({
   next: ReactNode
   onRestart: () => void
 }) {
+  const lang = useLang()
+  const t = useT()
   const verdict = verdictFor(outcome.level, outcome.choice)
+  const text = t.verdict.kinds[verdict.kind]
 
   return (
     <motion.div
@@ -217,18 +232,18 @@ function VerdictPanel({
       transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
       className="flex flex-col items-start gap-6 border border-ash bg-ink-2 p-6 sm:p-10"
     >
-      <p className="label-mono text-clinical">Verdict — {phobia.name}</p>
+      <p className="label-mono text-clinical">{t.verdict.heading(phobia.name)}</p>
       <Stamp tone={verdict.tone === 'safe' ? 'sickly' : 'alarm'} className="text-5xl sm:text-6xl">
-        {verdict.title}
+        {text.title}
       </Stamp>
-      <p className="max-w-md font-serif text-lg text-bone/80">{verdict.detail}</p>
+      <p className="max-w-md font-serif text-lg text-bone/80">{text.detail(outcome.level)}</p>
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         {next}
         <ActionButton variant="ghost" onClick={onRestart}>
-          Recommencer
+          {t.verdict.restart}
         </ActionButton>
-        <Link to="/mon-dossier" className={actionClasses('ghost')}>
-          Mon dossier
+        <Link to="/$lang/mon-dossier" params={{ lang }} className={actionClasses('ghost')}>
+          {t.verdict.myFile}
         </Link>
       </div>
     </motion.div>

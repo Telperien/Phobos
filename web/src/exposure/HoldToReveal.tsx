@@ -1,20 +1,17 @@
 import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from 'react'
+import { useT } from '../i18n/context'
 
 interface HoldToRevealProps {
   children: ReactNode
   durationMs?: number
   onReveal?: () => void
-  warning?: string
+  warning: string
 }
 
 const isHoldKey = (key: string) => key === ' ' || key === 'Enter'
 
-export function HoldToReveal({
-  children,
-  durationMs = 1400,
-  onReveal,
-  warning = 'Contenu sensible',
-}: HoldToRevealProps) {
+export function HoldToReveal({ children, durationMs = 1400, onReveal, warning }: HoldToRevealProps) {
+  const t = useT()
   const [revealed, setRevealed] = useState(false)
   const [holding, setHolding] = useState(false)
   const timer = useRef<number | undefined>(undefined)
@@ -81,7 +78,7 @@ export function HoldToReveal({
                 transitionDuration: holding ? `${durationMs}ms` : '200ms',
               }}
             />
-            <span className="relative">Maintenir pour révéler</span>
+            <span className="relative">{t.journey.hold}</span>
           </button>
         </div>
       )}

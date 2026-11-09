@@ -22,7 +22,7 @@ const CATALOGUE = [
   summary('pediophobia', 'strange'),
 ]
 
-const stoppedAt = (level: 1 | 2 | 3, updatedAt = '2026-11-09T20:00:00Z'): LogEntry => ({
+const stoppedAt = (level: 1 | 2 | 3 | 4 | 5, updatedAt = '2026-11-09T20:00:00Z'): LogEntry => ({
   reachedLevel: level,
   lastExit: { level, choice: 'stop' },
   updatedAt,
@@ -34,10 +34,10 @@ describe('fearProfile', () => {
       opened: 0,
       faced: 0,
       verdicts: [
-        { title: 'Très phobique', tone: 'alarm', count: 0 },
-        { title: 'Phobique', tone: 'alarm', count: 0 },
-        { title: 'Sensible', tone: 'alarm', count: 0 },
-        { title: 'Pas phobique', tone: 'safe', count: 0 },
+        { kind: 'veryPhobic', tone: 'alarm', count: 0 },
+        { kind: 'phobic', tone: 'alarm', count: 0 },
+        { kind: 'sensitive', tone: 'alarm', count: 0 },
+        { kind: 'notPhobic', tone: 'safe', count: 0 },
       ],
       dominantCategory: null,
       worst: null,
@@ -49,10 +49,10 @@ describe('fearProfile', () => {
       {
         arachnophobia: stoppedAt(1),
         ophidiophobia: stoppedAt(2),
-        acrophobia: stoppedAt(3),
+        acrophobia: stoppedAt(5),
         coulrophobia: {
-          reachedLevel: 3,
-          lastExit: { level: 3, choice: 'notPhobic' },
+          reachedLevel: 5,
+          lastExit: { level: 5, choice: 'notPhobic' },
           updatedAt: '2026-11-09T20:00:00Z',
         },
         trypophobia: { reachedLevel: 2, lastExit: null, updatedAt: '2026-11-09T20:00:00Z' },
@@ -70,7 +70,7 @@ describe('fearProfile', () => {
 
   it('weighs an early stop more than a late one', () => {
     const profile = fearProfile(
-      { coulrophobia: stoppedAt(1), arachnophobia: stoppedAt(3), ophidiophobia: stoppedAt(3) },
+      { coulrophobia: stoppedAt(1), arachnophobia: stoppedAt(5), ophidiophobia: stoppedAt(5) },
       CATALOGUE,
     )
 

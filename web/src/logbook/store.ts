@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { localStore as browserStorage } from '../browserStorage'
 import type { LevelNumber } from '../exposure/levels'
 import type { ExitChoice } from '../exposure/verdict'
 import {
@@ -11,15 +12,6 @@ import {
   recordProgress,
   writeLogbook,
 } from './logbook'
-
-/** localStorage, or null when the browser refuses access to it. */
-function browserStorage() {
-  try {
-    return window.localStorage
-  } catch {
-    return null
-  }
-}
 
 let current: Logbook = readLogbook(browserStorage())
 const listeners = new Set<() => void>()

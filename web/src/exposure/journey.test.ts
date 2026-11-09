@@ -8,10 +8,11 @@ describe('journeyReducer', () => {
     expect(START).toEqual({ level: 1, outcome: null })
   })
 
-  it('climbs one level at a time up to level 3', () => {
+  it('climbs one level at a time up to level 5', () => {
     expect(play({ type: 'next' }).level).toBe(2)
     expect(play({ type: 'next' }, { type: 'next' }).level).toBe(3)
-    expect(play({ type: 'next' }, { type: 'next' }, { type: 'next' }).level).toBe(3)
+    expect(play({ type: 'next' }, { type: 'next' }, { type: 'next' }).level).toBe(4)
+    expect(play(...Array<JourneyAction>(5).fill({ type: 'next' })).level).toBe(5)
   })
 
   it('records the exit at the current level', () => {

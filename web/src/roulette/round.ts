@@ -14,15 +14,6 @@ export const FIRST_ROUND: Round = { number: 1, seen: [] }
 
 type RoundStorage = Pick<Storage, 'getItem' | 'setItem'>
 
-/** sessionStorage, or null when the browser refuses access to it. */
-export function tabStorage() {
-  try {
-    return window.sessionStorage
-  } catch {
-    return null
-  }
-}
-
 export const afterDraw = (round: Round, slug: string): Round =>
   round.seen.includes(slug)
     ? { number: round.number + 1, seen: [slug] }

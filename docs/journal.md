@@ -77,3 +77,22 @@
 - Infra en Bicep (`infra/main.bicep`), mise en place par `infra/bootstrap.ps1`. Le mot de passe PostgreSQL est généré à chaque lancement et n'est ni affiché ni stocké hors d'Azure.
 - CI/CD GitHub Actions, connexion à Azure par OIDC (aucun secret dans le dépôt). CrapSharp, Stryker, jscpd et Playwright restent des vérifications locales pour l'instant : trop lents ou outils pas encore publiés sur NuGet.
 
+
+## 2026-11-09 — Étape 5 : multilingue
+
+- Choix : dictionnaires TypeScript typés plutôt que react-i18next (prévu au plan). `fr.ts` est la référence, `Messages = typeof fr`, chaque langue doit avoir la même forme : une clé manquante casse la compilation. Pas de dépendance ajoutée ; pluriels et textes à variables écrits comme de petites fonctions. Coût : +30 kB de JS (les 5 langues sont chargées) — découpage reporté à l'étape 9 avec le reste du bundle.
+- `messages.test.ts` vérifie à l'exécution, pour chaque langue : mêmes clés que le français, aucun texte vide, aucun texte resté en français (hors mots partagés listés). Vérifié en retirant une clé anglaise : le test la nomme.
+- Verdicts, niveaux et catégories deviennent des codes (`veryPhobic`, `1`, `animals`) ; le texte vient du dictionnaire. Les titres de verdict sont neutres en genre en espagnol et en italien (« Fobia intensa », « Sin fobia ») et les boutons aussi (« No tengo fobia », « Non ho fobie »).
+- Routes sous `/$lang`. `/` → langue enregistrée (`phobos.lang`), sinon langue du navigateur (fr-CA compte comme fr), sinon anglais (repli prévu au plan, plus utile qu'un français par défaut pour un visiteur qui ne lit aucune des 5 langues). Une adresse sans langue reçoit la préférence du visiteur, recherche comprise. Segments d'URL (`dossiers`, `mon-dossier`) non traduits ; à revoir avec le SEO (étape 9).
+- Sélecteur de langue (liste FR/EN/ES/DE/IT) : même page dans l'autre langue, choix mémorisé. En plein parcours, le niveau atteint est conservé (`keepPreviousData`) ; dans la roulette, le dossier tiré est traduit au lieu d'en tirer un autre (tirage indépendant de la langue, détail lu par `phobiaQuery`).
+- `<html lang>` et le titre de l'onglet suivent la langue ; dates au format local (`Intl`).
+- Page « introuvable » commune aux dossiers inconnus et aux adresses inconnues.
+- Accès au stockage du navigateur regroupé dans `browserStorage.ts` (trois copies auparavant).
+- Trouvé dans le navigateur : la liste des langues était annoncée « FR » par les lecteurs d'écran → `aria-label`. Contrôle de débordement sur mobile (375 px) : 5 pages × 5 langues, aucun dépassement.
+- Résultats : 107 tests Vitest, 28 tests Playwright (chaque page dans les 5 langues, redirection selon le navigateur, changement de langue mémorisé ; bureau + mobile), Biome propre, build OK (JS 544 kB, 176 kB gzip), jscpd 0 clone. Aucun changement côté .NET.
+
+## 2026-11-09 — Parcours en cinq niveaux
+
+- Quatre niveaux d'images suivis d'une vidéo YouTube au niveau 5 ; les anciennes vidéos enregistrées au niveau 3 sont présentées au niveau 5.
+- Le dossier conserve son niveau numérique existant : une phobie est désormais considérée comme affrontée au niveau 5. Les verdicts et le profil tiennent compte des cinq niveaux.
+- Les textes sont mis à jour dans les cinq langues. Les médias restent à créer et à renseigner.

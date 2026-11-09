@@ -1,6 +1,6 @@
 # Phobos
 
-Trouve ta peur : un catalogue de phobies à explorer par exposition graduée (3 niveaux : image mignonne, images poussées, vidéo).
+Trouve ta peur : un catalogue de phobies à explorer par exposition graduée (5 niveaux : quatre images progressivement plus intenses, puis une vidéo).
 
 ## Prérequis
 
@@ -33,12 +33,18 @@ npm run dev                                # site sur http://localhost:5173 (pro
 
 Les images vont dans `media/<slug>/<niveau>-<lettre>.webp` à la racine du dépôt (ignoré par git). Voir `content/prompts.md` pour les prompts de génération.
 
+## Langues
+
+Le site existe en français, anglais, espagnol, allemand et italien, sous `/fr`, `/en`, `/es`, `/de`, `/it`. `/` envoie vers la langue choisie la dernière fois, sinon celle du navigateur, sinon l'anglais. Une adresse sans langue (`/dossiers`) reçoit celle du visiteur.
+
+Les textes de l'interface sont dans `web/src/i18n/messages/` (`fr.ts` sert de référence). Ceux des dossiers viennent de l'API, avec repli sur l'anglais si une traduction manque.
+
 ## API
 
 | Requête | Réponse |
 |---|---|
 | `GET /api/{lang}/phobias?category=animals` | Liste des dossiers publiés (`fr`, `en`, `es`, `de`, `it`) |
-| `GET /api/{lang}/phobias/{slug}` | Un dossier avec ses 3 niveaux |
+| `GET /api/{lang}/phobias/{slug}` | Un dossier avec ses 5 niveaux |
 | `GET /api/{lang}/phobias/random?seen=a,b&exclude=c` | Un dossier tiré au hasard parmi ceux pas encore vus dans le tour (`seen`, du plus ancien au plus récent), jamais parmi `exclude` ; 204 s'il ne reste rien |
 | `GET /media/{key}` | Une image |
 

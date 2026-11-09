@@ -61,7 +61,7 @@ public sealed class PhobiaQueriesTests
     }
 
     [Fact]
-    public async Task Get_returns_the_case_file_with_its_three_levels()
+    public async Task Get_returns_the_case_file_with_its_five_levels()
     {
         var phobia = Add("arachnophobia", 1);
         phobia.AddMedia(ExposureMedia.Image(2, "arachnophobia/2-a.webp"));
@@ -78,20 +78,22 @@ public sealed class PhobiaQueriesTests
             [
                 new ExposureLevelView(1, [new MediaView("image", "/media/arachnophobia/1-a.webp", 0)]),
                 new ExposureLevelView(2, [new MediaView("image", "/media/arachnophobia/2-a.webp", 0)]),
-                new ExposureLevelView(3, [new MediaView("youtube", "dQw4w9WgXcQ", 12)]),
+                new ExposureLevelView(3, []),
+                new ExposureLevelView(4, []),
+                new ExposureLevelView(5, [new MediaView("youtube", "dQw4w9WgXcQ", 12)]),
             ],
             detail.Levels,
             new LevelComparer());
     }
 
     [Fact]
-    public async Task Get_keeps_empty_levels_so_the_journey_always_has_three_steps()
+    public async Task Get_keeps_empty_levels_so_the_journey_always_has_five_steps()
     {
         Add("arachnophobia", 1);
 
         var detail = await Queries.GetAsync(Language.Fr, "arachnophobia", CancellationToken.None);
 
-        Assert.Equal([1, 2, 3], detail!.Levels.Select(level => level.Number));
+        Assert.Equal([1, 2, 3, 4, 5], detail!.Levels.Select(level => level.Number));
         Assert.All(detail.Levels, level => Assert.Empty(level.Media));
     }
 

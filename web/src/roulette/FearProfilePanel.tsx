@@ -1,14 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { catalogueQuery, LANG } from '../api/client'
-import { categoryLabel } from '../catalogue/categories'
+import { catalogueQuery } from '../api/client'
+import { categoryName } from '../catalogue/categories'
+import { useLang, useT } from '../i18n/context'
 import { useLogbook } from '../logbook/store'
 import { fearProfile } from './profile'
 
-/** "Ton profil de peurs": what the logbook says about the visitor, computed in the browser. */
+/** "Your fear profile": what the logbook says about the visitor, computed in the browser. */
 export function FearProfilePanel() {
+  const lang = useLang()
+  const t = useT()
   const logbook = useLogbook()
-  const catalogue = useQuery(catalogueQuery(LANG)).data ?? []
+  const catalogue = useQuery(catalogueQuery(lang)).data ?? []
   const profile = fearProfile(logbook, catalogue)
 
   return (
@@ -18,25 +21,22 @@ export function FearProfilePanel() {
     >
       <header className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ash pb-3">
         <h2 id="fear-profile-title" className="font-display text-3xl font-black uppercase">
-          Ton profil de peurs
+          {t.profile.title}
         </h2>
         <p className="label-mono text-clinical">
-          {profile.faced} / {catalogue.length} affrontées · {profile.opened} ouverte
-          {profile.opened > 1 ? 's' : ''}
+          {t.profile.counts(profile.faced, catalogue.length, profile.opened)}
         </p>
       </header>
 
       {profile.opened === 0 ? (
-        <p className="font-serif text-lg text-bone/70">
-          Profil vierge. Va au bout d’un premier dossier pour lancer l’analyse.
-        </p>
+        <p className="font-serif text-lg text-bone/70">{t.profile.empty}</p>
       ) : (
         <>
           <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {profile.verdicts.map(({ title, tone, count }) => (
-              <div key={title} className="flex flex-col gap-1 border-l-2 border-ash pl-3">
+            {profile.verdicts.map(({ kind, tone, count }) => (
+              <div key={kind} className="flex flex-col gap-1 border-l-2 border-ash pl-3">
                 <dt className={`label-mono ${tone === 'safe' ? 'text-sickly' : 'text-rust-bright'}`}>
-                  {title}
+                  {t.verdict.kinds[kind].title}
                 </dt>
                 <dd className="font-display text-5xl font-black">{count}</dd>
               </div>
@@ -44,26 +44,26 @@ export function FearProfilePanel() {
           </dl>
           <dl className="grid gap-3 font-serif text-lg sm:grid-cols-2">
             <div>
-              <dt className="label-mono text-clinical">Peur dominante</dt>
+              <dt className="label-mono text-clinical">{t.profile.dominant}</dt>
               <dd>
                 {profile.dominantCategory
-                  ? categoryLabel(profile.dominantCategory)
-                  : 'Aucune, pour l’instant'}
+                  ? categoryName(t.categories, profile.dominantCategory)
+                  : t.profile.noDominant}
               </dd>
             </div>
             <div>
-              <dt className="label-mono text-clinical">Pire réaction</dt>
+              <dt className="label-mono text-clinical">{t.profile.worst}</dt>
               <dd>
                 {profile.worst ? (
                   <Link
-                    to="/dossiers/$slug"
-                    params={{ slug: profile.worst.slug }}
+                    to="/$lang/dossiers/$slug"
+                    params={{ lang, slug: profile.worst.slug }}
                     className="underline decoration-rust underline-offset-4 hover:text-rust-bright"
                   >
-                    {profile.worst.name} — arrêt au niveau {profile.worst.level}
+                    {t.profile.worstLine(profile.worst.name, profile.worst.level)}
                   </Link>
                 ) : (
-                  'Rien ne t’a fait reculer'
+                  t.profile.noWorst
                 )}
               </dd>
             </div>
