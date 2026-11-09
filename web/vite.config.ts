@@ -8,10 +8,12 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': 'http://localhost:5080',
+      '/media': 'http://localhost:5080',
     },
   },
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    include: ['src/**/*.test.{ts,tsx}'],
   },
 })

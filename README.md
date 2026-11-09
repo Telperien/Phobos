@@ -80,4 +80,7 @@ Front (depuis `web/`) :
 npm run test
 npm run lint
 npm run build
+npm run e2e        # Playwright, bureau + mobile ; démarre l'API et Vite si besoin
 ```
+
+Après un changement de l'API (API lancée) : `npm run api:types` régénère `web/src/api/schema.d.ts`.

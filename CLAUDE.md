@@ -11,7 +11,8 @@ Site React + .NET 10 pour découvrir ses phobies (3 niveaux d'exposition, modes 
   2. `dotnet crapsharp . --threshold 10 --exclude Migrations` : chaque méthode strictement sous 10
   3. `dotnet stryker` depuis le dossier de tests concerné (config `stryker-config.json`, seuil 80 %). Lire chaque survivant : test de comportement, code à supprimer, ou mutant équivalent noté au journal.
   4. `npx --yes jscpd@5.4.2 src --format csharp --min-tokens 50 --min-lines 3 --threshold 0 --ignore "**/bin/**,**/obj/**,**/Migrations/**"`
-- Front : logique testée avec Vitest avant d'être écrite ; `npm run lint` (Biome) et `npm run build` doivent passer.
+- Front : logique testée avec Vitest avant d'être écrite ; `npm run lint` (Biome), `npm run build` et `npm run e2e` (Playwright) doivent passer. Lancer aussi jscpd sur `web/src` (format `typescript,tsx`, en ignorant `schema.d.ts`).
+- Contrat API : après un changement d'endpoint, `npm run api:types` (API lancée) régénère les types TS ; ne jamais les écrire à la main.
 - Noter les décisions dans `docs/journal.md` (daté, court).
 - Petits commits : pourquoi, quoi, preuve (commande + résultat).
 

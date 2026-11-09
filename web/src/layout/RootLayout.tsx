@@ -1,6 +1,7 @@
 import { Link, Outlet } from '@tanstack/react-router'
 import { ApiStatus } from '../health/ApiStatus'
-import { MOCK_PHOBIAS } from '../mock/phobias'
+import { isFaced } from '../logbook/logbook'
+import { useLogbook } from '../logbook/store'
 
 export function RootLayout() {
   return (
@@ -14,28 +15,38 @@ export function RootLayout() {
   )
 }
 
+const navLink = 'text-bone/80 hover:text-bone [&.active]:text-bone [&.active]:underline underline-offset-8'
+
 function SiteHeader() {
-  const randomSlug = () => MOCK_PHOBIAS[Math.floor(Math.random() * MOCK_PHOBIAS.length)].slug
+  const faced = Object.values(useLogbook()).filter(isFaced).length
 
   return (
     <header className="sticky top-0 z-30 border-b border-ash bg-ink/90 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-baseline gap-3">
           <span className="font-display text-2xl font-black tracking-wide uppercase">Phobos</span>
-          <span className="hidden label-mono text-clinical sm:inline">Archives des peurs</span>
+          <span className="hidden label-mono text-clinical md:inline">Archives des peurs</span>
         </Link>
-        <nav className="flex items-center gap-5 label-mono">
-          <Link to="/" hash="dossiers" className="text-bone/80 hover:text-bone">
+        <nav className="flex items-center gap-4 label-mono sm:gap-5">
+          <Link to="/dossiers" className={navLink}>
             Archives
           </Link>
-          <Link
-            to="/dossiers/$slug"
-            params={{ slug: randomSlug() }}
-            className="text-bone/80 hover:text-rust-bright"
-          >
+          <Link to="/roulette" className={`${navLink} hover:text-rust-bright`}>
             Roulette
           </Link>
-          <span className="border border-ash px-2 py-1 text-clinical" title="Langues : étape 5">
+          <Link to="/mon-dossier" className={`${navLink} flex items-center gap-1.5`}>
+            <span className="hidden sm:inline">Mon dossier</span>
+            <span className="sm:hidden">Moi</span>
+            {faced > 0 && (
+              <span className="bg-rust px-1.5 py-0.5 text-bone" title={`${faced} phobies affrontées`}>
+                {faced}
+              </span>
+            )}
+          </Link>
+          <span
+            className="hidden border border-ash px-2 py-1 text-clinical sm:inline"
+            title="Langues : étape 5"
+          >
             FR
           </span>
         </nav>

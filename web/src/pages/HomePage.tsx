@@ -1,8 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { motion } from 'motion/react'
-import { CaseFileCard } from '../catalogue/CaseFileCard'
+import { catalogueQuery, LANG } from '../api/client'
+import { CaseFileGrid } from '../catalogue/CaseFileGrid'
 import { EXPOSURE_LEVELS } from '../exposure/levels'
-import { MOCK_PHOBIAS } from '../mock/phobias'
 import { actionClasses } from '../ui/ActionButton'
 import { Stamp } from '../ui/Stamp'
 
@@ -43,10 +44,10 @@ function Hero() {
           avances tant que tu tiens. Tu t’arrêtes quand tu veux.
         </motion.p>
         <motion.div {...rise(0.4)} className="flex flex-wrap gap-3">
-          <Link to="/" hash="dossiers" className={actionClasses('primary')}>
+          <Link to="/dossiers" className={actionClasses('primary')}>
             Ouvrir les archives
           </Link>
-          <Link to="/dossiers/$slug" params={{ slug: 'trypophobie' }} className={actionClasses('ghost')}>
+          <Link to="/roulette" className={actionClasses('ghost')}>
             Tenter la roulette
           </Link>
         </motion.div>
@@ -116,17 +117,18 @@ function Protocol() {
 }
 
 function Archives() {
+  const catalogue = useQuery(catalogueQuery(LANG))
+  const firstFiles = (catalogue.data ?? []).slice(0, 6)
+
   return (
     <section id="dossiers" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
       <div className="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <h2 className="font-display text-5xl font-black uppercase">Dossiers</h2>
-        <p className="label-mono text-clinical">6 sur 30 — maquette</p>
+        <Link to="/dossiers" className="label-mono text-clinical hover:text-bone">
+          Voir les {catalogue.data?.length ?? 30} dossiers →
+        </Link>
       </div>
-      <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-        {MOCK_PHOBIAS.map((phobia, index) => (
-          <CaseFileCard key={phobia.slug} phobia={phobia} index={index} />
-        ))}
-      </div>
+      <CaseFileGrid phobias={firstFiles} />
     </section>
   )
 }
@@ -142,11 +144,7 @@ function RouletteBand() {
           <br />
           <span className="text-ink/60">Puis une autre.</span>
         </p>
-        <Link
-          to="/dossiers/$slug"
-          params={{ slug: 'coulrophobie' }}
-          className={`${actionClasses('primary')} self-start lg:self-auto`}
-        >
+        <Link to="/roulette" className={`${actionClasses('primary')} self-start lg:self-auto`}>
           Lancer la roulette
         </Link>
       </div>

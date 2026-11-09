@@ -39,3 +39,17 @@
 - Simplifications guidées par les mutants : `RouletteDraw.Pick` rend l'élément tiré (plus de recherche par slug), découpage de `seen` réduit à `Split(',')`.
 - Tests ajoutés après lecture des survivants : types d'images avif/jpeg/png, chargement initial idempotent et désactivable, dossier d'images configuré, tirage sans `seen`, format de stockage des enums.
 - Résultats : 107 tests verts ; CRAP max 6 ; Stryker Domain 84,3 %, Application 100 %, Infrastructure 84,5 %, Api 93,5 % ; jscpd 0 clone (migrations générées exclues : le snapshot et le designer d'EF se répètent par construction).
+
+## 2026-11-09 — Étape 3 : catalogue, parcours et carnet de bord
+
+- Contrat back/front : réponses typées (`TypedResults`), document OpenAPI sur `/openapi/v1.json`, types TS générés par `npm run api:types` (openapi-typescript lancé via `npx` à version fixe, car il exige TypeScript 5 et le projet est en TypeScript 7). Client `openapi-fetch` + TanStack Query.
+- Nombres JSON stricts : sinon .NET 10 décrit les entiers comme « nombre ou texte ». Test de contrat qui échoue sans le réglage.
+- Logique pure en TDD : `journeyReducer` (niveaux 1→3, sortie, recommencer), carnet de bord (`localStorage`, version 1, tolérant au stockage absent ou corrompu), filtre du catalogue (catégorie, recherche sans accents, affrontées / à tenter) et lecture des filtres depuis l'URL.
+- « Affrontée » = niveau 3 atteint, quelle que soit la sortie. L'ouverture d'un dossier (après l'avertissement) compte comme niveau 1.
+- Composants en TDD : façade YouTube (rien n'est chargé avant le clic, lecteur `youtube-nocookie`, miniature retirée car elle appelait Google), avertissement d'entrée mémorisé.
+- Pages : `/dossiers` (filtres dans l'URL, compteur, tampon « Affronté »), `/dossiers/$slug` (vraies données, images de remplacement tant qu'aucun média n'existe), `/mon-dossier` (liste, effacement confirmé), `/roulette` provisoire (un tirage, le vrai mode infini arrive à l'étape 4).
+- Statistiques factices retirées des cartes et du verdict : elles reviendront avec de vraies données à l'étape 7.
+- Trouvé au rendu mobile : les noms longs (« SUBMÉCANOPHOBIE ») débordaient (colonne de grille non rétrécissable) ; `grid-cols-1` + titre plus petit sur téléphone ; `overflow-x: clip` sur la page contre le débordement temporaire de l'animation d'entrée.
+- Trouvé par Playwright : le nom accessible des cartes se réduisait à « N°001 ». Cartes nommées « Dossier N°001, Arachnophobie — affronté ».
+- jscpd sur le front : grille de dossiers dupliquée entre l'accueil et le catalogue → `CaseFileGrid`.
+- Résultats : 109 tests .NET verts, 49 tests Vitest, 6 tests Playwright (bureau + mobile), CRAP max 6, Stryker API 94,1 %, jscpd 0 clone (back et front), build OK (JS 508 kB, 164 kB gzip).

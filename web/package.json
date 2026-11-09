@@ -10,7 +10,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "biome check .",
-    "format": "biome check --write ."
+    "format": "biome check --write .",
+    "api:types": "npx --yes openapi-typescript@7.13.0 http://localhost:5080/openapi/v1.json -o src/api/schema.d.ts",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@fontsource-variable/big-shoulders": "^5.3.0",
@@ -19,11 +21,13 @@
     "@tanstack/react-query": "^5.107.1",
     "@tanstack/react-router": "^1.170.46",
     "motion": "^14.11.1",
+    "openapi-fetch": "^0.17.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.6",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/vite": "^4.3.5",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
