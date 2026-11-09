@@ -15,7 +15,10 @@ param postgresAdminLogin string = 'phobosadmin'
 @secure()
 param postgresAdminPassword string
 
-@description('Plan App Service. B1 suffit pour démarrer ; passer en B2 si la mémoire manque.')
+@description('Plan App Service existant à partager (id complet, même région). Vide : un plan dédié est créé.')
+param appServicePlanId string = ''
+
+@description('Taille du plan dédié, si aucun plan existant n\'est fourni.')
 param appServiceSku string = 'B1'
 
 var suffix = uniqueString(resourceGroup().id)
@@ -73,7 +76,8 @@ resource database 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2024-08-0
   properties: { charset: 'UTF8', collation: 'en_US.utf8' }
 }
 
-resource plan 'Microsoft.Web/serverfarms@2024-04-01' = {
+// Plan existant : seulement référencé, jamais modifié (ni taille, ni réglages, ni autres sites).
+resource plan 'Microsoft.Web/serverfarms@2024-04-01' = if (empty(appServicePlanId)) {
   name: '${prefix}-plan-${suffix}'
   location: location
   kind: 'linux'
@@ -86,7 +90,7 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
   location: location
   kind: 'app,linux'
   properties: {
-    serverFarmId: plan.id
+    serverFarmId: empty(appServicePlanId) ? plan.id : appServicePlanId
     httpsOnly: true
     siteConfig: {
       linuxFxVersion: 'DOTNETCORE|10.0'

@@ -12,11 +12,13 @@
 .EXAMPLE
   ./infra/bootstrap.ps1
   ./infra/bootstrap.ps1 -SkipMedia
+  ./infra/bootstrap.ps1 -AppServicePlanId (az appservice plan show -g rg-yvelines-projet2 -n asp-yvelines2 --query id -o tsv)
 #>
 param(
     [string]$ResourceGroup = 'rg-phobos',
     [string]$Location = 'francecentral',
     [string]$Repo = 'Telperien/Phobos',
+    [string]$AppServicePlanId = '',
     [string]$MediaFolder = (Join-Path $PSScriptRoot '..' 'media'),
     [switch]$SkipMedia
 )
@@ -38,10 +40,11 @@ Write-Host "1/5 Groupe de ressources $ResourceGroup ($Location)"
 az group create --name $ResourceGroup --location $Location --output none
 
 Write-Host '2/5 Ressources (App Service, PostgreSQL, stockage) — compter 5 à 10 minutes la première fois'
+$postgresPassword = New-Password
 $outputs = az deployment group create `
     --resource-group $ResourceGroup `
     --template-file (Join-Path $PSScriptRoot 'main.bicep') `
-    --parameters postgresAdminPassword=(New-Password) `
+    --parameters "postgresAdminPassword=$postgresPassword" "appServicePlanId=$AppServicePlanId" `
     --query properties.outputs -o json | ConvertFrom-Json
 $webAppName = $outputs.webAppName.value
 $storageName = $outputs.storageAccountName.value
