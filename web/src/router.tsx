@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage'
 import { MyFilePage } from './pages/MyFilePage'
 import { PhobiaPage } from './pages/PhobiaPage'
 import { RoulettePage } from './pages/RoulettePage'
+import { parseRouletteSearch, type RouletteSearch, toRouletteSearch } from './roulette/round'
 
 const rootRoute = createRootRoute({ component: RootLayout })
 
@@ -28,6 +29,8 @@ const phobiaRoute = createRoute({
 const rouletteRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/roulette',
+  validateSearch: (search: Record<string, unknown>): RouletteSearch =>
+    toRouletteSearch(parseRouletteSearch(search)),
   component: RoulettePage,
 })
 

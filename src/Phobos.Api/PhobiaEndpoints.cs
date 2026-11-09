@@ -38,13 +38,18 @@ public static class PhobiaEndpoints
         return OkOrNotFound(await queries.GetAsync(language, slug, cancellationToken));
     }
 
-    /// <param name="seen">Comma-separated slugs already shown in this roulette round.</param>
-    private static async Task<Results<Ok<PhobiaDetail>, NotFound>> DrawAsync(
-        string lang, string? seen, PhobiaQueries queries, CancellationToken cancellationToken)
+    /// <param name="seen">Comma-separated slugs already shown in this roulette round, oldest first.</param>
+    /// <param name="exclude">Comma-separated slugs never to draw (for example, phobias already faced).</param>
+    /// <returns>A case file, or 204 when every published case file is excluded.</returns>
+    private static async Task<Results<Ok<PhobiaDetail>, NoContent, NotFound>> DrawAsync(
+        string lang, string? seen, string? exclude, PhobiaQueries queries, CancellationToken cancellationToken)
     {
         if (!Languages.TryParse(lang, out var language)) return TypedResults.NotFound();
-        return OkOrNotFound(await queries.DrawAsync(language, seen?.Split(',') ?? [], cancellationToken));
+        var drawn = await queries.DrawAsync(language, SlugList(seen), SlugList(exclude), cancellationToken);
+        return drawn is null ? TypedResults.NoContent() : TypedResults.Ok(drawn);
     }
+
+    private static string[] SlugList(string? commaSeparated) => commaSeparated?.Split(',') ?? [];
 
     private static async Task<IResult> ServeMediaAsync(string key, IMediaStore store, CancellationToken cancellationToken)
     {

@@ -39,7 +39,7 @@ Les images vont dans `media/<slug>/<niveau>-<lettre>.webp` à la racine du dép�
 |---|---|
 | `GET /api/{lang}/phobias?category=animals` | Liste des dossiers publiés (`fr`, `en`, `es`, `de`, `it`) |
 | `GET /api/{lang}/phobias/{slug}` | Un dossier avec ses 3 niveaux |
-| `GET /api/{lang}/phobias/random?seen=a,b` | Un dossier tiré au hasard parmi ceux pas encore vus |
+| `GET /api/{lang}/phobias/random?seen=a,b&exclude=c` | Un dossier tiré au hasard parmi ceux pas encore vus dans le tour (`seen`, du plus ancien au plus récent), jamais parmi `exclude` ; 204 s'il ne reste rien |
 | `GET /media/{key}` | Une image |
 
 Catégories : `animals`, `nature-and-spaces`, `body-and-health`, `strange`.
@@ -83,4 +83,4 @@ npm run build
 npm run e2e        # Playwright, bureau + mobile ; démarre l'API et Vite si besoin
 ```
 
-Après un changement de l'API (API lancée) : `npm run api:types` régénère `web/src/api/schema.d.ts`.
+Après un changement de l'API (API lancée) : `npm run api:types` régénère et formate `web/src/api/schema.d.ts`.

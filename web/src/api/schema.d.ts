@@ -105,6 +105,7 @@ export interface paths {
       parameters: {
         query?: {
           seen?: string
+          exclude?: string
         }
         header?: never
         path: {
@@ -122,6 +123,13 @@ export interface paths {
           content: {
             'application/json': components['schemas']['PhobiaDetail']
           }
+        }
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
         }
         /** @description Not Found */
         404: {

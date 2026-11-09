@@ -37,9 +37,14 @@ export const phobiaQuery = (lang: string, slug: string) =>
     staleTime: 5 * 60_000,
   })
 
-export async function drawPhobia(lang: string, seen: readonly string[]) {
-  const { data } = await api.GET('/api/{lang}/phobias/random', {
-    params: { path: { lang }, query: { seen: seen.join(',') || undefined } },
+const slugList = (slugs: readonly string[]) => slugs.join(',') || undefined
+
+/** Draws a case file not in `seen` (oldest first) and never in `exclude`; null when nothing is left. */
+export async function drawPhobia(lang: string, seen: readonly string[], exclude: readonly string[]) {
+  const { data, response } = await api.GET('/api/{lang}/phobias/random', {
+    params: { path: { lang }, query: { seen: slugList(seen), exclude: slugList(exclude) } },
   })
-  return data ?? null
+  if (response.status === 204) return null
+  if (data === undefined) throw new Error('Roulette unavailable')
+  return data
 }

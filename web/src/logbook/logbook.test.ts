@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import { brokenStorage, memoryStorage } from '../test/storage'
 import {
   clearLogbook,
   EMPTY_LOGBOOK,
+  facedSlugs,
   isFaced,
   LOGBOOK_KEY,
   readLogbook,
@@ -12,28 +14,6 @@ import {
 
 const NOW = new Date('2026-11-09T20:00:00Z')
 const LATER = new Date('2026-11-10T08:30:00Z')
-
-function memoryStorage(initial: Record<string, string> = {}) {
-  const items = new Map(Object.entries(initial))
-  return {
-    items,
-    getItem: (key: string) => items.get(key) ?? null,
-    setItem: (key: string, value: string) => void items.set(key, value),
-    removeItem: (key: string) => void items.delete(key),
-  }
-}
-
-const brokenStorage = {
-  getItem: () => {
-    throw new Error('SecurityError')
-  },
-  setItem: () => {
-    throw new Error('QuotaExceededError')
-  },
-  removeItem: () => {
-    throw new Error('SecurityError')
-  },
-}
 
 describe('recordProgress', () => {
   it('remembers the highest level reached', () => {
@@ -73,6 +53,16 @@ describe('isFaced', () => {
     expect(isFaced(recordProgress(EMPTY_LOGBOOK, 'a', 3, NOW).a)).toBe(true)
     expect(isFaced(recordProgress(EMPTY_LOGBOOK, 'a', 2, NOW).a)).toBe(false)
     expect(isFaced(undefined)).toBe(false)
+  })
+})
+
+describe('facedSlugs', () => {
+  it('lists the phobias faced up to level 3', () => {
+    let logbook = recordProgress(EMPTY_LOGBOOK, 'acrophobia', 3, NOW)
+    logbook = recordProgress(logbook, 'coulrophobia', 2, NOW)
+    logbook = recordExit(logbook, 'arachnophobia', { level: 3, choice: 'notPhobic' }, NOW)
+
+    expect(facedSlugs(logbook)).toEqual(['acrophobia', 'arachnophobia'])
   })
 })
 

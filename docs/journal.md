@@ -53,3 +53,16 @@
 - Trouvé par Playwright : le nom accessible des cartes se réduisait à « N°001 ». Cartes nommées « Dossier N°001, Arachnophobie — affronté ».
 - jscpd sur le front : grille de dossiers dupliquée entre l'accueil et le catalogue → `CaseFileGrid`.
 - Résultats : 109 tests .NET verts, 49 tests Vitest, 6 tests Playwright (bureau + mobile), CRAP max 6, Stryker API 94,1 %, jscpd 0 clone (back et front), build OK (JS 508 kB, 164 kB gzip).
+
+## 2026-11-09 — Étape 4 : roulette infinie
+
+- Domaine : un nouveau tour ne commence jamais par le dossier qu'on vient de voir (`seen` devient une liste ordonnée ; le dernier élément est le dossier affiché). Un paquet d'un seul dossier le ressert.
+- Application et API : `exclude` (dossiers à ne jamais tirer, ici les phobies affrontées), distinct de `seen` (dossiers déjà vus dans le tour). Plus rien à tirer → 204 au lieu de 404, pour ne pas confondre avec une langue inconnue.
+- Critère de l'étape testé deux fois : 30 tirages distincts puis un nouveau tour qui ne répète pas le dernier (`PhobiaQueriesTests`, `round.test.ts`).
+- Front : le tour vit dans `sessionStorage` (`phobos.roulette`, version 1, tolérant) ; le client détecte un nouveau tour quand l'API sert un dossier déjà vu. Option « pas encore affrontées » dans l'URL (`?skipFaced=true`).
+- Profil de peurs calculé depuis le carnet (TDD) : décompte des verdicts, peur dominante (arrêt au niveau 1 = 3 points, niveau 2 = 2, niveau 3 = 1, « pas phobique » = 0 ; égalité → ordre des catégories), pire réaction (niveau le plus bas, puis la plus récente). Affiché sur la roulette et sur « Mon dossier ».
+- Parcours d'un dossier extrait dans `CaseFileJourney`, partagé par la fiche et la roulette (le bouton principal du verdict est passé en paramètre).
+- Trouvé dans le navigateur : « Tirer parmi tous les dossiers » partait avec l'ancienne option (l'URL se met à jour après le tirage) et affichait une panne. Chaque tirage fige désormais ses options au moment du clic. Retour en haut immédiat (le défilement fluide était interrompu par le changement de hauteur).
+- `npm run api:types` formate le fichier généré avec Biome : sans ça, chaque génération réécrivait tout le fichier.
+- Faux stockages des tests partagés dans `src/test/storage.ts` (évite une copie entre carnet et roulette).
+- Résultats : 116 tests .NET, 74 tests Vitest, 12 tests Playwright (bureau + mobile), CRAP max 6, Stryker Domain 86,2 % (un mutant du tirage tué par un test renforcé), Application 100 %, Api 94,6 %, jscpd 0 clone (back et front), build OK (JS 515 kB, 166 kB gzip).

@@ -43,6 +43,11 @@ export const recordExit = (
 
 export const isFaced = (entry: LogEntry | undefined) => entry?.reachedLevel === 3
 
+export const facedSlugs = (logbook: Logbook) =>
+  Object.entries(logbook)
+    .filter(([, entry]) => isFaced(entry))
+    .map(([slug]) => slug)
+
 export function readLogbook(storage: ReadableStorage | null): Logbook {
   try {
     const stored = JSON.parse(storage?.getItem(LOGBOOK_KEY) ?? 'null')

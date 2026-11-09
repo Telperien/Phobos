@@ -24,10 +24,12 @@ public sealed class PhobiaQueries(IPhobiaCatalogue catalogue, IRandomIndex rando
     }
 
     public async Task<PhobiaDetail?> DrawAsync(
-        Language language, IReadOnlyCollection<string> seen, CancellationToken cancellationToken)
+        Language language, IReadOnlyList<string> seen, IReadOnlyCollection<string> exclude,
+        CancellationToken cancellationToken)
     {
         var published = await ListPublishedAsync(cancellationToken);
-        var drawn = RouletteDraw.Pick(published, seen, phobia => phobia.Slug, random.IndexBelow);
+        var deck = published.Where(phobia => !exclude.Contains(phobia.Slug)).ToList();
+        var drawn = RouletteDraw.Pick(deck, seen, phobia => phobia.Slug, random.IndexBelow);
         return drawn is null ? null : Detail(drawn, language);
     }
 

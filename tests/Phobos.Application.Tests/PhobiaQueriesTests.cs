@@ -113,7 +113,7 @@ public sealed class PhobiaQueriesTests
         Add("coulrophobia", 27);
         _randomIndexes.Enqueue(1);
 
-        var drawn = await Queries.DrawAsync(Language.Fr, seen: ["acrophobia"], CancellationToken.None);
+        var drawn = await Queries.DrawAsync(Language.Fr, seen: ["acrophobia"], exclude: [], CancellationToken.None);
 
         Assert.Equal("coulrophobia", drawn?.Slug);
         Assert.Equal([2], _randomCounts);
@@ -124,7 +124,57 @@ public sealed class PhobiaQueriesTests
     {
         Add("draft-phobia", 2, published: false);
 
-        Assert.Null(await Queries.DrawAsync(Language.Fr, seen: [], CancellationToken.None));
+        Assert.Null(await Queries.DrawAsync(Language.Fr, seen: [], exclude: [], CancellationToken.None));
+    }
+
+    [Fact]
+    public async Task Draw_leaves_out_excluded_phobias()
+    {
+        Add("arachnophobia", 1);
+        Add("acrophobia", 14);
+        Add("coulrophobia", 27);
+        _randomIndexes.Enqueue(1);
+
+        var drawn = await Queries.DrawAsync(
+            Language.Fr, seen: [], exclude: ["arachnophobia"], CancellationToken.None);
+
+        Assert.Equal("coulrophobia", drawn?.Slug);
+        Assert.Equal([2], _randomCounts);
+    }
+
+    [Fact]
+    public async Task Draw_returns_nothing_once_every_phobia_is_excluded()
+    {
+        Add("arachnophobia", 1);
+        Add("acrophobia", 14);
+
+        Assert.Null(await Queries.DrawAsync(
+            Language.Fr, seen: [], exclude: ["acrophobia", "arachnophobia"], CancellationToken.None));
+    }
+
+    [Fact]
+    public async Task Thirty_draws_show_thirty_different_phobias_then_a_new_round_starts_with_another_one()
+    {
+        for (var caseNumber = 1; caseNumber <= 30; caseNumber++) Add($"phobia-{caseNumber}", caseNumber);
+        var queries = new PhobiaQueries(_catalogue, new SteppingRandom());
+        var seen = new List<string>();
+
+        for (var draw = 0; draw < 30; draw++)
+        {
+            var drawn = await queries.DrawAsync(Language.Fr, seen, exclude: [], CancellationToken.None);
+            seen.Add(drawn!.Slug);
+        }
+        var firstOfNextRound = await queries.DrawAsync(Language.Fr, seen, exclude: [], CancellationToken.None);
+
+        Assert.Equal(30, seen.Distinct().Count());
+        Assert.NotNull(firstOfNextRound);
+        Assert.NotEqual(seen[^1], firstOfNextRound.Slug);
+    }
+
+    /// <summary>Deterministic but spread out: always returns the last index of the pool.</summary>
+    private sealed class SteppingRandom : IRandomIndex
+    {
+        public int IndexBelow(int count) => count - 1;
     }
 
     private sealed class InMemoryPhobiaCatalogue : IPhobiaCatalogue

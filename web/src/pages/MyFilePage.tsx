@@ -5,6 +5,7 @@ import { catalogueQuery, LANG, type PhobiaSummary } from '../api/client'
 import { verdictFor } from '../exposure/verdict'
 import { isFaced, type LogEntry } from '../logbook/logbook'
 import { forgetEverything, useLogbook } from '../logbook/store'
+import { FearProfilePanel } from '../roulette/FearProfilePanel'
 import { ActionButton, actionClasses } from '../ui/ActionButton'
 import { caseLabel } from '../ui/caseLabel'
 import { LoadFailure, LoadingLine } from '../ui/LoadState'
@@ -43,6 +44,9 @@ export function MyFilePage() {
 
       {opened.length > 0 && (
         <>
+          <div className="mb-10">
+            <FearProfilePanel />
+          </div>
           <ol className="flex flex-col border-t border-ash">
             {opened.map(({ phobia, entry }) => (
               <FileLine key={phobia.slug} phobia={phobia} entry={entry} />

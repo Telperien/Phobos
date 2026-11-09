@@ -11,18 +11,38 @@ public sealed class RouletteDrawTests
     {
         var askedFor = new List<int>();
 
-        var picked = RouletteDraw.Pick(Deck, seen: ["acrophobia"], Slug, count => { askedFor.Add(count); return 1; });
+        var picked = RouletteDraw.Pick(
+            Deck, seen: ["arachnophobia", "acrophobia"], Slug, count => { askedFor.Add(count); return 0; });
+
+        Assert.Equal("coulrophobia", picked);
+        Assert.Equal([1], askedFor);
+    }
+
+    [Fact]
+    public void Starts_a_new_round_once_every_phobia_has_been_seen()
+    {
+        var picked = RouletteDraw.Pick(Deck, seen: Deck, Slug, _ => 0);
+
+        Assert.Equal("arachnophobia", picked);
+    }
+
+    [Fact]
+    public void A_new_round_never_starts_with_the_phobia_just_shown()
+    {
+        var askedFor = new List<int>();
+
+        var picked = RouletteDraw.Pick(
+            Deck, seen: ["coulrophobia", "arachnophobia", "acrophobia"], Slug,
+            count => { askedFor.Add(count); return 1; });
 
         Assert.Equal("coulrophobia", picked);
         Assert.Equal([2], askedFor);
     }
 
     [Fact]
-    public void Starts_a_new_round_once_every_phobia_has_been_seen()
+    public void A_single_phobia_deck_keeps_drawing_that_phobia()
     {
-        var picked = RouletteDraw.Pick(Deck, seen: Deck, Slug, _ => 2);
-
-        Assert.Equal("coulrophobia", picked);
+        Assert.Equal("acrophobia", RouletteDraw.Pick(["acrophobia"], seen: ["acrophobia"], Slug, _ => 0));
     }
 
     [Fact]

@@ -32,7 +32,8 @@ test('a visitor faces a phobia to the end and finds it marked in the archives', 
 
   await myFile.click()
   await expect(page.getByRole('heading', { name: 'Mon dossier' })).toBeVisible()
-  await expect(page.getByText('Arachnophobie')).toBeVisible()
+  await expect(page.getByRole('listitem').filter({ hasText: 'Arachnophobie' })).toContainText('Affronté')
+  await expect(page.getByText('Arachnophobie — arrêt au niveau 3')).toBeVisible()
 })
 
 test('stopping at level 1 gives the "Très phobique" verdict without marking the phobia as faced', async ({

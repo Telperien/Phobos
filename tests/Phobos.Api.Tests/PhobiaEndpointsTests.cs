@@ -95,12 +95,37 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Draws_a_case_file_not_seen_yet()
     {
-        var all = await GetJsonAsync<List<PhobiaSummary>>("/api/fr/phobias");
-        var seen = string.Join(',', all.Select(phobia => phobia.Slug).Where(slug => slug != "trypophobia"));
+        var seen = await AllSlugsExceptAsync("trypophobia");
 
         var drawn = await GetJsonAsync<PhobiaDetail>($"/api/es/phobias/random?seen={seen}");
 
         Assert.Equal(("trypophobia", "Tripofobia"), (drawn.Slug, drawn.Name));
+    }
+
+    [Fact]
+    public async Task Never_draws_an_excluded_case_file()
+    {
+        var exclude = await AllSlugsExceptAsync("pediophobia");
+
+        var drawn = await GetJsonAsync<PhobiaDetail>($"/api/fr/phobias/random?exclude={exclude}");
+
+        Assert.Equal("pediophobia", drawn.Slug);
+    }
+
+    [Fact]
+    public async Task Answers_no_content_once_every_case_file_is_excluded()
+    {
+        var exclude = await AllSlugsExceptAsync("none");
+
+        using var response = await GetAsync($"/api/fr/phobias/random?exclude={exclude}");
+
+        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+    }
+
+    private async Task<string> AllSlugsExceptAsync(string kept)
+    {
+        var all = await GetJsonAsync<List<PhobiaSummary>>("/api/fr/phobias");
+        return string.Join(',', all.Select(phobia => phobia.Slug).Where(slug => slug != kept));
     }
 
     [Fact]

@@ -17,7 +17,8 @@ public sealed class OpenApiDocumentTests(PhobosApiFactory factory) : IClassFixtu
         var paths = document.RootElement.GetProperty("paths");
         Assert.True(paths.TryGetProperty("/api/{lang}/phobias", out _));
         Assert.True(paths.TryGetProperty("/api/{lang}/phobias/{slug}", out _));
-        Assert.True(paths.TryGetProperty("/api/{lang}/phobias/random", out _));
+        Assert.True(paths.TryGetProperty("/api/{lang}/phobias/random", out var random));
+        Assert.True(random.GetProperty("get").GetProperty("responses").TryGetProperty("204", out _));
         var schemas = document.RootElement.GetProperty("components").GetProperty("schemas");
         Assert.True(schemas.TryGetProperty("PhobiaSummary", out _));
         Assert.True(schemas.TryGetProperty("PhobiaDetail", out _));
