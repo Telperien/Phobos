@@ -96,3 +96,9 @@
 - Quatre niveaux d'images suivis d'une vidéo YouTube au niveau 5 ; les anciennes vidéos enregistrées au niveau 3 sont présentées au niveau 5.
 - Le dossier conserve son niveau numérique existant : une phobie est désormais considérée comme affrontée au niveau 5. Les verdicts et le profil tiennent compte des cinq niveaux.
 - Les textes sont mis à jour dans les cinq langues. Les médias restent à créer et à renseigner.
+
+## 2026-11-09 — Mise en ligne
+
+- Phobos partage le plan B2 existant `asp-yvelines2` (référencé seulement, jamais modifié) : paramètre `appServicePlanId` du Bicep, option `-AppServicePlanId` du script. Ressources propres dans `rg-phobos`.
+- GitHub présente le sujet OIDC avec les identifiants numériques (`repo:Telperien@5755100/Phobos@1451588651:environment:production`) : le script enregistre les deux formats.
+- Bootstrap lancé depuis Azure Cloud Shell, sans les images (`-SkipMedia`). Vérifié après déploiement : `/api/health` répond `ok`, `/dossiers` en 200, le catalogue est servi (migrations et seed appliqués).

@@ -57,13 +57,20 @@ if (-not $clientId) {
     $clientId = az ad app create --display-name $appName --query appId -o tsv
     az ad sp create --id $clientId --output none
 }
-$subject = "repo:${Repo}:environment:production"
-$existing = az ad app federated-credential list --id $clientId --query "[?subject=='$subject'] | length(@)" -o tsv
-if ($existing -eq '0') {
+# GitHub peut présenter le sujet au format nom (repo:owner/repo:...) ou avec les identifiants
+# numériques (repo:owner@id/repo@id:...) : les deux sont enregistrés.
+$repoInfo = gh api "repos/$Repo" | ConvertFrom-Json
+$subjects = @{
+    'github-production'     = "repo:${Repo}:environment:production"
+    'github-production-ids' = "repo:$($repoInfo.owner.login)@$($repoInfo.owner.id)/$($repoInfo.name)@$($repoInfo.id):environment:production"
+}
+foreach ($entry in $subjects.GetEnumerator()) {
+    $existing = az ad app federated-credential list --id $clientId --query "[?subject=='$($entry.Value)'] | length(@)" -o tsv
+    if ($existing -ne '0') { continue }
     $credential = @{
-        name      = 'github-production'
+        name      = $entry.Key
         issuer    = 'https://token.actions.githubusercontent.com'
-        subject   = $subject
+        subject   = $entry.Value
         audiences = @('api://AzureADTokenExchange')
     } | ConvertTo-Json -Compress
     $credentialFile = New-TemporaryFile
