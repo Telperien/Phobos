@@ -21,3 +21,21 @@
 - Bug trouvé au rendu : la règle `media/` du `.gitignore` racine excluait aussi `web/src/media/`, de git et de l'analyse Tailwind (classes manquantes). Restreinte à `/media/`.
 - Exceptions Biome justifiées en commentaire : `role="meter"` (un `<meter>` natif ne dessine pas de segments nommés) et `!important` pour le mouvement réduit.
 - Bundle JS : 482 kB (156 kB gzip). Découpage à revoir à l'étape 9.
+
+## 2026-11-09 — Étape 2 : domaine, base et API de lecture
+
+- Base locale : utilisateur PostgreSQL `phobos` / `phobos_dev` (développement uniquement, droit CREATEDB pour les bases de test jetables). Créé par l'utilisateur dans sa PowerShell, le mot de passe `postgres` n'a jamais transité par Claude.
+- Domaine (TDD, rouge sur `NotImplementedException` avant chaque implémentation) : `Phobia` (slug, numéro de dossier 1-999, au moins une traduction, une seule par langue, repli sur l'anglais), `ExposureMedia` (images aux niveaux 1-2, vidéo YouTube au niveau 3, identifiant de 11 caractères), `Languages`, `RouletteDraw` (sans répétition jusqu'à épuisement du paquet).
+- La règle de verdict reste côté front pour l'instant : le back n'en aura besoin qu'à l'étape 7 (statistiques).
+- Slug unique par phobie (forme anglaise : `arachnophobia`). Les slugs traduits par langue sont reportés à l'étape 5 si le SEO le justifie.
+- Application : `PhobiaQueries` (liste, dossier, tirage) ; filtrage « publié » et catégorie en mémoire (30 dossiers, inutile de le pousser en SQL).
+- Infrastructure : EF Core 10 + Npgsql, une table `phobias`, textes et médias en colonnes `jsonb`, enums stockés par nom (test dédié). Migration `InitialCatalogue`. Images sur disque via `LocalDiskMediaStore`, clés strictement contrôlées (pas de `..`, pas de chemin absolu, extensions d'images seulement).
+- Seed : `src/Phobos.Infrastructure/Seed/phobias.json`, 30 dossiers × 5 langues, chargé au démarrage si la base est vide (`Database:SeedOnStartup`).
+- Caractères grecs rares (`ḗ`, `ṓ`) remplacés par `ē`, `ō` : la police ne les affiche pas.
+- API : `GET /api/{lang}/phobias[?category=]`, `/api/{lang}/phobias/{slug}`, `/api/{lang}/phobias/random?seen=a,b`, `GET /media/{key}`. Langue inconnue → 404, catégorie inconnue → 400.
+- `content/prompts.md` : prompts d'images IA niveaux 1 et 2 + pistes YouTube niveau 3.
+- Mutation : Stryker avec analyse de couverture laissait survivre le code de démarrage (routes, configuration), exécuté une seule fois. Vérifié à la main (retirer `MapPhobiaEndpoints` fait échouer 7 tests), puis `coverage-analysis: off` dans les `stryker-config.json` de `Phobos.Api.Tests` et `Phobos.Infrastructure.Tests` : les mutants sont tués.
+- Survivants restants acceptés : textes des messages d'erreur (domaine, seed, 400) — à couvrir à l'étape 6 quand le back-office les affichera ; mutants équivalents (`useAsync`, route `"/"` vs `""`, clé et accès par champ EF déjà déduits par convention).
+- Simplifications guidées par les mutants : `RouletteDraw.Pick` rend l'élément tiré (plus de recherche par slug), découpage de `seen` réduit à `Split(',')`.
+- Tests ajoutés après lecture des survivants : types d'images avif/jpeg/png, chargement initial idempotent et désactivable, dossier d'images configuré, tirage sans `seen`, format de stockage des enums.
+- Résultats : 107 tests verts ; CRAP max 6 ; Stryker Domain 84,3 %, Application 100 %, Infrastructure 84,5 %, Api 93,5 % ; jscpd 0 clone (migrations générées exclues : le snapshot et le designer d'EF se répètent par construction).

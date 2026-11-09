@@ -1,0 +1,9 @@
+{
+  "stryker-config": {
+    "project": "Phobos.Infrastructure.csproj",
+    "test-projects": ["Phobos.Infrastructure.Tests.csproj", "../Phobos.Api.Tests/Phobos.Api.Tests.csproj"],
+    "mutate": ["!**/Migrations/**"],
+    "coverage-analysis": "off",
+    "thresholds": { "high": 90, "low": 80, "break": 80 }
+  }
+}

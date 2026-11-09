@@ -1,0 +1,7 @@
+{
+  "stryker-config": {
+    "project": "Phobos.Api.csproj",
+    "coverage-analysis": "off",
+    "thresholds": { "high": 90, "low": 80, "break": 80 }
+  }
+}

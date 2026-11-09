@@ -7,5 +7,8 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Phobos.Api.Tests/Phobos.Api.Tests.csproj" />
+    <Project Path="tests/Phobos.Application.Tests/Phobos.Application.Tests.csproj" />
+    <Project Path="tests/Phobos.Domain.Tests/Phobos.Domain.Tests.csproj" />
+    <Project Path="tests/Phobos.Infrastructure.Tests/Phobos.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

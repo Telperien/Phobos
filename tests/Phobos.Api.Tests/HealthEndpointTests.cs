@@ -1,11 +1,9 @@
 using System.Net;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Phobos.Api.Tests;
 
-public sealed class HealthEndpointTests(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public sealed class HealthEndpointTests(PhobosApiFactory factory) : IClassFixture<PhobosApiFactory>
 {
     [Fact]
     public async Task Health_endpoint_reports_the_api_is_up()

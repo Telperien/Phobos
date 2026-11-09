@@ -3,4 +3,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Phobos.Application\Phobos.Application.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Seed/phobias.json" LogicalName="Phobos.Infrastructure.Seed.phobias.json" />
+  </ItemGroup>
 </Project>
