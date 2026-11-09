@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Phobos.Api/Phobos.Api.csproj" />
+    <Project Path="src/Phobos.Application/Phobos.Application.csproj" />
+    <Project Path="src/Phobos.Domain/Phobos.Domain.csproj" />
+    <Project Path="src/Phobos.Infrastructure/Phobos.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Phobos.Api.Tests/Phobos.Api.Tests.csproj" />
+  </Folder>
+</Solution>

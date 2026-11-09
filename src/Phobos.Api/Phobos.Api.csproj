@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Phobos.Application\Phobos.Application.csproj" />
+    <ProjectReference Include="..\Phobos.Infrastructure\Phobos.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

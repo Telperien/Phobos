@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Phobos.Application\Phobos.Application.csproj" />
+  </ItemGroup>
+</Project>

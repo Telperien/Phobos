@@ -1,0 +1,19 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+TestResults/
+
+# Craft checks output
+.metrics/
+StrykerOutput/
+coverage/
+
+# Local media storage (dev)
+media/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/

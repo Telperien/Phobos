@@ -1,0 +1,15 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+
+[*.cs]
+indent_size = 4
+
+# Test names read as sentences: Health_endpoint_reports_the_api_is_up
+[tests/**.cs]
+dotnet_diagnostic.CA1707.severity = none

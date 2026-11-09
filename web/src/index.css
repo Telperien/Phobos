@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* Base tokens only; the full art direction comes in step 1. */
+@theme {
+  --color-ink: #0b0b0a;
+  --color-bone: #e8e2d5;
+  --color-rust: #8c2a1c;
+  --color-sickly: #9ba36b;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+}
