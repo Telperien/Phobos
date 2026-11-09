@@ -63,3 +63,9 @@
 - Migrations et seed au démarrage de l'API, comme en local : une seule instance, risque de course nul.
 - Infra en Bicep (`infra/main.bicep`), mise en place par `infra/bootstrap.ps1`. Le mot de passe PostgreSQL est généré à chaque lancement et n'est ni affiché ni stocké hors d'Azure.
 - CI/CD GitHub Actions, connexion à Azure par OIDC (aucun secret dans le dépôt). CrapSharp, Stryker, jscpd et Playwright restent des vérifications locales pour l'instant : trop lents ou outils pas encore publiés sur NuGet.
+
+## 2026-11-09 — Mise en ligne
+
+- Phobos partage le plan B2 existant `asp-yvelines2` (référencé seulement, jamais modifié) : paramètre `appServicePlanId` du Bicep, option `-AppServicePlanId` du script. Ressources propres dans `rg-phobos`.
+- GitHub présente le sujet OIDC avec les identifiants numériques (`repo:Telperien@5755100/Phobos@1451588651:environment:production`) : le script enregistre les deux formats.
+- Bootstrap lancé depuis Azure Cloud Shell, sans les images (`-SkipMedia`). Vérifié après déploiement : `/api/health` répond `ok`, `/dossiers` en 200, le catalogue est servi (migrations et seed appliqués).
