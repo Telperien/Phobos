@@ -1,0 +1,106 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      # Même compte qu'en local : les tests créent et suppriment leurs bases phobos_test_*.
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: phobos
+          POSTGRES_PASSWORD: phobos_dev
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U phobos"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Tests .NET
+        run: dotnet test --configuration Release
+
+      - name: Front — installation
+        working-directory: web
+        run: npm ci
+
+      - name: Front — tests, lint, build
+        working-directory: web
+        run: |
+          npm run test
+          npm run lint
+          npm run build
+
+      - name: Publication (API + site dans wwwroot)
+        run: |
+          dotnet publish src/Phobos.Api --configuration Release --output publish
+          mkdir -p publish/wwwroot
+          cp -r web/dist/. publish/wwwroot/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: phobos
+          path: publish
+          retention-days: 7
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    permissions:
+      id-token: write   # jeton OIDC pour se connecter à Azure sans secret
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: phobos
+          path: publish
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - id: deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
+          package: publish
+
+      - name: Vérification
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS "${{ steps.deploy.outputs.webapp-url }}/api/health"; then exit 0; fi
+            sleep 10
+          done
+          echo "L'API ne répond pas sur /api/health" >&2
+          exit 1

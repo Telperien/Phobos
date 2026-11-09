@@ -53,3 +53,13 @@
 - Trouvé par Playwright : le nom accessible des cartes se réduisait à « N°001 ». Cartes nommées « Dossier N°001, Arachnophobie — affronté ».
 - jscpd sur le front : grille de dossiers dupliquée entre l'accueil et le catalogue → `CaseFileGrid`.
 - Résultats : 109 tests .NET verts, 49 tests Vitest, 6 tests Playwright (bureau + mobile), CRAP max 6, Stryker API 94,1 %, jscpd 0 clone (back et front), build OK (JS 508 kB, 164 kB gzip).
+
+## 2026-11-09 — Déploiement Azure
+
+- Une seule App Service Linux (.NET 10, B1) pour l'API et le site : le front appelle `/api` et `/media` sur sa propre origine, donc pas de CORS ni de second hébergement. Static Web Apps écarté : l'API est une app ASP.NET Core, pas des Functions, et le lien vers un backend existant demande le plan Standard.
+- L'API sert `wwwroot` (`UseDefaultFiles`, `UseStaticFiles`) et renvoie `index.html` pour toute page sans extension (routeur React). Repli explicite en 404 sous `/api` pour qu'une route inconnue ne réponde pas une page HTML. Tests : `SiteHostingTests`.
+- Images : partage Azure Files monté sur `/mounts/media`, `Media:RootPath` pointé dessus. Aucun changement de code (le `LocalDiskMediaStore` lit un dossier). Un adaptateur Blob ne vaudra le coup que si les images doivent passer par un CDN.
+- PostgreSQL Flexible Server B1ms, version 17, accès réservé aux services Azure. L'API utilise le compte administrateur en v1 ; un rôle applicatif dédié (ou l'authentification Entra) reste à faire.
+- Migrations et seed au démarrage de l'API, comme en local : une seule instance, risque de course nul.
+- Infra en Bicep (`infra/main.bicep`), mise en place par `infra/bootstrap.ps1`. Le mot de passe PostgreSQL est généré à chaque lancement et n'est ni affiché ni stocké hors d'Azure.
+- CI/CD GitHub Actions, connexion à Azure par OIDC (aucun secret dans le dépôt). CrapSharp, Stryker, jscpd et Playwright restent des vérifications locales pour l'instant : trop lents ou outils pas encore publiés sur NuGet.

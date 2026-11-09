@@ -58,6 +58,20 @@ content/                  prompts des images IA
 docs/journal.md           journal des décisions
 ```
 
+## Déployer sur Azure
+
+Une seule App Service Linux (.NET 10, plan B1) sert l'API et le site buildé (`web/dist` copié dans `wwwroot`), PostgreSQL Flexible Server (B1ms) porte le catalogue, un partage Azure Files monté sur `/mounts/media` porte les images. Région `francecentral`. Coût indicatif : ~30 €/mois (≈ moitié App Service, moitié PostgreSQL).
+
+Une fois, depuis la racine (PowerShell, `az login` et `gh auth login` faits) :
+
+```powershell
+./infra/bootstrap.ps1
+```
+
+Le script crée le groupe `rg-phobos` et les ressources (`infra/main.bicep`), une identité GitHub Actions sans secret (OIDC, droit `Website Contributor` sur le seul site), les variables du dépôt et l'environnement `production`, puis envoie `media/`. Relancer `-SkipMedia` pour ne mettre à jour que l'infra ; relancer sans pour renvoyer les images.
+
+Ensuite, chaque push sur `main` passe par `.github/workflows/ci-cd.yml` : tests .NET (contre un PostgreSQL de service), tests, lint et build du front, publication, déploiement, puis vérification de `/api/health`. Les PR ne font que la partie build et tests. Au démarrage, l'API applique les migrations et charge le seed si la base est vide.
+
 ## Vérifications
 
 Back (depuis la racine) :
