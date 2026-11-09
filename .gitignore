@@ -11,7 +11,7 @@ StrykerOutput/
 coverage/
 
 # Local media storage (dev)
-media/
+/media/
 
 # OS / editors
 .DS_Store

@@ -1,18 +1,158 @@
 @import "tailwindcss";
 
-/* Base tokens only; the full art direction comes in step 1. */
+/* ───────────── Design tokens : « Archives cliniques » ───────────── */
 @theme {
+  /* Fonds */
   --color-ink: #0b0b0a;
+  --color-ink-2: #141412;
+  --color-ash: #2b2a26;
+  /* Papier et texte */
   --color-bone: #e8e2d5;
+  --color-paper: #d8cdb4;
+  --color-paper-dark: #b9ab8c;
+  --color-clinical: #8b8f88;
+  /* Accents : rouille (alerte), vert maladif (sûr / « pas phobique ») */
   --color-rust: #8c2a1c;
+  --color-rust-bright: #c8432b;
   --color-sickly: #9ba36b;
+
+  --font-display: "Big Shoulders Variable", "Arial Narrow", sans-serif;
+  --font-serif: "Newsreader Variable", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --animate-flicker: flicker 0.9s steps(1, end) 1;
+  --animate-grain: grain 0.8s steps(6) infinite;
+  --animate-tremble: tremble 0.25s linear infinite;
+
+  @keyframes flicker {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    8% {
+      opacity: 0.35;
+    }
+    12% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    44% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes grain {
+    0% {
+      transform: translate(0, 0);
+    }
+    20% {
+      transform: translate(-3%, 2%);
+    }
+    40% {
+      transform: translate(2%, -3%);
+    }
+    60% {
+      transform: translate(-2%, -1%);
+    }
+    80% {
+      transform: translate(3%, 3%);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  @keyframes tremble {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(0.5px, -0.5px);
+    }
+    50% {
+      transform: translate(-0.5px, 0.5px);
+    }
+    75% {
+      transform: translate(0.5px, 0.5px);
+    }
+  }
 }
 
+/* ───────────── Base ───────────── */
 html {
   color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   background-color: var(--color-ink);
   color: var(--color-bone);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-rust);
+  color: var(--color-bone);
+}
+
+:focus-visible {
+  outline: 2px dashed var(--color-sickly);
+  outline-offset: 3px;
+}
+
+/* ───────────── Ambiance : vignettage + grain de pellicule ───────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  background: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 0.65) 100%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 41;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: var(--animate-grain);
+}
+
+/* Papier vieilli des dossiers */
+@utility paper {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgb(120 90 40 / 0.12), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgb(90 60 30 / 0.16), transparent 45%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.27 0 0 0 0 0.15 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  box-shadow:
+    inset 0 0 40px rgb(80 55 20 / 0.25),
+    0 18px 40px -20px rgb(0 0 0 / 0.9);
+}
+
+/* Petites étiquettes « fiche d'archive » */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: must beat inline styles and utilities for reduced motion */
+    animation: none !important;
+    /* biome-ignore lint/complexity/noImportantStyles: must beat inline styles and utilities for reduced motion */
+    transition-duration: 0.01ms !important;
+  }
 }
