@@ -19,6 +19,7 @@ describe('buildSeoTexts', () => {
         dossiers: MESSAGES.en.catalogue.title,
         roulette: MESSAGES.en.nav.roulette,
         'mon-dossier': MESSAGES.en.myFile.title,
+        'mentions-legales': MESSAGES.en.legal.title,
       },
       paths: MESSAGES.en.paths,
       verdicts: {

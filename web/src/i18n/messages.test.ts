@@ -29,6 +29,7 @@ const SAME_AS_FRENCH: Partial<Record<string, readonly string[]>> = {
     'caseFile.back',
     'verdict.heading',
     'roulette.label',
+    'legal.contact.heading',
   ],
   es: ['home.title.after'],
   de: ['home.title.after', 'nav.roulette', 'paths.roulette', 'home.card.phobia', 'roulette.label'],
