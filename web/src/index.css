@@ -13,7 +13,8 @@
   --color-clinical: #8b8f88;
   /* Accents : rouille (alerte), vert maladif (sûr / « pas phobique ») */
   --color-rust: #8c2a1c;
-  --color-rust-bright: #c8432b;
+  /* Light enough for small text on ink (4.7:1). */
+  --color-rust-bright: #d9553b;
   --color-sickly: #9ba36b;
 
   --font-display: "Big Shoulders Variable", "Arial Narrow", sans-serif;

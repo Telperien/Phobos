@@ -40,7 +40,7 @@ export const it: Messages = {
   },
   levels: {
     1: { name: 'Addomesticare', hint: 'Un’immagine dolce, quasi tenera.' },
-    2: { name: 'Avvicinarsi', hint: 'Immagini crude. Sfocate finché non resisti.' },
+    2: { name: 'Avvicinarsi', hint: 'Immagini crude. Ancora a distanza di sicurezza.' },
     3: { name: 'Esaminare', hint: 'Un’immagine più ravvicinata.' },
     4: { name: 'Confrontare', hint: 'Un’immagine intensa.' },
     5: { name: 'Affrontare', hint: 'Il video. Senza rete.' },
@@ -91,7 +91,7 @@ export const it: Messages = {
     allCategories: 'Tutte le categorie',
   },
   card: {
-    label: (caseLabel, name, faced) => `Fascicolo ${caseLabel}, ${name}${faced ? ' — affrontata' : ''}`,
+    facedSuffix: ' — affrontata',
     exposure: 'Esposizione 5 liv.',
     reached: (level) => `Livello raggiunto: ${level} / 5`,
     neverOpened: 'Mai aperto',

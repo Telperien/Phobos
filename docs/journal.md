@@ -151,3 +151,12 @@
 - Résultat mesuré (API servant la vraie build) : première visite d'une fiche ≈ 190 Ko transférés au lieu de ≈ 590 Ko (noyau 246 → 78 Ko, React 135 → 46 Ko, animations 117 → 42 Ko, CSS 40 → 8 Ko) ; visites suivantes : la page (0,6 Ko) et les données.
 - Non fait : variantes d'images plus petites pour le mobile (`srcset`), à reconsidérer quand toutes les images seront là (≈ 150 Ko chacune en 1600 px).
 - Résultats : 176 tests .NET, CRAP sous 10, Stryker Api 97,8 % (mêmes survivants équivalents), jscpd 0 clone ; 129 tests Vitest, Biome propre, build OK, 30 tests Playwright.
+
+## 2026-11-10 — Étape 9 (3/6) : accessibilité
+
+- Audit automatique axe-core (`@axe-core/playwright` 4.14.0, règles WCAG 2.2 A et AA) dans Playwright sur toutes les pages : accueil, catalogue, roulette, Mon dossier (vide et avec profil), dossier inconnu, avertissement, chaque niveau et le verdict ; ordinateur et mobile. L'audit attend la fin des animations (sinon il mesure des textes à demi transparents).
+- Trouvé et corrigé : nom accessible des cartes différent de leur texte visible (critère 2.5.3, gênant pour le pilotage à la voix) → lien sur le nom de la phobie étendu à toute la carte (`after:inset-0`), « Dossier N°001, » et « — affronté » en texte masqué (`card.label` devient `card.facedSuffix`) ; rouille vif trop pâle pour le petit texte (3,8:1) → `#d9553b` (4,7:1) ; bouton « Pitié, on arrête ici » sur rouille foncé (texte crème 6,6:1) ; bandeau rouille de l'accueil en texte papier au lieu de noir (2,3:1).
+- Mouvement réduit : les animations JavaScript (motion) suivent maintenant le réglage du système (`MotionConfig reducedMotion="user"`), comme celles du CSS.
+- Parcours complet au clavier seul testé (Tab jusqu'au bouton, Entrée).
+- Texte périmé corrigé : la description du niveau 2 parlait encore d'images floutées (5 langues).
+- Résultats : 129 tests Vitest, Biome propre, build OK, 44 tests Playwright (dont 7 audits et le parcours au clavier, sur ordinateur et mobile).

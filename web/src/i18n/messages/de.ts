@@ -40,7 +40,7 @@ export const de: Messages = {
   },
   levels: {
     1: { name: 'Zähmen', hint: 'Ein sanftes Bild, fast niedlich.' },
-    2: { name: 'Annähern', hint: 'Ungeschönte Bilder. Verschwommen, bis du durchhältst.' },
+    2: { name: 'Annähern', hint: 'Ungeschönte Bilder. Noch aus sicherer Entfernung.' },
     3: { name: 'Betrachten', hint: 'Ein näheres Bild.' },
     4: { name: 'Gegenüberstehen', hint: 'Ein intensives Bild.' },
     5: { name: 'Konfrontieren', hint: 'Das Video. Ohne Netz.' },
@@ -91,7 +91,7 @@ export const de: Messages = {
     allCategories: 'Alle Kategorien',
   },
   card: {
-    label: (caseLabel, name, faced) => `Akte ${caseLabel}, ${name}${faced ? ' — konfrontiert' : ''}`,
+    facedSuffix: ' — konfrontiert',
     exposure: 'Exposition 5 Stufen',
     reached: (level) => `Erreichte Stufe: ${level} / 5`,
     neverOpened: 'Nie geöffnet',

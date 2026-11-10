@@ -40,7 +40,7 @@ export const es: Messages = {
   },
   levels: {
     1: { name: 'Domar', hint: 'Una imagen suave, casi tierna.' },
-    2: { name: 'Acercarse', hint: 'Imágenes crudas. Borrosas mientras no aguantes.' },
+    2: { name: 'Acercarse', hint: 'Imágenes crudas. Todavía a una distancia prudente.' },
     3: { name: 'Examinar', hint: 'Una imagen más cercana.' },
     4: { name: 'Confrontar', hint: 'Una imagen intensa.' },
     5: { name: 'Enfrentar', hint: 'El vídeo. Sin red.' },
@@ -91,7 +91,7 @@ export const es: Messages = {
     allCategories: 'Todas las categorías',
   },
   card: {
-    label: (caseLabel, name, faced) => `Expediente ${caseLabel}, ${name}${faced ? ' — enfrentada' : ''}`,
+    facedSuffix: ' — enfrentada',
     exposure: 'Exposición 5 niv.',
     reached: (level) => `Nivel alcanzado: ${level} / 5`,
     neverOpened: 'Nunca abierto',

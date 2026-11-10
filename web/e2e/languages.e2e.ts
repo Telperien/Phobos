@@ -16,7 +16,7 @@ for (const lang of LANGS) {
     await page.goto(`/${lang}/dossiers`)
     await expect(title).toHaveText(t.catalogue.title)
     await expect(
-      page.getByRole('link', { name: t.card.label('N°001', arachnophobia.name, false) }),
+      page.getByRole('link', { name: `${t.caseFile.file('N°001')}, ${arachnophobia.name}` }),
     ).toBeVisible()
 
     await page.goto(`/${lang}/dossiers/arachnophobia`)

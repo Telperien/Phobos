@@ -160,9 +160,9 @@ function RouletteBand() {
         <p className="font-display text-[clamp(2.5rem,7vw,5rem)] leading-[0.9] font-black uppercase">
           {rouletteBand.line1}
           <br />
-          <span className="text-ink">{rouletteBand.line2}</span>
+          <span className="text-paper">{rouletteBand.line2}</span>
           <br />
-          <span className="text-ink/60">{rouletteBand.line2}</span>
+          <span className="text-paper/70">{rouletteBand.line2}</span>
         </p>
         <Link
           to="/$lang/roulette"

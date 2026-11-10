@@ -40,7 +40,7 @@ export const en: Messages = {
   },
   levels: {
     1: { name: 'Tame', hint: 'A soft image, almost cute.' },
-    2: { name: 'Approach', hint: 'Raw images. Blurred until you hold on.' },
+    2: { name: 'Approach', hint: 'Raw images. Still from a safe distance.' },
     3: { name: 'Examine', hint: 'A closer image.' },
     4: { name: 'Confront', hint: 'An intense image.' },
     5: { name: 'Face it', hint: 'The video. No safety net.' },
@@ -91,7 +91,7 @@ export const en: Messages = {
     allCategories: 'All categories',
   },
   card: {
-    label: (caseLabel, name, faced) => `Case file ${caseLabel}, ${name}${faced ? ' — faced' : ''}`,
+    facedSuffix: ' — faced',
     exposure: 'Exposure 5 lvls',
     reached: (level) => `Level reached: ${level} / 5`,
     neverOpened: 'Never opened',

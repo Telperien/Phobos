@@ -20,16 +20,18 @@ export function CaseFileCard({ phobia, index, entry }: CaseFileCardProps) {
   const faced = isFaced(entry)
 
   return (
-    <Link
-      to="/$lang/dossiers/$slug"
-      params={{ lang, slug: phobia.slug }}
-      aria-label={t.card.label(caseLabel(phobia.caseNumber), phobia.name, faced)}
-      className={`group relative block pt-6 transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-0 ${
+    // The link sits on the name and stretches over the whole card (after:inset-0): its accessible name
+    // contains the visible name, and screen readers also hear the case number and whether it was faced.
+    <div
+      className={`group relative pt-6 transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-0 ${
         TILTS[index % TILTS.length]
       }`}
     >
       {/* Onglet de chemise cartonnée */}
-      <span className="absolute top-0 left-0 bg-paper-dark px-4 pt-1.5 pb-2 font-mono text-xs font-semibold tracking-widest text-ink [clip-path:polygon(0_0,88%_0,100%_100%,0_100%)]">
+      <span
+        aria-hidden="true"
+        className="absolute top-0 left-0 bg-paper-dark px-4 pt-1.5 pb-2 font-mono text-xs font-semibold tracking-widest text-ink [clip-path:polygon(0_0,88%_0,100%_100%,0_100%)]"
+      >
         {caseLabel(phobia.caseNumber)}
       </span>
 
@@ -40,7 +42,15 @@ export function CaseFileCard({ phobia, index, entry }: CaseFileCardProps) {
         </div>
 
         <h3 className="font-display text-4xl leading-[0.9] font-extrabold uppercase group-hover:animate-flicker">
-          {phobia.name}
+          <Link
+            to="/$lang/dossiers/$slug"
+            params={{ lang, slug: phobia.slug }}
+            className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-sickly focus-visible:after:outline-dashed"
+          >
+            <span className="sr-only">{t.caseFile.file(caseLabel(phobia.caseNumber))}, </span>
+            {phobia.name}
+            {faced && <span className="sr-only">{t.card.facedSuffix}</span>}
+          </Link>
         </h3>
         <p className="font-serif text-sm italic text-ink/70">{phobia.etymology}</p>
         <p className="font-serif text-base leading-snug text-ink/85">{phobia.summary}</p>
@@ -50,11 +60,11 @@ export function CaseFileCard({ phobia, index, entry }: CaseFileCardProps) {
         </p>
 
         {faced && (
-          <Stamp tone="rust" className="absolute right-4 bottom-4">
+          <Stamp tone="rust" className="pointer-events-none absolute right-4 bottom-4">
             {t.caseFile.faced}
           </Stamp>
         )}
       </article>
-    </Link>
+    </div>
   )
 }

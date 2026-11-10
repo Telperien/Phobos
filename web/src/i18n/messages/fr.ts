@@ -59,7 +59,7 @@ export const fr = {
   } satisfies Record<CategoryCode, string>,
   levels: {
     1: { name: 'Apprivoiser', hint: 'Une image douce, presque mignonne.' },
-    2: { name: 'Approcher', hint: 'Des images franches. Floutées tant que tu ne tiens pas.' },
+    2: { name: 'Approcher', hint: 'Des images franches. Encore à bonne distance.' },
     3: { name: 'Examiner', hint: 'Une image plus proche.' },
     4: { name: 'Confronter', hint: 'Une image intense.' },
     5: { name: 'Affronter', hint: 'La vidéo. Sans filet.' },
@@ -110,8 +110,7 @@ export const fr = {
     allCategories: 'Toutes catégories',
   },
   card: {
-    label: (caseLabel: string, name: string, faced: boolean) =>
-      `Dossier ${caseLabel}, ${name}${faced ? ' — affronté' : ''}`,
+    facedSuffix: ' — affronté',
     exposure: 'Exposition 5 niv.',
     reached: (level: number) => `Niveau atteint : ${level} / 5`,
     neverOpened: 'Jamais ouvert',

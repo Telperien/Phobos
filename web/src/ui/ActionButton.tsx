@@ -6,7 +6,7 @@ const VARIANTS = {
   /** Sortie rassurante : « Je ne suis pas phobique » */
   safe: 'border-sickly bg-sickly text-ink hover:brightness-110',
   /** Sortie d'urgence : « Pitié, on arrête ici » */
-  escape: 'border-rust-bright bg-rust-bright text-bone hover:border-rust hover:bg-rust',
+  escape: 'border-rust bg-rust text-bone hover:border-rust-bright hover:bg-[#a3321f]',
   /** Neutre, actions secondaires */
   ghost: 'border-bone/40 text-bone hover:border-bone hover:bg-bone/10',
 } as const

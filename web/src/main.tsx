@@ -6,6 +6,7 @@ import '@fontsource/ibm-plex-mono/600.css'
 import './index.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from '@tanstack/react-router'
+import { MotionConfig } from 'motion/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { router } from './router'
@@ -18,7 +19,10 @@ const queryClient = new QueryClient()
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      {/* JavaScript animations follow the system "reduce motion" setting, like the CSS ones. */}
+      <MotionConfig reducedMotion="user">
+        <RouterProvider router={router} />
+      </MotionConfig>
     </QueryClientProvider>
   </StrictMode>,
 )
