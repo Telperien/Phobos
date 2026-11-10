@@ -192,3 +192,11 @@
 - API : liens canoniques, `hreflang`, aperçus et sitemap dans les mots de chaque langue ; une adresse écrite avec d'autres mots (`/en/dossiers/…`, `/de/case-files`, barre oblique finale) répond 301 vers la bonne, requête comprise. Sans `seo.json`, plus de sitemap (404).
 - Vérifié : tests .NET (182), Vitest (153), lint, build, 20 tests Playwright des langues. CRAP < 10, jscpd 0 clone, Stryker 95,24 % (≥ 80).
 - À reprendre lors de la passe qualité (demandée pour plus tard) : 5 nouveaux mutants survivants, à lire (`SitePaths.Route` conditionnel `index == 0`, chaînes par défaut `""`/`"/"` dans `SitePaths.Canonical`, `PageAsync`, `PageHeads.ForAsync` et la liste du sitemap) ; suite Playwright complète et vérification dans le navigateur non relancées.
+
+## 2026-11-11 — Étape 9 (6/6) : mentions légales et confidentialité
+
+- Page `/fr/mentions-legales` (`legal-notice`, `aviso-legal`, `impressum`, `note-legali`), liée depuis le pied de page, hors index des moteurs (`noindex`, absente du sitemap).
+- Éditeur : Nicolas Friederich Consulting (NFC), SAS, RCS Paris 843 496 704, 49 rue de Tolbiac 75013 Paris, direction de la publication Nicolas Friederich (annuaire-entreprises.data.gouv.fr, consulté le 2026-11-11), dans `web/src/legal/publisher.ts`. Contact : les issues GitHub du dépôt public, pas d'e-mail affiché.
+- Hébergeur : Microsoft Ireland Operations Limited (entité contractante d'Azure en Europe), région France Centre. Le téléphone diffère selon les sources (+353 1 706 3117 / +353 1 706 3476) : à confirmer.
+- Confidentialité, d'après le code : ni compte, ni cookie, ni mesure d'audience, polices servies par le site ; langue et dossier en localStorage, roulette en sessionStorage ; YouTube (nocookie) chargé seulement au clic ; l'adresse IP n'est vue que par l'hébergeur pour servir les pages.
+- Tests laissés de côté à la demande (passe qualité plus tard) : vérifié par TypeScript (clés dans les 5 langues), lint, build et un coup d'œil dans le navigateur en fr et de. Les tests `SitePagesTests` (seo.json de test sans la nouvelle page) et `messages.test.ts` n'ont pas été relancés.

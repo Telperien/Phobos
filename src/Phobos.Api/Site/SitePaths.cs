@@ -9,6 +9,7 @@ public static class SitePaths
     public const string CaseFiles = "dossiers";
     public const string Roulette = "roulette";
     public const string PersonalFile = "mon-dossier";
+    public const string LegalNotice = "mentions-legales";
 
     /// <summary>Route segments of an address after its language, whatever language its words are in.</summary>
     public static string[] Route(IEnumerable<string> segments, IReadOnlyDictionary<string, SeoTexts> texts) =>

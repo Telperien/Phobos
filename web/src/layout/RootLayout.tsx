@@ -117,6 +117,13 @@ function SiteFooter() {
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-end sm:justify-between">
         <p className="max-w-md font-serif text-sm text-bone/60">{t.footer.disclaimer}</p>
         <div className="flex flex-col gap-1 sm:items-end">
+          <Link
+            to="/$lang/mentions-legales"
+            params={{ lang }}
+            className="label-mono text-bone/80 underline decoration-ash underline-offset-4 hover:text-bone"
+          >
+            {t.footer.legal}
+          </Link>
           <span className="label-mono text-clinical">{t.footer.opened(opened)}</span>
           {import.meta.env.DEV && <ApiStatus />}
         </div>

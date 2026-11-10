@@ -23,7 +23,7 @@ public sealed class PageHeads(PhobiaQueries queries)
         {
             [] => new PageResult(site, StatusCodes.Status200OK),
             [var page] when t.Pages.TryGetValue(page, out var name) => new PageResult(
-                site with { Title = $"{name} — Phobos", Route = $"/{page}", Indexable = page != SitePaths.PersonalFile },
+                site with { Title = $"{name} — Phobos", Route = $"/{page}", Indexable = page is not (SitePaths.PersonalFile or SitePaths.LegalNotice) },
                 StatusCodes.Status200OK),
             [SitePaths.CaseFiles, var slug] => await CaseFileAsync(
                 site, slug, t.Verdicts.GetValueOrDefault(verdict ?? ""), baseUrl, cancellationToken),

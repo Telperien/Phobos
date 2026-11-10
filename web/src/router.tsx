@@ -74,10 +74,16 @@ const myFileRoute = createRoute({
   component: lazyRouteComponent(() => import('./pages/MyFilePage'), 'MyFilePage'),
 })
 
+const legalRoute = createRoute({
+  getParentRoute: () => langRoute,
+  path: 'mentions-legales',
+  component: lazyRouteComponent(() => import('./pages/LegalPage'), 'LegalPage'),
+})
+
 export const router = createRouter({
   routeTree: rootRoute.addChildren([
     indexRoute,
-    langRoute.addChildren([homeRoute, catalogueRoute, phobiaRoute, rouletteRoute, myFileRoute]),
+    langRoute.addChildren([homeRoute, catalogueRoute, phobiaRoute, rouletteRoute, myFileRoute, legalRoute]),
   ]),
   scrollRestoration: true,
   /** Routes keep one name (`/$lang/dossiers`); the address bar shows the words of the language (`/en/case-files`). */

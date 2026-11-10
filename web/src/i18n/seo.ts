@@ -7,7 +7,7 @@ export interface SeoTexts {
   locale: string
   title: string
   description: string
-  pages: { dossiers: string; roulette: string; 'mon-dossier': string }
+  pages: { dossiers: string; roulette: string; 'mon-dossier': string; 'mentions-legales': string }
   /** Word of each section in the addresses of this language (`case-files` for `dossiers`). */
   paths: Messages['paths']
   verdicts: Record<VerdictKind, string>
@@ -24,7 +24,12 @@ export function buildSeoTexts(messages: Record<Lang, Messages>): Record<Lang, Se
       locale: LOCALES[lang].replace('-', '_'),
       title: t.meta.title,
       description: t.meta.description,
-      pages: { dossiers: t.catalogue.title, roulette: t.nav.roulette, 'mon-dossier': t.myFile.title },
+      pages: {
+        dossiers: t.catalogue.title,
+        roulette: t.nav.roulette,
+        'mon-dossier': t.myFile.title,
+        'mentions-legales': t.legal.title,
+      },
       paths: t.paths,
       verdicts: Object.fromEntries(
         VERDICT_KINDS.map((kind) => [kind, t.verdict.kinds[kind].title]),

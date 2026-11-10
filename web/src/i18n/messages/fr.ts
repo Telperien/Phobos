@@ -38,8 +38,14 @@ export const fr = {
     language: 'Langue',
   },
   /** Words of the addresses (`/fr/dossiers`), by route: lower case, no accents, hyphens. */
-  paths: { dossiers: 'dossiers', roulette: 'roulette', 'mon-dossier': 'mon-dossier' },
+  paths: {
+    dossiers: 'dossiers',
+    roulette: 'roulette',
+    'mon-dossier': 'mon-dossier',
+    'mentions-legales': 'mentions-legales',
+  },
   footer: {
+    legal: 'Mentions légales et confidentialité',
     disclaimer:
       'Phobos n’est pas un outil de diagnostic. Si une peur t’empêche de vivre normalement, parles-en à un professionnel de santé.',
     opened: (date: string) => `Archives ouvertes le ${date}`,
@@ -196,6 +202,52 @@ export const fr = {
     forgetConfirm: 'Tout effacer de ce navigateur ? Impossible de revenir en arrière.',
     forgetYes: 'Oui, tout effacer',
     forgetCancel: 'Annuler',
+  },
+  legal: {
+    kicker: 'Archives administratives',
+    title: 'Mentions légales',
+    updated: (date: string) => `Mis à jour le ${date}`,
+    publisher: {
+      heading: 'Éditeur',
+      name: 'Dénomination',
+      form: 'Forme juridique',
+      registration: 'Immatriculation',
+      office: 'Siège',
+      director: 'Direction de la publication',
+    },
+    host: {
+      heading: 'Hébergement',
+      phone: 'Téléphone :',
+      region: 'Le site et ses images sont stockés dans la région Azure France Centre (Paris).',
+    },
+    contact: {
+      heading: 'Contact',
+      text: 'Une question, une demande de retrait ou de crédit : ouvre un ticket sur le dépôt public du projet.',
+      link: 'Écrire sur GitHub (compte gratuit requis)',
+    },
+    privacy: {
+      heading: 'Confidentialité',
+      nothing:
+        'Phobos ne demande ni compte, ni nom, ni e-mail. Le site ne dépose aucun cookie et ne mesure pas l’audience.',
+      storageIntro:
+        'Trois informations restent dans ton navigateur, sur ton appareil, et ne sont jamais envoyées au serveur :',
+      storageLang: 'la langue choisie ;',
+      storageFile: 'ton dossier : les phobies ouvertes, le niveau atteint, le verdict et la date ;',
+      storageRound: 'la partie de roulette en cours, effacée à la fermeture de l’onglet.',
+      erase: 'Tu peux tout effacer depuis « Mon dossier » ou depuis les réglages de ton navigateur.',
+      server:
+        'Pour t’envoyer les pages, l’hébergeur voit ton adresse IP, comme pour tout site. Phobos ne l’enregistre pas et ne s’en sert pas.',
+      youtube:
+        'La vidéo du niveau 5 vient de YouTube, en mode sans cookie publicitaire. Elle ne se charge que si tu cliques dessus ; YouTube applique alors ses propres règles.',
+      youtubeLink: 'Règles de confidentialité de Google',
+      rights:
+        'Phobos ne conserve aucune donnée sur toi : il n’y a rien à consulter ni à supprimer de son côté. Pour toute question, utilise le contact ci-dessus.',
+    },
+    health: 'Santé',
+    media: {
+      heading: 'Images et vidéos',
+      text: 'Les images sont générées par intelligence artificielle pour Phobos, ou viennent du web avec leur auteur et leur licence indiqués sous l’image. Les vidéos restent la propriété de leurs auteurs. Pour demander un retrait, utilise le contact ci-dessus.',
+    },
   },
   roulette: {
     label: 'Roulette',
