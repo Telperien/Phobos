@@ -35,6 +35,13 @@ public static class SiteEndpoints
         return await reader.ReadToEndAsync();
     }
 
+    /// <summary>Texts and address words of every language, written by the front-end build; null without it.</summary>
+    private static async Task<Dictionary<string, SeoTexts>?> ReadTextsAsync(IWebHostEnvironment environment)
+    {
+        var json = await ReadAsync(environment.WebRootFileProvider, "seo.json");
+        return json is null ? null : JsonSerializer.Deserialize<Dictionary<string, SeoTexts>>(json, Options);
+    }
+
     private static async Task<IResult> PageAsync(
         HttpContext context, IWebHostEnvironment environment, IConfiguration configuration, PageHeads heads,
         CancellationToken cancellationToken)
@@ -43,33 +50,41 @@ public static class SiteEndpoints
         if (page is null) return Results.NotFound();
         context.Response.Headers.CacheControl = SiteCaching.Page;
 
-        var json = await ReadAsync(environment.WebRootFileProvider, "seo.json");
-        var texts = json is null ? null : JsonSerializer.Deserialize<Dictionary<string, SeoTexts>>(json, Options);
-        var baseUrl = BaseUrl(context, configuration);
-        var result = texts is null
-            ? null
-            : await heads.ForAsync(context.Request.Path, context.Request.Query["verdict"], texts, baseUrl, cancellationToken);
-        if (texts is null || result is null) return Results.Content(page, "text/html; charset=utf-8");
+        var texts = await ReadTextsAsync(environment);
+        if (texts is null) return Results.Content(page, "text/html; charset=utf-8");
 
-        var head = HeadHtml.Render(result.Head, texts[result.Head.Lang].Locale, baseUrl, [.. texts.Keys]);
+        // An address in other words (an old link, another language's word) moves for good to its own words.
+        var path = context.Request.Path.Value ?? "/";
+        var canonical = SitePaths.Canonical(path, texts);
+        if (canonical != path) return Results.Redirect(new PathString(canonical).Add(context.Request.QueryString), permanent: true);
+
+        var baseUrl = BaseUrl(context, configuration);
+        var result = await heads.ForAsync(path, context.Request.Query["verdict"], texts, baseUrl, cancellationToken);
+        if (result is null) return Results.Content(page, "text/html; charset=utf-8");
+
+        var head = HeadHtml.Render(result.Head, texts, baseUrl);
         return Results.Content(
             HeadHtml.Inject(page, head, result.Head.Lang), "text/html; charset=utf-8", statusCode: result.StatusCode);
     }
 
     private static async Task<IResult> SitemapAsync(
-        HttpContext context, IConfiguration configuration, PhobiaQueries queries, CancellationToken cancellationToken)
+        HttpContext context, IWebHostEnvironment environment, IConfiguration configuration, PhobiaQueries queries,
+        CancellationToken cancellationToken)
     {
+        var texts = await ReadTextsAsync(environment);
+        if (texts is null) return Results.NotFound();
         var baseUrl = BaseUrl(context, configuration);
         var phobias = await queries.ListAsync(Language.En, category: null, cancellationToken);
-        string[] rests = ["", "/dossiers", "/roulette", .. phobias.Select(phobia => $"/dossiers/{phobia.Slug}")];
-        var codes = Languages.All.Select(Languages.Code).ToList();
+        const string caseFiles = "/" + SitePaths.CaseFiles;
+        string[] routes = ["", caseFiles, "/" + SitePaths.Roulette, .. phobias.Select(phobia => $"{caseFiles}/{phobia.Slug}")];
+        string Url(string code, string route) => HeadHtml.Absolute(baseUrl, SitePaths.Public(code, route, texts));
 
-        var urls = codes.SelectMany(code => rests.Select(rest => new XElement(Sitemap + "url",
-            new XElement(Sitemap + "loc", HeadHtml.Absolute(baseUrl, $"/{code}{rest}")),
-            codes.Select(other => new XElement(Xhtml + "link",
+        var urls = texts.Keys.SelectMany(code => routes.Select(route => new XElement(Sitemap + "url",
+            new XElement(Sitemap + "loc", Url(code, route)),
+            texts.Keys.Select(other => new XElement(Xhtml + "link",
                 new XAttribute("rel", "alternate"),
                 new XAttribute("hreflang", other),
-                new XAttribute("href", HeadHtml.Absolute(baseUrl, $"/{other}{rest}")))))));
+                new XAttribute("href", Url(other, route)))))));
         var sitemap = new XElement(Sitemap + "urlset", new XAttribute(XNamespace.Xmlns + "xhtml", Xhtml), urls);
         return Results.Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + sitemap, "application/xml");
     }

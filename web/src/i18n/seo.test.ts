@@ -20,6 +20,7 @@ describe('buildSeoTexts', () => {
         roulette: MESSAGES.en.nav.roulette,
         'mon-dossier': MESSAGES.en.myFile.title,
       },
+      paths: MESSAGES.en.paths,
       verdicts: {
         veryPhobic: MESSAGES.en.verdict.kinds.veryPhobic.title,
         phobic: MESSAGES.en.verdict.kinds.phobic.title,

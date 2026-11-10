@@ -183,3 +183,12 @@
 - `.github/workflows/videos.yml` : chaque lundi à 6 h UTC et à la demande ; un échec nomme les phobies dont la vidéo est à remplacer.
 - Essai réel : 30 vidéos en ligne et intégrables ; avec une vidéo inexistante, « disparue » et code de sortie 1. Sous Windows, `process.exit()` avec des connexions encore ouvertes faisait planter Node (code 127) → `process.exitCode`.
 - Non fait : le workflow n'a pas encore tourné sur GitHub (il le fera une fois poussé, ou via « Run workflow »).
+
+## 2026-11-10 — Étape 9 (5/6) : adresses traduites
+
+- Les sections ont des mots propres à chaque langue : `/fr/dossiers`, `/en/case-files`, `/es/expedientes`, `/de/akten`, `/it/fascicoli` (et `ruleta`, `my-file`, `meine-akte`, `il-mio-fascicolo`…). Les noms de phobies (`arachnophobia`) ne changent pas.
+- Une seule source : la clé `paths` des messages (`fr.ts` en référence), recopiée dans `seo.json` pour l'API. Tests : mots sûrs dans une adresse, jamais deux sections pour un même mot, jamais un code de langue.
+- Front : les routes gardent leur nom (`/$lang/dossiers`) ; la réécriture du routeur TanStack (`rewrite.input/output`, `i18n/paths.ts`) affiche les mots de la langue et comprend ceux de toutes les langues (anciens liens).
+- API : liens canoniques, `hreflang`, aperçus et sitemap dans les mots de chaque langue ; une adresse écrite avec d'autres mots (`/en/dossiers/…`, `/de/case-files`, barre oblique finale) répond 301 vers la bonne, requête comprise. Sans `seo.json`, plus de sitemap (404).
+- Vérifié : tests .NET (182), Vitest (153), lint, build, 20 tests Playwright des langues. CRAP < 10, jscpd 0 clone, Stryker 95,24 % (≥ 80).
+- À reprendre lors de la passe qualité (demandée pour plus tard) : 5 nouveaux mutants survivants, à lire (`SitePaths.Route` conditionnel `index == 0`, chaînes par défaut `""`/`"/"` dans `SitePaths.Canonical`, `PageAsync`, `PageHeads.ForAsync` et la liste du sitemap) ; suite Playwright complète et vérification dans le navigateur non relancées.

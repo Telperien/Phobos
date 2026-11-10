@@ -4,8 +4,11 @@ using System.Text;
 namespace Phobos.Api.Site;
 
 /// <summary>What a page says about itself: in its head, in search results and in link previews.</summary>
-/// <param name="Path">Path of the page without its query, used for the canonical and language links.</param>
-public sealed record PageHead(string Lang, string Title, string Description, string Path, Uri Image, bool Indexable);
+/// <param name="Route">
+/// Route of the page after its language (<c>/dossiers/arachnophobia</c>), without its query: written in the words of
+/// each language for the canonical and language links.
+/// </param>
+public sealed record PageHead(string Lang, string Title, string Description, string Route, Uri Image, bool Indexable);
 
 public static class HeadHtml
 {
@@ -15,21 +18,21 @@ public static class HeadHtml
     /// <summary>Absolute address of a site path.</summary>
     public static string Absolute(Uri baseUrl, string path) => baseUrl.ToString().TrimEnd('/') + path;
 
-    public static string Render(PageHead head, string locale, Uri baseUrl, IReadOnlyList<string> langs)
+    public static string Render(PageHead head, IReadOnlyDictionary<string, SeoTexts> texts, Uri baseUrl)
     {
-        var canonical = Absolute(baseUrl, head.Path);
-        var rest = head.Path[(1 + head.Lang.Length)..];
+        string Url(string lang) => Absolute(baseUrl, SitePaths.Public(lang, head.Route, texts));
+        var canonical = Url(head.Lang);
         var html = new StringBuilder()
             .AppendLine("<title>" + Encode(head.Title) + "</title>")
             .AppendLine(Meta("name", "description", head.Description));
         if (!head.Indexable) html.AppendLine(Meta("name", "robots", "noindex"));
         html.AppendLine(Link("canonical", null, canonical));
-        foreach (var lang in langs) html.AppendLine(Link("alternate", lang, Absolute(baseUrl, $"/{lang}{rest}")));
+        foreach (var lang in texts.Keys) html.AppendLine(Link("alternate", lang, Url(lang)));
         return html
-            .AppendLine(Link("alternate", "x-default", Absolute(baseUrl, $"/en{rest}")))
+            .AppendLine(Link("alternate", "x-default", Url("en")))
             .AppendLine(Meta("property", "og:type", "website"))
             .AppendLine(Meta("property", "og:site_name", "Phobos"))
-            .AppendLine(Meta("property", "og:locale", locale))
+            .AppendLine(Meta("property", "og:locale", texts[head.Lang].Locale))
             .AppendLine(Meta("property", "og:title", head.Title))
             .AppendLine(Meta("property", "og:description", head.Description))
             .AppendLine(Meta("property", "og:url", canonical))

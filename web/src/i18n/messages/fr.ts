@@ -37,6 +37,8 @@ export const fr = {
     facedBadge: (count: number) => `${count} phobie${s(count)} affrontée${s(count)}`,
     language: 'Langue',
   },
+  /** Words of the addresses (`/fr/dossiers`), by route: lower case, no accents, hyphens. */
+  paths: { dossiers: 'dossiers', roulette: 'roulette', 'mon-dossier': 'mon-dossier' },
   footer: {
     disclaimer:
       'Phobos n’est pas un outil de diagnostic. Si une peur t’empêche de vivre normalement, parles-en à un professionnel de santé.',

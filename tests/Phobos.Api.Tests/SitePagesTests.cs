@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Phobos.Api.Site;
@@ -33,6 +34,16 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
 
     private static readonly string[] Codes = ["fr", "en", "es", "de", "it"];
 
+    /// <summary>Words of the catalogue, roulette and personal file sections in the addresses of each language.</summary>
+    private static readonly Dictionary<string, string[]> Words = new()
+    {
+        ["fr"] = ["dossiers", "roulette", "mon-dossier"],
+        ["en"] = ["case-files", "roulette", "my-file"],
+        ["es"] = ["expedientes", "ruleta", "mi-expediente"],
+        ["de"] = ["akten", "roulette", "meine-akte"],
+        ["it"] = ["fascicoli", "roulette", "il-mio-fascicolo"],
+    };
+
     private readonly string _webRoot = Path.Combine(Path.GetTempPath(), "phobos-seo-" + Guid.NewGuid().ToString("N"));
     private readonly PhobosApiFactory _factory;
     private readonly HttpClient _client;
@@ -59,6 +70,12 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
                     ["phobic"] = $"Phobic {code}",
                     ["sensitive"] = $"Sensitive {code}",
                     ["notPhobic"] = $"Not phobic {code}",
+                },
+                paths = new Dictionary<string, string>
+                {
+                    ["dossiers"] = Words[code][0],
+                    ["roulette"] = Words[code][1],
+                    ["mon-dossier"] = Words[code][2],
                 },
             })));
         _factory = factory;
@@ -97,7 +114,7 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
     [Fact]
     public async Task A_case_file_page_gets_its_own_head_in_its_language()
     {
-        var (status, html) = await PageAsync("/en/dossiers/arachnophobia");
+        var (status, html) = await PageAsync("/en/case-files/arachnophobia");
 
         Assert.Equal(HttpStatusCode.OK, status);
         Assert.Contains("""<html lang="en">""", html, StringComparison.Ordinal);
@@ -109,12 +126,13 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
         Assert.Equal("website", Meta(html, "og:type"));
         Assert.Equal("Phobos", Meta(html, "og:site_name"));
         Assert.StartsWith("Fear of spiders.", Meta(html, "og:description"), StringComparison.Ordinal);
-        Assert.Equal("http://localhost/en/dossiers/arachnophobia", Meta(html, "og:url"));
+        Assert.Equal("http://localhost/en/case-files/arachnophobia", Meta(html, "og:url"));
         Assert.Equal("summary_large_image", Meta(html, "twitter:card"));
         Assert.DoesNotContain("head:end", html, StringComparison.Ordinal);
-        Assert.Contains("""<link rel="canonical" href="http://localhost/en/dossiers/arachnophobia" />""", html, StringComparison.Ordinal);
+        Assert.Contains("""<link rel="canonical" href="http://localhost/en/case-files/arachnophobia" />""", html, StringComparison.Ordinal);
         Assert.Contains("""<link rel="alternate" hreflang="fr" href="http://localhost/fr/dossiers/arachnophobia" />""", html, StringComparison.Ordinal);
-        Assert.Contains("""<link rel="alternate" hreflang="x-default" href="http://localhost/en/dossiers/arachnophobia" />""", html, StringComparison.Ordinal);
+        Assert.Contains("""<link rel="alternate" hreflang="de" href="http://localhost/de/akten/arachnophobia" />""", html, StringComparison.Ordinal);
+        Assert.Contains("""<link rel="alternate" hreflang="x-default" href="http://localhost/en/case-files/arachnophobia" />""", html, StringComparison.Ordinal);
         Assert.DoesNotContain("Default title", html, StringComparison.Ordinal);
         Assert.Contains("""<div id="root"></div>""", html, StringComparison.Ordinal);
     }
@@ -157,8 +175,9 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
 
     [Theory]
     [InlineData("/de", "Phobos — Title de", "http://localhost/og.jpg")]
-    [InlineData("/de/dossiers", "Files de — Phobos", "http://localhost/og.jpg")]
+    [InlineData("/de/akten", "Files de — Phobos", "http://localhost/og.jpg")]
     [InlineData("/it/roulette", "Roulette it — Phobos", "http://localhost/og.jpg")]
+    [InlineData("/es/ruleta", "Roulette es — Phobos", "http://localhost/og.jpg")]
     public async Task Section_pages_are_named_in_their_language(string url, string title, string image)
     {
         var (status, html) = await PageAsync(url);
@@ -172,7 +191,7 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
     [Fact]
     public async Task The_personal_file_page_is_kept_out_of_search_engines()
     {
-        var (_, html) = await PageAsync("/es/mon-dossier");
+        var (_, html) = await PageAsync("/es/mi-expediente");
 
         Assert.Equal("My file es — Phobos", Title(html));
         Assert.Equal("noindex", Meta(html, "robots"));
@@ -233,9 +252,25 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
     {
         using var client = ClientWith("https://phobos.example/");
 
-        var (_, html) = await PageAsync("/it/dossiers", client);
+        var (_, html) = await PageAsync("/it/fascicoli", client);
 
-        Assert.Contains("""<link rel="canonical" href="https://phobos.example/it/dossiers" />""", html, StringComparison.Ordinal);
+        Assert.Contains("""<link rel="canonical" href="https://phobos.example/it/fascicoli" />""", html, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData("/en/dossiers/arachnophobia?verdict=sensitive", "/en/case-files/arachnophobia?verdict=sensitive")]
+    [InlineData("/de/case-files", "/de/akten")]
+    [InlineData("/it/mon-dossier", "/it/il-mio-fascicolo")]
+    [InlineData("/es/roulette/", "/es/ruleta")]
+    public async Task An_address_in_other_words_moves_for_good_to_the_words_of_its_language(string url, string moved)
+    {
+        using var client = _factory.WithWebHostBuilder(builder => builder.UseWebRoot(_webRoot))
+            .CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
+
+        using var response = await client.GetAsync(new Uri(url, UriKind.Relative));
+
+        Assert.Equal(HttpStatusCode.MovedPermanently, response.StatusCode);
+        Assert.Equal(moved, response.Headers.Location?.OriginalString);
     }
 
     [Fact]
@@ -250,10 +285,22 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
         Assert.Contains("<loc>http://localhost/fr</loc>", xml, StringComparison.Ordinal);
         Assert.Contains("<loc>http://localhost/fr/dossiers</loc>", xml, StringComparison.Ordinal);
         Assert.Contains("<loc>http://localhost/fr/roulette</loc>", xml, StringComparison.Ordinal);
+        Assert.Contains("<loc>http://localhost/es/ruleta</loc>", xml, StringComparison.Ordinal);
         Assert.Equal(5 * (3 + 30), Regex.Count(xml, "<url>"));
-        Assert.Contains("<loc>http://localhost/de/dossiers/arachnophobia</loc>", xml, StringComparison.Ordinal);
-        Assert.Contains("""<xhtml:link rel="alternate" hreflang="it" href="http://localhost/it/dossiers/arachnophobia" />""", xml, StringComparison.Ordinal);
+        Assert.Contains("<loc>http://localhost/de/akten/arachnophobia</loc>", xml, StringComparison.Ordinal);
+        Assert.Contains("""<xhtml:link rel="alternate" hreflang="it" href="http://localhost/it/fascicoli/arachnophobia" />""", xml, StringComparison.Ordinal);
         Assert.DoesNotContain("mon-dossier", xml, StringComparison.Ordinal);
+        Assert.DoesNotContain("my-file", xml, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Without_the_site_build_there_is_no_sitemap()
+    {
+        File.Delete(Path.Combine(_webRoot, "seo.json"));
+
+        using var response = await _client.GetAsync(new Uri("/sitemap.xml", UriKind.Relative));
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
     [Fact]
@@ -269,9 +316,11 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
     [Fact]
     public void Head_texts_are_escaped()
     {
-        var head = new PageHead("fr", "Tom & \"Jerry\" <3", "d", "/fr", new Uri("http://localhost/og.jpg"), Indexable: true);
+        var head = new PageHead("fr", "Tom & \"Jerry\" <3", "d", "", new Uri("http://localhost/og.jpg"), Indexable: true);
+        var empty = new Dictionary<string, string>();
+        var texts = new Dictionary<string, SeoTexts> { ["fr"] = new("fr_FR", "t", "d", empty, empty, empty) };
 
-        var html = HeadHtml.Render(head, "fr_FR", new Uri("http://localhost/"), ["fr"]);
+        var html = HeadHtml.Render(head, texts, new Uri("http://localhost/"));
 
         Assert.Contains("<title>Tom &amp; &quot;Jerry&quot; &lt;3</title>", html, StringComparison.Ordinal);
     }

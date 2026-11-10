@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-router'
 import { type CatalogueSearch, parseCatalogueSearch, toCatalogueSearch } from './catalogue/filter'
 import { isLang, pathInLanguage, preferredLanguage } from './i18n/languages'
+import { publicPath, routePath } from './i18n/paths'
 import { LangLayout } from './layout/RootLayout'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { parseRouletteSearch, type RouletteSearch, toRouletteSearch } from './roulette/round'
@@ -79,6 +80,17 @@ export const router = createRouter({
     langRoute.addChildren([homeRoute, catalogueRoute, phobiaRoute, rouletteRoute, myFileRoute]),
   ]),
   scrollRestoration: true,
+  /** Routes keep one name (`/$lang/dossiers`); the address bar shows the words of the language (`/en/case-files`). */
+  rewrite: {
+    input: ({ url }) => {
+      url.pathname = routePath(url.pathname)
+      return url
+    },
+    output: ({ url }) => {
+      url.pathname = publicPath(url.pathname)
+      return url
+    },
+  },
 })
 
 declare module '@tanstack/react-router' {

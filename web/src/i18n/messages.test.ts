@@ -25,13 +25,14 @@ const SAME_AS_FRENCH: Partial<Record<string, readonly string[]>> = {
     'home.title.after',
     'nav.archives',
     'nav.roulette',
+    'paths.roulette',
     'caseFile.back',
     'verdict.heading',
     'roulette.label',
   ],
   es: ['home.title.after'],
-  de: ['home.title.after', 'nav.roulette', 'home.card.phobia', 'roulette.label'],
-  it: ['home.title.after', 'nav.roulette', 'roulette.label'],
+  de: ['home.title.after', 'nav.roulette', 'paths.roulette', 'home.card.phobia', 'roulette.label'],
+  it: ['home.title.after', 'nav.roulette', 'paths.roulette', 'roulette.label'],
 }
 
 describe.each(LANGS)('messages in %s', (lang) => {

@@ -18,6 +18,7 @@ export const de: Messages = {
     facedBadge: (count) => `${count} ${plural(count, 'Phobie', 'Phobien')} konfrontiert`,
     language: 'Sprache',
   },
+  paths: { dossiers: 'akten', roulette: 'roulette', 'mon-dossier': 'meine-akte' },
   footer: {
     disclaimer:
       'Phobos ist kein Diagnosewerkzeug. Wenn eine Angst dich im Alltag einschränkt, sprich mit einer medizinischen Fachperson.',

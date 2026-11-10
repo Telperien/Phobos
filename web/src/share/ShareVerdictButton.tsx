@@ -4,6 +4,7 @@ import { categoryName } from '../catalogue/categories'
 import type { LevelNumber } from '../exposure/levels'
 import { type ExitChoice, verdictFor } from '../exposure/verdict'
 import { useLang, useT } from '../i18n/context'
+import { publicPath } from '../i18n/paths'
 import { ActionButton } from '../ui/ActionButton'
 import { caseLabel } from '../ui/caseLabel'
 import { renderVerdictCard } from './card'
@@ -49,7 +50,7 @@ export function ShareVerdictButton({
         imageSource: phobia.levels[0]?.media.find((media) => media.kind === 'image')?.source,
       })
       const file = new File([blob], `phobos-${phobia.slug}-${verdict.kind}.png`, { type: 'image/png' })
-      const url = `${window.location.origin}/${lang}/dossiers/${phobia.slug}?verdict=${verdict.kind}`
+      const url = `${window.location.origin}${publicPath(`/${lang}/dossiers/${phobia.slug}`)}?verdict=${verdict.kind}`
       setState(
         await shareCard(
           { file, title: t.meta.title, text: t.share.text(phobia.name, text.title), url },

@@ -6,4 +6,5 @@ public sealed record SeoTexts(
     string Title,
     string Description,
     IReadOnlyDictionary<string, string> Pages,
-    IReadOnlyDictionary<string, string> Verdicts);
+    IReadOnlyDictionary<string, string> Verdicts,
+    IReadOnlyDictionary<string, string> Paths);

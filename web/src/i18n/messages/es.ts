@@ -18,6 +18,7 @@ export const es: Messages = {
     facedBadge: (count) => `${count} ${plural(count, 'fobia enfrentada', 'fobias enfrentadas')}`,
     language: 'Idioma',
   },
+  paths: { dossiers: 'expedientes', roulette: 'ruleta', 'mon-dossier': 'mi-expediente' },
   footer: {
     disclaimer:
       'Phobos no es una herramienta de diagnóstico. Si un miedo te impide vivir con normalidad, habla con un profesional de la salud.',
