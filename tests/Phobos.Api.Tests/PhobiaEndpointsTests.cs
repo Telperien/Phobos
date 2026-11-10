@@ -80,7 +80,10 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Serves_the_media_listed_in_a_case_file()
     {
-        var sharks = PhobiaContent.LoadShipped().Single(phobia => phobia.Slug == "selachophobia");
+        // A case file of its own: the shipped content gains media as images and videos are added.
+        var sharks = Phobia.Create("selachophobia", 12, Category.Animals,
+            [new PhobiaTranslation(Language.It, "Selacofobia", "dal greco", "Paura degli squali.", "Descrizione.", "Nota.")]);
+        sharks.Publish();
         sharks.AddMedia(ExposureMedia.Image(1, "selachophobia/1-a.webp", ImageCredit.Generated));
         sharks.AddMedia(ExposureMedia.YouTube("dQw4w9WgXcQ", startSeconds: 30));
         using var client = factory

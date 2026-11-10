@@ -66,5 +66,8 @@
       "origin": "ai"
     }
   ],
-  "video": null
+  "video": {
+    "youtube": "YgYhQ2mYVqU",
+    "start": 0
+  }
 }

@@ -40,5 +40,8 @@
     }
   },
   "images": [],
-  "video": null
+  "video": {
+    "youtube": "V3PkkHij_zo",
+    "start": 0
+  }
 }

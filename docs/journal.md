@@ -160,3 +160,12 @@
 - Parcours complet au clavier seul testé (Tab jusqu'au bouton, Entrée).
 - Texte périmé corrigé : la description du niveau 2 parlait encore d'images floutées (5 langues).
 - Résultats : 129 tests Vitest, Biome propre, build OK, 44 tests Playwright (dont 7 audits et le parcours au clavier, sur ordinateur et mobile).
+
+## 2026-11-10 — Vidéos YouTube du niveau 5 (30 phobies)
+
+- Une vidéo par phobie, choisie par recherche web parmi des chaînes reconnues quand c'était possible (BBC Earth, BBC Studios, American Red Cross, Geeky Medics, CBS News, ABC15, KPRC 2…). Écartées : deux « marches de nuit » qui étaient des animations (Red Dead Redemption 2, Unreal Engine), une plongée abyssale d'une chaîne de montages douteuse (remplacée par BBC Earth).
+- Les 30 vérifiées par l'API publique oEmbed de YouTube : existantes et intégrables sur un autre site.
+- Secondes de départ, sans avoir pu regarder les vidéos : pic de la courbe « les plus revus » de YouTube quand elle existe (13 vidéos, en ignorant les premières secondes et l'écran de fin, départ quelques secondes avant le pic), chapitre de la description pour l'épave (« The Propellers Up Close », 11:10), indication de la description pour le flashover (vers 45 s), sinon 0 (vidéos courtes ou sans données). Liste à relire par l'utilisateur.
+- Vérifié : tests .NET (identifiants valides), lecteurs `youtube-nocookie` qui démarrent à la bonne seconde (feu 35 s, requin 80 s, épave 670 s, essai Playwright), 44 tests Playwright.
+- Un test de l'API qui ajoutait une vidéo au dossier livré des requins construit désormais son propre dossier (le contenu livré gagne des médias au fil du temps).
+- Test « parcours au clavier » instable corrigé : avant le premier Tab, l'élément actif est la page entière, dont le texte contient « J'ai compris » ; seuls un bouton ou un lien focalisés comptent désormais (3 passages sur 3, suite complète 44/44).

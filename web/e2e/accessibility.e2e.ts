@@ -61,7 +61,11 @@ test('every step of a case file journey has no accessibility violation', async (
 async function tabTo(page: Page, name: RegExp) {
   for (let presses = 0; presses < 60; presses++) {
     await page.keyboard.press('Tab')
-    const focused = await page.evaluate(() => document.activeElement?.textContent ?? '')
+    // Only a focused button or link counts: before the first Tab the whole page is "active".
+    const focused = await page.evaluate(() => {
+      const element = document.activeElement
+      return element && ['BUTTON', 'A'].includes(element.tagName) ? (element.textContent ?? '') : ''
+    })
     if (name.test(focused)) return
   }
   throw new Error(`No element matching ${name} could be reached with Tab`)
