@@ -1,0 +1,24 @@
+name: Vidéos YouTube
+
+# Chaque lundi : les vidéos du niveau 5 existent-elles encore, et acceptent-elles toujours l'intégration ?
+# Un échec (e-mail de GitHub) nomme les phobies dont la vidéo est à remplacer dans content/phobias/.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Vérification des vidéos
+        run: node web/scripts/videos.ts

@@ -43,6 +43,10 @@ Une image du web n'est publiable que si sa licence le permet (domaine public, CC
 2. Depuis `web/` : `npm run media`. Le script liste les images non déclarées (avec l'entrée JSON à ajouter), convertit les images déclarées en `media/<slug>/<niveau>-<lettre>.webp` (1600 px au plus, métadonnées retirées) et s'arrête si une image déclarée manque ou si une image du web n'a pas sa licence. `npm run media -- --declare-ai` déclare d'office les images non déclarées comme images IA.
 3. En production : `./infra/upload-media.ps1` (prépare puis envoie `media/` sur Azure Files).
 
+### Vidéos
+
+Une vidéo YouTube par phobie au niveau 5 (`"video": { "youtube": "<identifiant>", "start": <seconde> }`). `npm run videos` (depuis `web/`) vérifie qu'elles existent encore et acceptent l'intégration ; le workflow `.github/workflows/videos.yml` le fait chaque lundi et échoue (e-mail de GitHub) en nommant les phobies dont la vidéo est à remplacer.
+
 Prompts de génération : `content/prompts.md`. Les générations brutes et variantes non retenues se rangent dans `media-generated/` (hors git) : ni le script ni le site ne les lisent.
 
 ## Langues

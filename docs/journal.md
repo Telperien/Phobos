@@ -176,3 +176,10 @@
 - `npm run media -- --declare-ai` : 125 images déclarées et converties (25 fichiers de contenu), 150 au total, 23 Mo de WebP. Les deux images refaites étaient déjà reconverties et en ligne.
 - Deux tests qui comptaient sur un dossier livré sans média (requins, puis acrophobie) construisent leur propre dossier.
 - Vérifié : tests .NET, 150 images servies en 200 par l'API locale, 44 tests Playwright. En production avant envoi : 25 images en ligne identiques, 125 absentes → `./infra/upload-media.ps1` avant de pousser le contenu.
+
+## 2026-11-10 — Étape 9 (4/6) : vérification des vidéos YouTube
+
+- `npm run videos` interroge l'API oEmbed de YouTube pour chaque vidéo des fichiers de contenu : 200 en ligne, 401/403 non intégrable, 400/404 disparue, autre réponse « non vérifiée » (avertissement seulement, pour ne pas lancer de fausse alerte sur une limite de requêtes). Logique testée (`scripts/video-check.ts`), script sans dépendance npm.
+- `.github/workflows/videos.yml` : chaque lundi à 6 h UTC et à la demande ; un échec nomme les phobies dont la vidéo est à remplacer.
+- Essai réel : 30 vidéos en ligne et intégrables ; avec une vidéo inexistante, « disparue » et code de sortie 1. Sous Windows, `process.exit()` avec des connexions encore ouvertes faisait planter Node (code 127) → `process.exitCode`.
+- Non fait : le workflow n'a pas encore tourné sur GitHub (il le fera une fois poussé, ou via « Run workflow »).
