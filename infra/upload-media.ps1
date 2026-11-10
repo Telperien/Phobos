@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   Prépare les images (media-src → media, en WebP) puis les envoie sur le partage Azure Files 'media'.
 
@@ -29,6 +29,12 @@ if (-not (Test-Path $mediaFolder)) {
 $storageName = az storage account list --resource-group $ResourceGroup --query "[?starts_with(name, 'phobos')].name | [0]" -o tsv
 $key = az storage account keys list --account-name $storageName --query '[0].value' -o tsv
 Write-Host "Envoi de $mediaFolder vers le partage 'media' de $storageName"
+# az writes its progress to stderr, which Windows PowerShell 5.1 takes as a failure under 'Stop':
+# judge the upload by its exit code instead.
+$ErrorActionPreference = 'Continue'
 az storage file upload-batch --account-name $storageName --account-key $key `
-    --destination media --source $mediaFolder --output none
+    --destination media --source $mediaFolder --output none --only-show-errors 2>&1 | Out-Host
+$uploadExitCode = $LASTEXITCODE
+$ErrorActionPreference = 'Stop'
+if ($uploadExitCode -ne 0) { throw "L'envoi des images a échoué (code $uploadExitCode)." }
 Write-Host 'Images envoyées.'
