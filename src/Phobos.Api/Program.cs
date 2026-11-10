@@ -1,5 +1,7 @@
+using System.IO.Compression;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.ResponseCompression;
 using Phobos.Api;
 using Phobos.Api.Site;
 using Phobos.Application;
@@ -19,9 +21,23 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Clear();
 });
 
+// No cookie or secret ever travels in a response, so compressing over HTTPS is safe here. Static files are
+// compressed over HTTPS anyway; EnableForHttps covers the generated responses (pages, JSON, sitemap).
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["image/svg+xml"]);
+});
+// The default favours speed over size (Brotli came out larger than gzip); assets are then cached for a year.
+builder.Services.Configure<BrotliCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+builder.Services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+
 var app = builder.Build();
 app.UseForwardedHeaders();
-app.UseStaticFiles();
+app.UseResponseCompression();
+app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = SiteCaching.ForStaticFile });
 
 app.MapOpenApi();
 app.MapGet("/api/health", () => new { Status = "ok" });

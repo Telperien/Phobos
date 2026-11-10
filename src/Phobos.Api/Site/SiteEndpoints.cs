@@ -41,6 +41,7 @@ public static class SiteEndpoints
     {
         var page = await ReadAsync(environment.WebRootFileProvider, "index.html");
         if (page is null) return Results.NotFound();
+        context.Response.Headers.CacheControl = SiteCaching.Page;
 
         var json = await ReadAsync(environment.WebRootFileProvider, "seo.json");
         var texts = json is null ? null : JsonSerializer.Deserialize<Dictionary<string, SeoTexts>>(json, Options);

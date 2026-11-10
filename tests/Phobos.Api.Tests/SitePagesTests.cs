@@ -261,17 +261,4 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
 
         Assert.Contains("<title>Tom &amp; &quot;Jerry&quot; &lt;3</title>", html, StringComparison.Ordinal);
     }
-
-    private sealed class FromInternalNetwork : IStartupFilter
-    {
-        public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next) => app =>
-        {
-            app.Use((context, call) =>
-            {
-                context.Connection.RemoteIpAddress = IPAddress.Parse("10.0.0.7");
-                return call(context);
-            });
-            next(app);
-        };
-    }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Phobos.Api.Site;
 using Phobos.Application;
 using Phobos.Domain;
 
@@ -51,10 +52,13 @@ public static class PhobiaEndpoints
 
     private static string[] SlugList(string? commaSeparated) => commaSeparated?.Split(',') ?? [];
 
-    private static async Task<IResult> ServeMediaAsync(string key, IMediaStore store, CancellationToken cancellationToken)
+    private static async Task<IResult> ServeMediaAsync(
+        string key, HttpContext context, IMediaStore store, CancellationToken cancellationToken)
     {
         var file = await store.OpenReadAsync(key, cancellationToken);
-        return file is null ? TypedResults.NotFound() : TypedResults.Stream(file.Content, file.ContentType);
+        if (file is null) return TypedResults.NotFound();
+        context.Response.Headers.CacheControl = SiteCaching.Image;
+        return TypedResults.Stream(file.Content, file.ContentType);
     }
 
     private static Results<Ok<PhobiaDetail>, NotFound> OkOrNotFound(PhobiaDetail? detail) =>

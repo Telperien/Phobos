@@ -141,3 +141,13 @@
 - Essai réel : l'API servant la vraie build (`--webroot web/dist`) donne « Arachnophobie — Empfindlich » en allemand avec résumé, image, 5 langues ; 404 pour un dossier inconnu ; sitemap et robots corrects.
 - Survivants Stryker restants, équivalents : route `"/"` vs `""`, `start <= 0` (la page commence par le doctype), `end <= start` (balises distinctes), clé de repli `""` d'un verdict absent.
 - Résultats : 168 tests .NET, CRAP max 8 (`PageHeads.ForAsync`, couvert à 100 %), Stryker Api 97,7 %, jscpd 0 clone ; 129 tests Vitest, Biome propre, build OK, 30 tests Playwright.
+
+## 2026-11-10 — Étape 9 (2/6) : performance
+
+- Mesure en production : aucune compression (JavaScript envoyé brut, 550 Ko) et aucun en-tête de cache.
+- Compression Brotli et gzip des réponses texte (`UseResponseCompression`, niveau « optimal » : au niveau par défaut, Brotli faisait plus gros que gzip). `EnableForHttps` : aucune donnée secrète ni cookie dans les réponses ; les fichiers statiques sont compressés en HTTPS de toute façon (ils passent outre ce réglage), il compte pour les réponses générées (pages, JSON, sitemap) — testé derrière le proxy simulé, sinon le mutant survivait.
+- Cache : `/assets/*` (nom changeant avec le contenu) un an `immutable` ; pages `no-cache` (un déploiement se voit tout de suite) ; images des dossiers un jour.
+- JavaScript découpé par page (`lazyRouteComponent`) ; images au-delà de la première d'un niveau chargées au défilement (`loading="lazy"`, `decoding="async"`).
+- Résultat mesuré (API servant la vraie build) : première visite d'une fiche ≈ 190 Ko transférés au lieu de ≈ 590 Ko (noyau 246 → 78 Ko, React 135 → 46 Ko, animations 117 → 42 Ko, CSS 40 → 8 Ko) ; visites suivantes : la page (0,6 Ko) et les données.
+- Non fait : variantes d'images plus petites pour le mobile (`srcset`), à reconsidérer quand toutes les images seront là (≈ 150 Ko chacune en 1600 px).
+- Résultats : 176 tests .NET, CRAP sous 10, Stryker Api 97,8 % (mêmes survivants équivalents), jscpd 0 clone ; 129 tests Vitest, Biome propre, build OK, 30 tests Playwright.

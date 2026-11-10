@@ -1,15 +1,18 @@
-import { createRootRoute, createRoute, createRouter, Outlet, redirect } from '@tanstack/react-router'
+import {
+  createRootRoute,
+  createRoute,
+  createRouter,
+  lazyRouteComponent,
+  Outlet,
+  redirect,
+} from '@tanstack/react-router'
 import { type CatalogueSearch, parseCatalogueSearch, toCatalogueSearch } from './catalogue/filter'
 import { isLang, pathInLanguage, preferredLanguage } from './i18n/languages'
 import { LangLayout } from './layout/RootLayout'
-import { CataloguePage } from './pages/CataloguePage'
-import { HomePage } from './pages/HomePage'
-import { MyFilePage } from './pages/MyFilePage'
 import { NotFoundPage } from './pages/NotFoundPage'
-import { PhobiaPage } from './pages/PhobiaPage'
-import { RoulettePage } from './pages/RoulettePage'
 import { parseRouletteSearch, type RouletteSearch, toRouletteSearch } from './roulette/round'
 
+/** Each page is its own chunk of JavaScript, loaded when the visitor goes there. */
 const rootRoute = createRootRoute({ component: Outlet })
 
 /** `/` sends visitors to their language: saved choice, then browser, then English. */
@@ -36,20 +39,24 @@ export const langRoute = createRoute({
   notFoundComponent: NotFoundPage,
 })
 
-const homeRoute = createRoute({ getParentRoute: () => langRoute, path: '/', component: HomePage })
+const homeRoute = createRoute({
+  getParentRoute: () => langRoute,
+  path: '/',
+  component: lazyRouteComponent(() => import('./pages/HomePage'), 'HomePage'),
+})
 
 const catalogueRoute = createRoute({
   getParentRoute: () => langRoute,
   path: 'dossiers',
   validateSearch: (search: Record<string, unknown>): CatalogueSearch =>
     toCatalogueSearch(parseCatalogueSearch(search)),
-  component: CataloguePage,
+  component: lazyRouteComponent(() => import('./pages/CataloguePage'), 'CataloguePage'),
 })
 
 const phobiaRoute = createRoute({
   getParentRoute: () => langRoute,
   path: 'dossiers/$slug',
-  component: PhobiaPage,
+  component: lazyRouteComponent(() => import('./pages/PhobiaPage'), 'PhobiaPage'),
 })
 
 const rouletteRoute = createRoute({
@@ -57,13 +64,13 @@ const rouletteRoute = createRoute({
   path: 'roulette',
   validateSearch: (search: Record<string, unknown>): RouletteSearch =>
     toRouletteSearch(parseRouletteSearch(search)),
-  component: RoulettePage,
+  component: lazyRouteComponent(() => import('./pages/RoulettePage'), 'RoulettePage'),
 })
 
 const myFileRoute = createRoute({
   getParentRoute: () => langRoute,
   path: 'mon-dossier',
-  component: MyFilePage,
+  component: lazyRouteComponent(() => import('./pages/MyFilePage'), 'MyFilePage'),
 })
 
 export const router = createRouter({

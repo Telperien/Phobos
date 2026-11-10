@@ -221,6 +221,8 @@ function ImagePlates({
             src={item.source}
             alt={t.journey.imageAlt(name, `0${level}-${String.fromCharCode(65 + index)}`)}
             className="aspect-[4/3] w-full border border-ash object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
             draggable={false}
           />
           {item.credit && (

@@ -151,6 +151,7 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("image/webp", response.Content.Headers.ContentType?.MediaType);
         Assert.Equal("image bytes", await response.Content.ReadAsStringAsync());
+        Assert.Equal(TimeSpan.FromDays(1), response.Headers.CacheControl?.MaxAge);
     }
 
     [Theory]
