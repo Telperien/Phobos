@@ -39,7 +39,33 @@
       "annotation": "Stacca tutte le spine al primo brontolio."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "astraphobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "astraphobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "astraphobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "astraphobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "astraphobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "kgVV41r_VTo",
     "start": 0

@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Phobos.Api.Site;
+using Phobos.Application;
+using Phobos.Domain;
+using Phobos.Infrastructure.Content;
 
 namespace Phobos.Api.Tests;
 
@@ -128,7 +131,18 @@ public sealed partial class SitePagesTests : IClassFixture<PhobosApiFactory>, ID
     [Fact]
     public async Task A_case_file_without_images_shows_the_site_preview_image()
     {
-        var (_, html) = await PageAsync("/fr/dossiers/acrophobia");
+        // A case file of its own: the shipped ones all have images now.
+        var heights = Phobia.Create("acrophobia", 14, Category.NatureAndSpaces,
+            [new PhobiaTranslation(Language.Fr, "Acrophobie", "du grec", "Peur du vide.", "Description.", "Note.")]);
+        heights.Publish();
+        using var client = _factory.WithWebHostBuilder(builder =>
+        {
+            builder.UseWebRoot(_webRoot);
+            builder.ConfigureTestServices(services =>
+                services.AddSingleton<IPhobiaCatalogue>(new ContentPhobiaCatalogue([heights])));
+        }).CreateClient();
+
+        var (_, html) = await PageAsync("/fr/dossiers/acrophobia", client);
 
         Assert.Equal("http://localhost/og.jpg", Meta(html, "og:image"));
     }

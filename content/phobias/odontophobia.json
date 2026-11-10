@@ -39,7 +39,33 @@
       "annotation": "Ultimo appuntamento: rimandato sette volte."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "odontophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "odontophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "odontophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "odontophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "odontophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "Lf3PLIKqhNg",
     "start": 30

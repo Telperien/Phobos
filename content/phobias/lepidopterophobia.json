@@ -39,7 +39,33 @@
       "annotation": "Spegne la luce appena c’è una finestra aperta."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "lepidopterophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "lepidopterophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "lepidopterophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "lepidopterophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "lepidopterophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "Gf8q6FH5zRc",
     "start": 0

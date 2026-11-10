@@ -39,7 +39,33 @@
       "annotation": "Fa le scale dal lato del muro."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "acrophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "acrophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "acrophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "acrophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "acrophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "2IUuFM1ldbs",
     "start": 3740

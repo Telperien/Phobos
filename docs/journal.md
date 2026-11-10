@@ -169,3 +169,10 @@
 - Vérifié : tests .NET (identifiants valides), lecteurs `youtube-nocookie` qui démarrent à la bonne seconde (feu 35 s, requin 80 s, épave 670 s, essai Playwright), 44 tests Playwright.
 - Un test de l'API qui ajoutait une vidéo au dossier livré des requins construit désormais son propre dossier (le contenu livré gagne des médias au fil du temps).
 - Test « parcours au clavier » instable corrigé : avant le premier Tab, l'élément actif est la page entière, dont le texte contient « J'ai compris » ; seuls un bouton ou un lien focalisés comptent désormais (3 passages sur 3, suite complète 44/44).
+
+## 2026-11-10 — Images des 30 phobies
+
+- Codex a généré les 25 phobies restantes (5 images chacune) et refait la coccinelle et le serpent du chemin, sans lancer la déclaration. Relecture en planches contact : progression d'intensité correcte, garde-fous respectés (hémophobie sobre, trypophobie sur objets naturels). Faiblesses notées : trypophobie peu progressive (trois gousses de lotus presque identiques, la tranche de pain prévue au niveau 2 manque), serpent du chemin et ombre de la thalassophobie encore discrets en vignette.
+- `npm run media -- --declare-ai` : 125 images déclarées et converties (25 fichiers de contenu), 150 au total, 23 Mo de WebP. Les deux images refaites étaient déjà reconverties et en ligne.
+- Deux tests qui comptaient sur un dossier livré sans média (requins, puis acrophobie) construisent leur propre dossier.
+- Vérifié : tests .NET, 150 images servies en 200 par l'API locale, 44 tests Playwright. En production avant envoi : 25 images en ligne identiques, 125 absentes → `./infra/upload-media.ps1` avant de pousser le contenu.

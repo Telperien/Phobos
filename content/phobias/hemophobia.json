@@ -39,7 +39,33 @@
       "annotation": "Si sdraia a terra prima che glielo chiedano."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "hemophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "hemophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "hemophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "hemophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "hemophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "pzf3HulYOIg",
     "start": 50

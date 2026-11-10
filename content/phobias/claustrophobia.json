@@ -39,7 +39,33 @@
       "annotation": "Individua le uscite di sicurezza prima di sedersi."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "claustrophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "claustrophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "claustrophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "claustrophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "claustrophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "cEFUJBmxzAU",
     "start": 340

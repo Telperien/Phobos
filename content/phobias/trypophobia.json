@@ -39,7 +39,33 @@
       "annotation": "Riferisce prurito alla sola menzione."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "trypophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "trypophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "trypophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "trypophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "trypophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "oCZeFPiVXmk",
     "start": 25

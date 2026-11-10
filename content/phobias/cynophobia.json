@@ -39,7 +39,33 @@
       "annotation": "Cambia marciapiede a ogni guinzaglio."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "cynophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "cynophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "cynophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "cynophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "cynophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "vIqSjiQUH18",
     "start": 0

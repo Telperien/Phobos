@@ -39,7 +39,33 @@
       "annotation": "Fissa il soffitto. Conta fino a cento."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "trypanophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "trypanophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "trypanophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "trypanophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "trypanophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "DzTmDlcE_3U",
     "start": 85

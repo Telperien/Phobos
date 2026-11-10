@@ -39,7 +39,33 @@
       "annotation": "Dorme con la lucina accesa. Da 31 anni."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "nyctophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "nyctophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "nyctophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "nyctophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "nyctophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "Vkp838QWBbs",
     "start": 0

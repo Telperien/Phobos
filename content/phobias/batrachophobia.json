@@ -39,7 +39,33 @@
       "annotation": "Rifiuta di passare vicino agli stagni dopo la pioggia."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "batrachophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "batrachophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "batrachophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "batrachophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "batrachophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "oYcl0xxU5_s",
     "start": 95

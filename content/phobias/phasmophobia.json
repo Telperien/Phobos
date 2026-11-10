@@ -39,7 +39,33 @@
       "annotation": "Non dorme mai con le spalle alla porta."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "phasmophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "phasmophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "phasmophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "phasmophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "phasmophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "GdSxDFF1szw",
     "start": 0

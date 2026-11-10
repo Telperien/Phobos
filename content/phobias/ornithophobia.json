@@ -39,7 +39,33 @@
       "annotation": "Non dà mai da mangiare ai piccioni. Mai."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "ornithophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "ornithophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "ornithophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "ornithophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "ornithophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "JB0yAzmyvHY",
     "start": 0

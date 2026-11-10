@@ -39,7 +39,33 @@
       "annotation": "Non guarda mai dall’oblò del traghetto."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "submechanophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "submechanophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "submechanophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "submechanophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "submechanophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "71GOp4F8Ap0",
     "start": 670

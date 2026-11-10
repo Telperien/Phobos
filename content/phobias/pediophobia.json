@@ -39,7 +39,33 @@
       "annotation": "Gira le bambole verso il muro."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "pediophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "pediophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "pediophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "pediophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "pediophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "-4-4u9mdpWg",
     "start": 0

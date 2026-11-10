@@ -39,7 +39,33 @@
       "annotation": "Chiude le persiane prima del tramonto."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "chiroptophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "chiroptophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "chiroptophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "chiroptophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "chiroptophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "aqMkDKJtN9o",
     "start": 100

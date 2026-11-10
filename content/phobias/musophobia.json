@@ -39,7 +39,33 @@
       "annotation": "Sale su una sedia al minimo rumore."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "musophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "musophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "musophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "musophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "musophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "ExNCxnh5Y1k",
     "start": 0

@@ -39,7 +39,33 @@
       "annotation": "Fa il bagno solo dove vede i propri piedi."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "selachophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "selachophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "selachophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "selachophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "selachophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "nNLGAEREkF4",
     "start": 80

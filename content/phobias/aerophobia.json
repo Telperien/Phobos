@@ -39,7 +39,33 @@
       "annotation": "Applaude a ogni atterraggio. Sinceramente."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "aerophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "aerophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "aerophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "aerophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "aerophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "T7oE6NSKix0",
     "start": 0

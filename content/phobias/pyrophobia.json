@@ -39,7 +39,33 @@
       "annotation": "Controlla tre volte che il gas sia chiuso."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "pyrophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "pyrophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "pyrophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "pyrophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "pyrophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "S3DKqtbx3nc",
     "start": 35

@@ -39,7 +39,33 @@
       "annotation": "Rifiuta di nuotare dove non tocca."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "thalassophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "thalassophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "thalassophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "thalassophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "thalassophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "vkfTSlTnaBQ",
     "start": 180

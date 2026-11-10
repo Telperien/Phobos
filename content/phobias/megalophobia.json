@@ -39,7 +39,33 @@
       "annotation": "Non alza mai lo sguardo vicino alle dighe."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "megalophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "megalophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "megalophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "megalophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "megalophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": {
     "youtube": "YoDTP3Xl3RQ",
     "start": 0
