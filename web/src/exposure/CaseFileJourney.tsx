@@ -9,15 +9,18 @@ import { saveExit, saveProgress, useLogbook } from '../logbook/store'
 import { ImageCredit } from '../media/ImageCredit'
 import { MediaPlaceholder } from '../media/MediaPlaceholder'
 import { YouTubeFacade } from '../media/YouTubeFacade'
+import { ShareVerdictButton } from '../share/ShareVerdictButton'
 import { ActionButton, actionClasses } from '../ui/ActionButton'
 import { caseLabel } from '../ui/caseLabel'
 import { Stamp } from '../ui/Stamp'
 import { EntryWarning } from './EntryWarning'
 import { FearGauge } from './FearGauge'
-import { HoldToReveal } from './HoldToReveal'
 import { journeyReducer, START } from './journey'
 import { FINAL_LEVEL, type LevelNumber } from './levels'
 import { type ExitChoice, verdictFor } from './verdict'
+
+/** Compact buttons in the sticky action bar, so three fit side by side in the journey column. */
+const BAR_BUTTON = 'px-3 py-2.5 text-base leading-tight'
 
 /**
  * A case file and its exposure journey: levels 1 to 5, then the verdict.
@@ -66,16 +69,21 @@ export function CaseFileJourney({ phobia, next: nextAction }: { phobia: PhobiaDe
               >
                 <LevelHeader level={level} />
                 <LevelMedia level={level} phobia={phobia} />
-                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                {/* Always within reach, however many images the level shows. */}
+                <div className="sticky bottom-0 z-20 -mx-4 grid grid-cols-2 gap-2 border-t border-ash bg-ink/95 px-4 py-3 backdrop-blur-sm sm:mx-0 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none sm:px-0">
                   {level < FINAL_LEVEL && (
-                    <ActionButton variant="primary" onClick={next}>
+                    <ActionButton
+                      variant="primary"
+                      onClick={next}
+                      className={`col-span-2 sm:col-span-1 ${BAR_BUTTON}`}
+                    >
                       {t.journey.next} <span aria-hidden="true">→</span>
                     </ActionButton>
                   )}
-                  <ActionButton variant="safe" onClick={() => exit('notPhobic')}>
+                  <ActionButton variant="safe" onClick={() => exit('notPhobic')} className={BAR_BUTTON}>
                     {t.journey.notPhobic}
                   </ActionButton>
-                  <ActionButton variant="escape" onClick={() => exit('stop')}>
+                  <ActionButton variant="escape" onClick={() => exit('stop')} className={BAR_BUTTON}>
                     {t.journey.stop}
                   </ActionButton>
                 </div>
@@ -150,7 +158,18 @@ function LevelHeader({ level }: { level: LevelNumber }) {
   const { name, hint } = t.levels[level]
   return (
     <header className="flex flex-col gap-1">
-      <p className="label-mono text-rust-bright">{t.journey.levelLabel(level)}</p>
+      <p className="flex items-baseline gap-3">
+        <span className="sr-only">{t.journey.levelOf(level, FINAL_LEVEL)}</span>
+        <span aria-hidden="true" className="label-mono text-clinical">
+          {t.journey.level}
+        </span>
+        <span aria-hidden="true" className="font-display text-7xl leading-none font-black text-rust-bright">
+          {level}
+        </span>
+        <span aria-hidden="true" className="font-display text-4xl leading-none font-black text-clinical">
+          / {FINAL_LEVEL}
+        </span>
+      </p>
       <h2 id="exposure-title" className="font-display text-5xl font-black break-words uppercase">
         {name}
       </h2>
@@ -172,8 +191,7 @@ function LevelMedia({ level, phobia }: { level: LevelNumber; phobia: PhobiaDetai
     )
   }
 
-  const images = <ImagePlates level={level} media={media} name={phobia.name} />
-  return level === 1 ? images : <HoldToReveal warning={t.journey.sensitive}>{images}</HoldToReveal>
+  return <ImagePlates level={level} media={media} name={phobia.name} />
 }
 
 function ImagePlates({
@@ -196,7 +214,7 @@ function ImagePlates({
   }
 
   return (
-    <div className={`grid gap-2 ${media.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+    <div className="flex flex-col gap-4">
       {media.map((item, index) => (
         <figure key={item.source} className="flex flex-col gap-1">
           <img
@@ -246,6 +264,7 @@ function VerdictPanel({
       <p className="max-w-md font-serif text-lg text-bone/80">{text.detail(outcome.level)}</p>
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         {next}
+        <ShareVerdictButton phobia={phobia} outcome={outcome} />
         <ActionButton variant="ghost" onClick={onRestart}>
           {t.verdict.restart}
         </ActionButton>

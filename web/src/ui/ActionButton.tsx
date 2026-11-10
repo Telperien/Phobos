@@ -2,13 +2,13 @@ import type { ButtonHTMLAttributes } from 'react'
 
 const VARIANTS = {
   /** Avancer : « Niveau suivant » */
-  primary: 'border-bone bg-bone text-ink hover:bg-transparent hover:text-bone',
+  primary: 'border-bone bg-bone text-ink hover:border-paper hover:bg-paper',
   /** Sortie rassurante : « Je ne suis pas phobique » */
-  safe: 'border-sickly text-sickly hover:bg-sickly hover:text-ink',
+  safe: 'border-sickly bg-sickly text-ink hover:brightness-110',
   /** Sortie d'urgence : « Pitié, on arrête ici » */
-  escape: 'border-rust-bright text-rust-bright hover:bg-rust hover:text-bone hover:border-rust',
-  /** Neutre */
-  ghost: 'border-bone/40 text-bone hover:border-bone',
+  escape: 'border-rust-bright bg-rust-bright text-bone hover:border-rust hover:bg-rust',
+  /** Neutre, actions secondaires */
+  ghost: 'border-bone/40 text-bone hover:border-bone hover:bg-bone/10',
 } as const
 
 type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -16,7 +16,7 @@ type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 export const actionClasses = (variant: keyof typeof VARIANTS = 'ghost') =>
-  `inline-flex items-center justify-center gap-3 border px-5 py-3 font-display text-lg font-bold uppercase tracking-wide transition-colors duration-150 ${VARIANTS[variant]}`
+  `inline-flex cursor-pointer items-center justify-center gap-3 border-2 px-5 py-3 text-center font-display text-lg font-bold uppercase tracking-wide transition duration-150 active:translate-y-px disabled:cursor-wait disabled:opacity-60 ${VARIANTS[variant]}`
 
 export function ActionButton({ variant, className = '', type = 'button', ...props }: ActionButtonProps) {
   return <button type={type} className={`${actionClasses(variant)} ${className}`} {...props} />

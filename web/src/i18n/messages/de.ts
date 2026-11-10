@@ -126,12 +126,11 @@ export const de: Messages = {
   journey: {
     gauge: 'Gänsehaut-Anzeige',
     gaugeValue: (level, name) => `Stufe ${level} von 5: ${name}`,
-    levelLabel: (level) => `Stufe 0${level} / 05`,
+    level: 'Stufe',
+    levelOf: (level, total) => `Stufe ${level} von ${total}`,
     next: 'Nächste Stufe',
     notPhobic: 'Ich bin nicht phobisch',
     stop: 'Gnade, wir hören hier auf',
-    sensitive: 'Heikler Inhalt — Stufen 02 bis 04',
-    hold: 'Gedrückt halten zum Aufdecken',
     plate: (plate) => `Tafel ${plate}`,
     imageAlt: (name, plate) => `${name}, Tafel ${plate}`,
     credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
@@ -164,6 +163,13 @@ export const de: Messages = {
         detail: (level) => `Erklärt auf Stufe ${level}. Notiert, ohne Urteil.`,
       },
     },
+  },
+  share: {
+    button: 'Meinen Befund teilen',
+    preparing: 'Karte wird vorbereitet…',
+    downloaded: 'Karte heruntergeladen: Teile sie, wo du willst.',
+    failed: 'Die Karte konnte nicht erstellt werden.',
+    text: (name, verdict) => `${name}: ${verdict}. Und du, wie weit hältst du durch?`,
   },
   myFile: {
     kicker: 'Patientenakte — nur in diesem Browser gespeichert',

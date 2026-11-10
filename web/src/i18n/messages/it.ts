@@ -126,12 +126,11 @@ export const it: Messages = {
   journey: {
     gauge: 'Indicatore di brividi',
     gaugeValue: (level, name) => `Livello ${level} di 5: ${name}`,
-    levelLabel: (level) => `Livello 0${level} / 05`,
+    level: 'Livello',
+    levelOf: (level, total) => `Livello ${level} di ${total}`,
     next: 'Livello successivo',
     notPhobic: 'Non ho fobie',
     stop: 'Pietà, fermiamoci qui',
-    sensitive: 'Contenuto sensibile — livelli 02 a 04',
-    hold: 'Tieni premuto per svelare',
     plate: (plate) => `Tavola ${plate}`,
     imageAlt: (name, plate) => `${name}, tavola ${plate}`,
     credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
@@ -164,6 +163,13 @@ export const it: Messages = {
         detail: (level) => `Dichiarato al livello ${level}. Preso nota, senza giudicare.`,
       },
     },
+  },
+  share: {
+    button: 'Condividi il mio verdetto',
+    preparing: 'Preparazione della scheda…',
+    downloaded: 'Scheda scaricata: condividila dove vuoi.',
+    failed: 'Impossibile preparare la scheda.',
+    text: (name, verdict) => `${name}: ${verdict}. E tu, fin dove resisteresti?`,
   },
   myFile: {
     kicker: 'Fascicolo del paziente — conservato solo in questo browser',

@@ -10,13 +10,6 @@ test('a visitor faces a phobia to the end and finds it marked in the archives', 
   await page.getByRole('button', { name: /niveau suivant/i }).click()
 
   await expect(page.getByRole('heading', { name: 'Approcher' })).toBeVisible()
-  const hold = page.getByRole('button', { name: /maintenir pour révéler/i })
-  await hold.hover()
-  await page.mouse.down()
-  await expect(page.getByTestId('hold-to-reveal-media')).toHaveAttribute('data-revealed', 'true', {
-    timeout: 3000,
-  })
-  await page.mouse.up()
   await page.getByRole('button', { name: /niveau suivant/i }).click()
 
   await expect(page.getByRole('heading', { name: 'Examiner' })).toBeVisible()
@@ -57,4 +50,19 @@ test('an unknown case file says so', async ({ page }) => {
   await page.goto('/fr/dossiers/unknown-fear')
 
   await expect(page.getByText('Dossier introuvable')).toBeVisible()
+})
+
+test('the verdict card is downloaded as a PNG when the browser cannot share files', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'canShare', { value: undefined })
+  })
+  await page.goto('/fr/dossiers/arachnophobia')
+  await page.getByRole('button', { name: /j’ai compris/i }).click()
+  await page.getByRole('button', { name: /pitié, on arrête ici/i }).click()
+
+  const download = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'Partager mon verdict' }).click()
+
+  expect((await download).suggestedFilename()).toBe('phobos-arachnophobia-veryPhobic.png')
+  await expect(page.getByText(/carte téléchargée/i)).toBeVisible()
 })

@@ -126,12 +126,11 @@ export const en: Messages = {
   journey: {
     gauge: 'Shiver gauge',
     gaugeValue: (level, name) => `Level ${level} of 5: ${name}`,
-    levelLabel: (level) => `Level 0${level} / 05`,
+    level: 'Level',
+    levelOf: (level, total) => `Level ${level} of ${total}`,
     next: 'Next level',
     notPhobic: 'I’m not phobic',
     stop: 'Mercy, let’s stop here',
-    sensitive: 'Sensitive content — levels 02 to 04',
-    hold: 'Hold to reveal',
     plate: (plate) => `Plate ${plate}`,
     imageAlt: (name, plate) => `${name}, plate ${plate}`,
     credit: (author, license) => (author ? `Photo: ${author} · ${license}` : `Photo · ${license}`),
@@ -164,6 +163,13 @@ export const en: Messages = {
         detail: (level) => `Declared at level ${level}. Noted, no judgement.`,
       },
     },
+  },
+  share: {
+    button: 'Share my verdict',
+    preparing: 'Preparing the card…',
+    downloaded: 'Card downloaded: share it wherever you like.',
+    failed: 'Could not prepare the card.',
+    text: (name, verdict) => `${name}: ${verdict}. How far would you go?`,
   },
   myFile: {
     kicker: 'Patient file — kept in this browser only',

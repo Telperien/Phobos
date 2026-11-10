@@ -126,12 +126,11 @@ export const es: Messages = {
   journey: {
     gauge: 'Medidor de escalofríos',
     gaugeValue: (level, name) => `Nivel ${level} de 5: ${name}`,
-    levelLabel: (level) => `Nivel 0${level} / 05`,
+    level: 'Nivel',
+    levelOf: (level, total) => `Nivel ${level} de ${total}`,
     next: 'Siguiente nivel',
     notPhobic: 'No tengo fobia',
     stop: 'Piedad, paremos aquí',
-    sensitive: 'Contenido sensible — niveles 02 a 04',
-    hold: 'Mantén pulsado para revelar',
     plate: (plate) => `Lámina ${plate}`,
     imageAlt: (name, plate) => `${name}, lámina ${plate}`,
     credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
@@ -161,6 +160,13 @@ export const es: Messages = {
         detail: (level) => `Lo declaraste en el nivel ${level}. Tomamos nota, sin juzgar.`,
       },
     },
+  },
+  share: {
+    button: 'Compartir mi veredicto',
+    preparing: 'Preparando la tarjeta…',
+    downloaded: 'Tarjeta descargada: compártela donde quieras.',
+    failed: 'No se pudo preparar la tarjeta.',
+    text: (name, verdict) => `${name}: ${verdict}. ¿Y tú, hasta dónde aguantarías?`,
   },
   myFile: {
     kicker: 'Expediente del paciente — guardado solo en este navegador',

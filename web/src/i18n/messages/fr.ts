@@ -146,12 +146,11 @@ export const fr = {
   journey: {
     gauge: 'Jauge de frisson',
     gaugeValue: (level: number, name: string) => `Niveau ${level} sur 5 : ${name}`,
-    levelLabel: (level: number) => `Niveau 0${level} / 05`,
+    level: 'Niveau',
+    levelOf: (level: number, total: number) => `Niveau ${level} sur ${total}`,
     next: 'Niveau suivant',
     notPhobic: 'Je ne suis pas phobique',
     stop: 'Pitié, on arrête ici',
-    sensitive: 'Contenu sensible — niveaux 02 à 04',
-    hold: 'Maintenir pour révéler',
     plate: (plate: string) => `Planche ${plate}`,
     imageAlt: (name: string, plate: string) => `${name}, planche ${plate}`,
     credit: (author: string | null, license: string) =>
@@ -171,6 +170,13 @@ export const fr = {
     restart: 'Recommencer',
     myFile: 'Mon dossier',
     kinds: verdicts,
+  },
+  share: {
+    button: 'Partager mon verdict',
+    preparing: 'Préparation de la carte…',
+    downloaded: 'Carte téléchargée : à toi de la partager.',
+    failed: 'Impossible de préparer la carte.',
+    text: (name: string, verdict: string) => `${name} : ${verdict}. Et toi, jusqu’où tiendras-tu ?`,
   },
   myFile: {
     kicker: 'Dossier patient — conservé dans ce navigateur uniquement',

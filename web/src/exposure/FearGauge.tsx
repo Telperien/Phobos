@@ -27,7 +27,8 @@ export function FearGauge({ level }: { level: LevelNumber }) {
               <span
                 className={`label-mono tracking-normal sm:tracking-[0.2em] ${reached ? 'text-bone' : 'text-clinical/60'}`}
               >
-                <span className="text-rust-bright">0{number}</span> {t.levels[number].name}
+                <span className="text-rust-bright">0{number}</span>
+                <span className="sr-only"> {t.levels[number].name}</span>
               </span>
             </li>
           )

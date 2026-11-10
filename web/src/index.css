@@ -92,7 +92,8 @@ body {
   background-color: var(--color-ink);
   color: var(--color-bone);
   font-family: var(--font-serif);
-  overflow-x: hidden;
+  /* clip, not hidden: hidden would make body a scroll container and break position: sticky. */
+  overflow-x: clip;
 }
 
 ::selection {
