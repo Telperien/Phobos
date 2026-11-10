@@ -142,6 +142,12 @@ export const en: Messages = {
     stop: 'Mercy, let’s stop here',
     plate: (plate) => `Plate ${plate}`,
     imageAlt: (name, plate) => `${name}, plate ${plate}`,
+    carousel: {
+      label: (name) => `Plates of ${name}`,
+      position: (current, total) => `Plate ${current} / ${total}`,
+      previous: 'Previous plate',
+      next: 'Next plate',
+    },
     credit: (author, license) => (author ? `Photo: ${author} · ${license}` : `Photo · ${license}`),
     softPending: 'Soft image coming soon.',
     harshPending: 'Raw images coming soon. Enjoy the respite.',

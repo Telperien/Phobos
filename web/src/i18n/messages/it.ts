@@ -142,6 +142,12 @@ export const it: Messages = {
     stop: 'Pietà, fermiamoci qui',
     plate: (plate) => `Tavola ${plate}`,
     imageAlt: (name, plate) => `${name}, tavola ${plate}`,
+    carousel: {
+      label: (name) => `Tavole di ${name}`,
+      position: (current, total) => `Tavola ${current} / ${total}`,
+      previous: 'Tavola precedente',
+      next: 'Tavola successiva',
+    },
     credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
     softPending: 'Immagine dolce in arrivo.',
     harshPending: 'Immagini crude in arrivo. Goditi la tregua.',

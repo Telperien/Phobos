@@ -6,6 +6,7 @@ import { categoryName } from '../catalogue/categories'
 import { useLang, useT } from '../i18n/context'
 import { isFaced, type LogEntry } from '../logbook/logbook'
 import { saveExit, saveProgress, useLogbook } from '../logbook/store'
+import { ImageCarousel } from '../media/ImageCarousel'
 import { ImageCredit } from '../media/ImageCredit'
 import { MediaPlaceholder } from '../media/MediaPlaceholder'
 import { YouTubeFacade } from '../media/YouTubeFacade'
@@ -19,8 +20,8 @@ import { journeyReducer, START } from './journey'
 import { FINAL_LEVEL, type LevelNumber } from './levels'
 import { type ExitChoice, verdictFor } from './verdict'
 
-/** Compact buttons in the sticky action bar, so three fit side by side in the journey column. */
-const BAR_BUTTON = 'px-3 py-2.5 text-base leading-tight'
+/** Compact buttons in the action bar, so three fit side by side in the journey column (smaller on phones). */
+const BAR_BUTTON = 'px-2 py-2 text-sm leading-tight sm:px-3 sm:py-2.5 sm:text-base'
 
 /**
  * A case file and its exposure journey: levels 1 to 5, then the verdict.
@@ -69,8 +70,8 @@ export function CaseFileJourney({ phobia, next: nextAction }: { phobia: PhobiaDe
               >
                 <LevelHeader level={level} />
                 <LevelMedia level={level} phobia={phobia} />
-                {/* Always within reach, however many images the level shows. */}
-                <div className="sticky bottom-0 z-20 -mx-4 grid grid-cols-2 gap-2 border-t border-ash bg-ink/95 px-4 py-3 backdrop-blur-sm sm:mx-0 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none sm:px-0">
+                {/* On a phone the buttons follow the image, so it is seen first; on wider screens they stay in reach. */}
+                <div className="grid grid-cols-2 gap-2 border-t border-ash pt-3 sm:sticky sm:bottom-0 sm:z-20 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none sm:bg-ink/95 sm:py-3 sm:backdrop-blur-sm">
                   {level < FINAL_LEVEL && (
                     <ActionButton
                       variant="primary"
@@ -214,8 +215,9 @@ function ImagePlates({
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      {media.map((item, index) => (
+    <ImageCarousel
+      label={t.journey.carousel.label(name)}
+      slides={media.map((item, index) => (
         <figure key={item.source} className="flex flex-col gap-1">
           <img
             src={item.source}
@@ -232,7 +234,7 @@ function ImagePlates({
           )}
         </figure>
       ))}
-    </div>
+    />
   )
 }
 

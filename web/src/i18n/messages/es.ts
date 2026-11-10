@@ -142,6 +142,12 @@ export const es: Messages = {
     stop: 'Piedad, paremos aquí',
     plate: (plate) => `Lámina ${plate}`,
     imageAlt: (name, plate) => `${name}, lámina ${plate}`,
+    carousel: {
+      label: (name) => `Láminas de ${name}`,
+      position: (current, total) => `Lámina ${current} / ${total}`,
+      previous: 'Lámina anterior',
+      next: 'Lámina siguiente',
+    },
     credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
     softPending: 'Imagen suave en camino.',
     harshPending: 'Imágenes crudas en camino. Aprovecha el respiro.',

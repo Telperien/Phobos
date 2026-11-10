@@ -162,6 +162,12 @@ export const fr = {
     stop: 'Pitié, on arrête ici',
     plate: (plate: string) => `Planche ${plate}`,
     imageAlt: (name: string, plate: string) => `${name}, planche ${plate}`,
+    carousel: {
+      label: (name: string) => `Planches de ${name}`,
+      position: (current: number, total: number) => `Planche ${current} / ${total}`,
+      previous: 'Planche précédente',
+      next: 'Planche suivante',
+    },
     credit: (author: string | null, license: string) =>
       author ? `Photo : ${author} · ${license}` : `Photo · ${license}`,
     softPending: 'Image douce à venir.',

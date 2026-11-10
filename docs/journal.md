@@ -200,3 +200,10 @@
 - Hébergeur : Microsoft Ireland Operations Limited (entité contractante d'Azure en Europe), région France Centre. Le téléphone diffère selon les sources (+353 1 706 3117 / +353 1 706 3476) : à confirmer.
 - Confidentialité, d'après le code : ni compte, ni cookie, ni mesure d'audience, polices servies par le site ; langue et dossier en localStorage, roulette en sessionStorage ; YouTube (nocookie) chargé seulement au clic ; l'adresse IP n'est vue que par l'hébergeur pour servir les pages.
 - Tests laissés de côté à la demande (passe qualité plus tard) : vérifié par TypeScript (clés dans les 5 langues), lint, build et un coup d'œil dans le navigateur en fr et de. Les tests `SitePagesTests` (seo.json de test sans la nouvelle page) et `messages.test.ts` n'ont pas été relancés.
+
+## 2026-11-11 — Parcours sur mobile : image d'abord, carrousel
+
+- Retour de l'utilisateur : sur téléphone, la barre des trois boutons (un tiers de l'écran) restait collée en bas, par-dessus les images ; les niveaux à plusieurs images les empilaient.
+- Sur téléphone, les boutons suivent l'image (barre collante seulement à partir de `sm`) et sont plus compacts.
+- Plusieurs images dans un niveau : carrousel (`media/ImageCarousel.tsx`) à défilement horizontal aimanté, balayage au doigt, flèches et compteur « Planche 1 / 2 » annoncé aux lecteurs d'écran, défilement instantané si `prefers-reduced-motion`. Une seule image reste affichée telle quelle. Textes dans les 5 langues.
+- Vérifié par captures Playwright (Pixel 7, iPhone SE, ordinateur) : un niveau tient sur un écran, image puis boutons. Vitest 153, Playwright 48 (dont audits axe). Pas de nouveau test écrit (tests laissés de côté à la demande).

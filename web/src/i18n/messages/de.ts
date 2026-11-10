@@ -142,6 +142,12 @@ export const de: Messages = {
     stop: 'Gnade, wir hören hier auf',
     plate: (plate) => `Tafel ${plate}`,
     imageAlt: (name, plate) => `${name}, Tafel ${plate}`,
+    carousel: {
+      label: (name) => `Tafeln zu ${name}`,
+      position: (current, total) => `Tafel ${current} / ${total}`,
+      previous: 'Vorherige Tafel',
+      next: 'Nächste Tafel',
+    },
     credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
     softPending: 'Sanftes Bild folgt.',
     harshPending: 'Ungeschönte Bilder folgen. Genieß die Pause.',
