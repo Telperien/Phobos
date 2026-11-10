@@ -39,6 +39,32 @@
       "annotation": "Controlla le scarpe prima di infilarle."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "arachnophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "arachnophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "arachnophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "arachnophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "arachnophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": null
 }

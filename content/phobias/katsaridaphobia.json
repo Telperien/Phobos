@@ -39,6 +39,32 @@
       "annotation": "Accende la luce della cucina dal corridoio."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "katsaridaphobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "katsaridaphobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "katsaridaphobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "katsaridaphobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "katsaridaphobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": null
 }

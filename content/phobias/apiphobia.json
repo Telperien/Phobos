@@ -39,6 +39,32 @@
       "annotation": "Non beve mai bibite all’aperto."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "apiphobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "apiphobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "apiphobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "apiphobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "apiphobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": null
 }

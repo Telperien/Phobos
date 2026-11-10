@@ -39,6 +39,32 @@
       "annotation": "Evita l’erba alta, anche in città."
     }
   },
-  "images": [],
+  "images": [
+    {
+      "level": 1,
+      "file": "ophidiophobia/1-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 2,
+      "file": "ophidiophobia/2-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 3,
+      "file": "ophidiophobia/3-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "ophidiophobia/4-a.webp",
+      "origin": "ai"
+    },
+    {
+      "level": 4,
+      "file": "ophidiophobia/4-b.webp",
+      "origin": "ai"
+    }
+  ],
   "video": null
 }

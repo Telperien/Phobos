@@ -108,3 +108,11 @@
 - `infra/upload-media.ps1` : prépare puis envoie `media/` sur Azure Files, sans relancer toute l'infra. Bicep non compilé ici (Azure CLI absent de la machine) ; scripts PowerShell vérifiés par l'analyseur de PowerShell. Le serveur PostgreSQL déjà créé sur Azure n'est pas supprimé par Bicep (déploiement incrémental) : à supprimer à la main.
 - Messages d'erreur désormais testés (ils sont lus par la personne qui édite le contenu) : chaque refus cite la valeur fautive. Survivants Stryker restants, équivalents : texte de repli `""` du nom d'image (refusé de toute façon), route `"/"` vs `""`, `UseDefaultFiles` (doublé par le repli vers `index.html`), `useAsync` du flux de fichier.
 - Résultats : 151 tests .NET, CRAP max 6, Stryker Domain 100 %, Application 100 %, Infrastructure 97,0 %, Api 95,2 % ; 120 tests Vitest, Biome propre, build OK (JS 545 kB), jscpd 0 clone (back, front, scripts), 28 tests Playwright.
+
+## 2026-11-10 — Premières images (5 phobies)
+
+- Images IA générées pour araignées, serpents, insectes, cafards, abeilles et guêpes : 5 intensités (0 à 4) chacune, sélection décrite dans `media-generated/selection-phobies.md` avec les prompts (`prompts-generation.json`).
+- Répartition sur les 4 niveaux d'images : intensité 0 → niveau 1, 1 → 2, 2 → 3, 3 et 4 → niveau 4 (deux images côte à côte, `4-a` et `4-b`).
+- Les originaux et variantes étaient déposés dans `media/` (dossier de sortie du script) : déplacés dans `media-generated/` (hors git, archive), les 25 retenus copiés dans `media-src/<slug>/<niveau>-<lettre>.png`, puis `npm run media -- --declare-ai` : 25 entrées ajoutées aux 5 fichiers de contenu, 59 Mo de PNG → 4 Mo de WebP.
+- À revoir : insectes intensité 0 (la coccinelle ne se voit pas) et serpents intensité 1 (serpent à peine visible).
+- Vérifié : tests .NET (contenu valide), 25 images servies en 200 par l'API, parcours des araignées regardé dans le navigateur (niveaux 1 et 4), 28 tests Playwright.
