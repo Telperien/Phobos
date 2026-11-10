@@ -59,6 +59,9 @@ Les textes de l'interface sont dans `web/src/i18n/messages/` (`fr.ts` sert de r�
 | `GET /api/{lang}/phobias/{slug}` | Un dossier avec ses 5 niveaux |
 | `GET /api/{lang}/phobias/random?seen=a,b&exclude=c` | Un dossier tiré au hasard parmi ceux pas encore vus dans le tour (`seen`, du plus ancien au plus récent), jamais parmi `exclude` ; 204 s'il ne reste rien |
 | `GET /media/{key}` | Une image |
+| `GET /sitemap.xml`, `GET /robots.txt` | Pour les moteurs de recherche |
+
+En production, l'API sert aussi le site : chaque page reçoit son propre en-tête (titre, description, versions linguistiques, aperçu de lien ; `?verdict=<code>` sur une fiche met le verdict dans l'aperçu), à partir de `seo.json` écrit par la build du front.
 
 Catégories : `animals`, `nature-and-spaces`, `body-and-health`, `strange`.
 

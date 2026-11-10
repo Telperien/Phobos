@@ -6,6 +6,7 @@ import { CaseFileGrid } from '../catalogue/CaseFileGrid'
 import { EXPOSURE_LEVELS } from '../exposure/levels'
 import { useLang, useT } from '../i18n/context'
 import { actionClasses } from '../ui/ActionButton'
+import { useDocumentTitle } from '../ui/documentTitle'
 import { Stamp } from '../ui/Stamp'
 
 const rise = (delay: number) => ({
@@ -15,6 +16,7 @@ const rise = (delay: number) => ({
 })
 
 export function HomePage() {
+  useDocumentTitle(useT().meta.title)
   return (
     <>
       <Hero />

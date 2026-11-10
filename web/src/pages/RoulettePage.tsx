@@ -12,6 +12,7 @@ import { FearProfilePanel } from '../roulette/FearProfilePanel'
 import { parseRouletteSearch, type Round, spin, toRouletteSearch } from '../roulette/round'
 import { ActionButton } from '../ui/ActionButton'
 import { caseLabel } from '../ui/caseLabel'
+import { pageTitle, useDocumentTitle } from '../ui/documentTitle'
 import { LoadFailure } from '../ui/LoadState'
 import { Stamp } from '../ui/Stamp'
 
@@ -19,6 +20,7 @@ import { Stamp } from '../ui/Stamp'
 export function RoulettePage() {
   const lang = useLang()
   const t = useT()
+  useDocumentTitle(pageTitle(t.nav.roulette))
   const { skipFaced } = parseRouletteSearch(useSearch({ from: '/$lang/roulette' }))
   const navigate = useNavigate({ from: '/$lang/roulette' })
   const logbook = useLogbook()

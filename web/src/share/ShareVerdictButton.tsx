@@ -49,7 +49,7 @@ export function ShareVerdictButton({
         imageSource: phobia.levels[0]?.media.find((media) => media.kind === 'image')?.source,
       })
       const file = new File([blob], `phobos-${phobia.slug}-${verdict.kind}.png`, { type: 'image/png' })
-      const url = `${window.location.origin}/${lang}/dossiers/${phobia.slug}`
+      const url = `${window.location.origin}/${lang}/dossiers/${phobia.slug}?verdict=${verdict.kind}`
       setState(
         await shareCard(
           { file, title: t.meta.title, text: t.share.text(phobia.name, text.title), url },

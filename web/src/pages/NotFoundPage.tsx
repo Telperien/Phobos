@@ -1,12 +1,15 @@
 import { Link } from '@tanstack/react-router'
 import { useLang, useT } from '../i18n/context'
 import { actionClasses } from '../ui/ActionButton'
+import { useDocumentTitle } from '../ui/documentTitle'
 import { Stamp } from '../ui/Stamp'
 
 /** Unknown case file or unknown address. */
 export function NotFoundPage() {
   const lang = useLang()
-  const { missing } = useT().caseFile
+  const t = useT()
+  const { missing } = t.caseFile
+  useDocumentTitle(t.meta.title)
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-24">

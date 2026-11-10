@@ -4,6 +4,7 @@ import { catalogueQuery, phobiaQuery } from '../api/client'
 import { CaseFileJourney } from '../exposure/CaseFileJourney'
 import { useLang, useT } from '../i18n/context'
 import { actionClasses } from '../ui/ActionButton'
+import { pageTitle, useDocumentTitle } from '../ui/documentTitle'
 import { LoadFailure, LoadingLine } from '../ui/LoadState'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -12,6 +13,7 @@ export function PhobiaPage() {
   const { slug } = useParams({ from: '/$lang/dossiers/$slug' })
   // Switching language keeps the case file on screen (and the journey where it is) until the translation arrives.
   const phobia = useQuery({ ...phobiaQuery(useLang(), slug), placeholderData: keepPreviousData })
+  useDocumentTitle(phobia.data ? pageTitle(phobia.data.name) : undefined)
 
   if (phobia.isPending)
     return (

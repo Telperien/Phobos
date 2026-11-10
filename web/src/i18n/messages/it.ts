@@ -5,6 +5,8 @@ const plural = (count: number, one: string, many: string) => (count === 1 ? one 
 export const it: Messages = {
   meta: {
     title: 'Phobos — Trova la tua paura',
+    description:
+      'Trenta fobie archiviate come cartelle cliniche, cinque livelli di esposizione. Vai avanti finché resisti.',
     languageName: 'Italiano',
   },
   nav: {

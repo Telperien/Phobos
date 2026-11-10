@@ -15,7 +15,6 @@ export function LangLayout() {
 
   useEffect(() => {
     document.documentElement.lang = lang
-    document.title = MESSAGES[lang].meta.title
   }, [lang])
 
   return (

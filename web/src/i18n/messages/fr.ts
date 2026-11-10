@@ -24,6 +24,8 @@ const verdicts: VerdictTexts = {
 export const fr = {
   meta: {
     title: 'Phobos — Trouve ta peur',
+    description:
+      'Trente phobies classées comme des dossiers de patients, cinq niveaux d’exposition. Tu avances tant que tu tiens.',
     languageName: 'Français',
   },
   nav: {

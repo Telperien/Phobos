@@ -10,11 +10,13 @@ import { forgetEverything, useLogbook } from '../logbook/store'
 import { FearProfilePanel } from '../roulette/FearProfilePanel'
 import { ActionButton, actionClasses } from '../ui/ActionButton'
 import { caseLabel } from '../ui/caseLabel'
+import { pageTitle, useDocumentTitle } from '../ui/documentTitle'
 import { LoadFailure, LoadingLine } from '../ui/LoadState'
 import { Stamp } from '../ui/Stamp'
 
 export function MyFilePage() {
   const t = useT()
+  useDocumentTitle(pageTitle(t.myFile.title))
   const logbook = useLogbook()
   const catalogue = useQuery(catalogueQuery(useLang()))
 

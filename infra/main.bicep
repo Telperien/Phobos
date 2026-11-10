@@ -68,6 +68,8 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
       appSettings: [
         { name: 'ASPNETCORE_ENVIRONMENT', value: 'Production' }
         { name: 'Media__RootPath', value: mediaMountPath }
+        // Absolute links (canonical, language versions, link previews) behind the App Service proxy.
+        { name: 'Site__PublicUrl', value: 'https://${webAppName}.azurewebsites.net/' }
       ]
     }
   }

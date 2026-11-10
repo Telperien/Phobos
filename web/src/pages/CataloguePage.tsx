@@ -12,12 +12,14 @@ import {
 import { useLang, useT } from '../i18n/context'
 import { isFaced } from '../logbook/logbook'
 import { useLogbook } from '../logbook/store'
+import { pageTitle, useDocumentTitle } from '../ui/documentTitle'
 import { LoadFailure, LoadingLine } from '../ui/LoadState'
 
 const STATUSES = ['all', 'faced', 'todo'] as const
 
 export function CataloguePage() {
   const t = useT()
+  useDocumentTitle(pageTitle(t.catalogue.title))
   const filter = parseCatalogueSearch(useSearch({ from: '/$lang/dossiers' }))
   const navigate = useNavigate({ from: '/$lang/dossiers' })
   const logbook = useLogbook()
