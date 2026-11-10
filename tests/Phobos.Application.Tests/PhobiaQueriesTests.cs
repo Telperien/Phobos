@@ -64,9 +64,9 @@ public sealed class PhobiaQueriesTests
     public async Task Get_returns_the_case_file_with_its_five_levels()
     {
         var phobia = Add("arachnophobia", 1);
-        phobia.AddMedia(ExposureMedia.Image(2, "arachnophobia/2-a.webp"));
+        phobia.AddMedia(ExposureMedia.Image(2, "arachnophobia/2-a.webp", ImageCredit.Generated));
         phobia.AddMedia(ExposureMedia.YouTube("dQw4w9WgXcQ", startSeconds: 12));
-        phobia.AddMedia(ExposureMedia.Image(1, "arachnophobia/1-a.webp"));
+        phobia.AddMedia(ExposureMedia.Image(1, "arachnophobia/1-a.webp", ImageCredit.Generated));
 
         var detail = await Queries.GetAsync(Language.En, "arachnophobia", CancellationToken.None);
 
@@ -84,6 +84,25 @@ public sealed class PhobiaQueriesTests
             ],
             detail.Levels,
             new LevelComparer());
+    }
+
+    [Fact]
+    public async Task Get_credits_the_images_found_on_the_web_and_only_them()
+    {
+        var phobia = Add("arachnophobia", 1);
+        phobia.AddMedia(ExposureMedia.Image(3, "arachnophobia/3-a.webp", ImageCredit.Generated));
+        phobia.AddMedia(ExposureMedia.Image(3, "arachnophobia/3-b.webp",
+            ImageCredit.Licensed("CC BY 4.0", new Uri("https://commons.wikimedia.org/wiki/File:Spider.jpg"), "Jean Dupont")));
+
+        var detail = await Queries.GetAsync(Language.Fr, "arachnophobia", CancellationToken.None);
+
+        Assert.Equal(
+            [
+                new MediaView("image", "/media/arachnophobia/3-a.webp", 0),
+                new MediaView("image", "/media/arachnophobia/3-b.webp", 0,
+                    new MediaCredit("Jean Dupont", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Spider.jpg")),
+            ],
+            detail!.Levels[2].Media);
     }
 
     [Fact]

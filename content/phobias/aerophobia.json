@@ -1,0 +1,44 @@
+{
+  "slug": "aerophobia",
+  "caseNumber": 30,
+  "category": "strange",
+  "translations": {
+    "fr": {
+      "name": "Aérophobie",
+      "etymology": "du grec aēr, « air »",
+      "summary": "Peur de l’avion.",
+      "description": "Dix mille mètres sous les pieds, une turbulence, un bruit qu’on ne connaît pas. Et aucune porte de sortie avant l’atterrissage.",
+      "annotation": "Applaudit à chaque atterrissage. Sincèrement."
+    },
+    "en": {
+      "name": "Aerophobia",
+      "etymology": "from Greek aēr, “air”",
+      "summary": "Fear of flying.",
+      "description": "Ten thousand metres beneath your feet, some turbulence, a noise you don’t recognise. And no way out until landing.",
+      "annotation": "Applauds every landing. Sincerely."
+    },
+    "es": {
+      "name": "Aerofobia",
+      "etymology": "del griego aēr, «aire»",
+      "summary": "Miedo a volar.",
+      "description": "Diez mil metros bajo los pies, una turbulencia, un ruido desconocido. Y ninguna salida antes del aterrizaje.",
+      "annotation": "Aplaude en cada aterrizaje. Sinceramente."
+    },
+    "de": {
+      "name": "Aviophobie",
+      "etymology": "von lateinisch avis, „Vogel“",
+      "summary": "Flugangst.",
+      "description": "Zehntausend Meter unter den Füßen, Turbulenzen, ein unbekanntes Geräusch. Und kein Ausgang vor der Landung.",
+      "annotation": "Klatscht bei jeder Landung. Aufrichtig."
+    },
+    "it": {
+      "name": "Aerofobia",
+      "etymology": "dal greco aēr, «aria»",
+      "summary": "Paura di volare.",
+      "description": "Diecimila metri sotto i piedi, una turbolenza, un rumore sconosciuto. E nessuna uscita prima dell’atterraggio.",
+      "annotation": "Applaude a ogni atterraggio. Sinceramente."
+    }
+  },
+  "images": [],
+  "video": null
+}

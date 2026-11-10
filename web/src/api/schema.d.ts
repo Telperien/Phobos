@@ -205,11 +205,17 @@ export interface components {
       number: number
       media: components['schemas']['MediaView'][]
     }
+    MediaCredit: {
+      author: null | string
+      license: string
+      sourceUrl: string
+    }
     MediaView: {
       kind: string
       source: string
       /** Format: int32 */
       startSeconds: number
+      credit?: null | components['schemas']['MediaCredit']
     }
     PhobiaDetail: {
       slug: string

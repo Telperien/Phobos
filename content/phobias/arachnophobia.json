@@ -1,0 +1,44 @@
+{
+  "slug": "arachnophobia",
+  "caseNumber": 1,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Arachnophobie",
+      "etymology": "du grec arákhnē, « araignée »",
+      "summary": "Peur des araignées.",
+      "description": "La plus répandue des phobies animales. Huit pattes, des mouvements imprévisibles, et un cerveau qui décide pour toi bien avant que tu aies le temps de réfléchir.",
+      "annotation": "Vérifie ses chaussures avant de les enfiler."
+    },
+    "en": {
+      "name": "Arachnophobia",
+      "etymology": "from Greek arákhnē, “spider”",
+      "summary": "Fear of spiders.",
+      "description": "The most common animal phobia. Eight legs, unpredictable moves, and a brain that decides for you long before you have time to think.",
+      "annotation": "Checks shoes before putting them on."
+    },
+    "es": {
+      "name": "Aracnofobia",
+      "etymology": "del griego arákhnē, «araña»",
+      "summary": "Miedo a las arañas.",
+      "description": "La fobia animal más extendida. Ocho patas, movimientos imprevisibles y un cerebro que decide por ti mucho antes de que puedas pensar.",
+      "annotation": "Revisa los zapatos antes de ponérselos."
+    },
+    "de": {
+      "name": "Arachnophobie",
+      "etymology": "von griechisch arákhnē, „Spinne“",
+      "summary": "Angst vor Spinnen.",
+      "description": "Die häufigste Tierphobie. Acht Beine, unberechenbare Bewegungen und ein Gehirn, das für dich entscheidet, lange bevor du nachdenken kannst.",
+      "annotation": "Schüttelt die Schuhe vor dem Anziehen aus."
+    },
+    "it": {
+      "name": "Aracnofobia",
+      "etymology": "dal greco arákhnē, «ragno»",
+      "summary": "Paura dei ragni.",
+      "description": "La fobia animale più diffusa. Otto zampe, movimenti imprevedibili e un cervello che decide per te molto prima che tu possa pensare.",
+      "annotation": "Controlla le scarpe prima di infilarle."
+    }
+  },
+  "images": [],
+  "video": null
+}

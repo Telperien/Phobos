@@ -13,20 +13,15 @@ public sealed class InfrastructureSetupTests : IDisposable
         if (Directory.Exists(_contentRoot)) Directory.Delete(_contentRoot, recursive: true);
     }
 
-    private IMediaStore MediaStoreFor(string? mediaRootPath)
+    private ServiceProvider ServicesFor(string? mediaRootPath = null)
     {
         var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                ["ConnectionStrings:Phobos"] = "Host=localhost;Database=unused",
-                ["Media:RootPath"] = mediaRootPath,
-            })
+            .AddInMemoryCollection(new Dictionary<string, string?> { ["Media:RootPath"] = mediaRootPath })
             .Build();
-        return new ServiceCollection()
-            .AddPhobosInfrastructure(configuration, _contentRoot)
-            .BuildServiceProvider()
-            .GetRequiredService<IMediaStore>();
+        return new ServiceCollection().AddPhobosInfrastructure(configuration, _contentRoot).BuildServiceProvider();
     }
+
+    private IMediaStore MediaStoreFor(string? mediaRootPath) => ServicesFor(mediaRootPath).GetRequiredService<IMediaStore>();
 
     private void CreateImage(string folder)
     {
@@ -57,12 +52,15 @@ public sealed class InfrastructureSetupTests : IDisposable
     }
 
     [Fact]
-    public void A_missing_connection_string_is_reported_at_startup()
+    public async Task The_catalogue_serves_the_shipped_case_files()
     {
-        var empty = new ConfigurationBuilder().Build();
+        var catalogue = ServicesFor().GetRequiredService<IPhobiaCatalogue>();
 
-        var error = Assert.Throws<InvalidOperationException>(() =>
-            new ServiceCollection().AddPhobosInfrastructure(empty, _contentRoot));
-        Assert.Contains("ConnectionStrings:Phobos", error.Message, StringComparison.Ordinal);
+        var phobias = await catalogue.ListAsync(CancellationToken.None);
+        var spiders = await catalogue.FindBySlugAsync("arachnophobia", CancellationToken.None);
+
+        Assert.Equal(30, phobias.Count);
+        Assert.Equal(1, spiders?.CaseNumber);
+        Assert.Null(await catalogue.FindBySlugAsync("unknown", CancellationToken.None));
     }
 }

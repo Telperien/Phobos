@@ -8,18 +8,16 @@ public sealed partial class Phobia
     private readonly List<PhobiaTranslation> _translations = [];
     private readonly List<ExposureMedia> _media = [];
 
-    public Guid Id { get; private set; }
-    public string Slug { get; private set; }
-    public int CaseNumber { get; private set; }
-    public Category Category { get; private set; }
+    public string Slug { get; }
+    public int CaseNumber { get; }
+    public Category Category { get; }
     public bool IsPublished { get; private set; }
 
     public IReadOnlyList<PhobiaTranslation> Translations => _translations;
     public IReadOnlyList<ExposureMedia> Media => _media;
 
-    private Phobia(Guid id, string slug, int caseNumber, Category category)
+    private Phobia(string slug, int caseNumber, Category category)
     {
-        Id = id;
         Slug = slug;
         CaseNumber = caseNumber;
         Category = category;
@@ -32,7 +30,7 @@ public sealed partial class Phobia
         if (caseNumber is < 1 or > 999)
             throw new DomainRuleException($"Case number {caseNumber} is outside 1 to 999.");
 
-        var phobia = new Phobia(Guid.NewGuid(), slug, caseNumber, category);
+        var phobia = new Phobia(slug, caseNumber, category);
         phobia._translations.AddRange(translations);
 
         if (phobia._translations.Count == 0)

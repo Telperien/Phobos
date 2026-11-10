@@ -1,0 +1,44 @@
+{
+  "slug": "odontophobia",
+  "caseNumber": 25,
+  "category": "body-and-health",
+  "translations": {
+    "fr": {
+      "name": "Odontophobie",
+      "etymology": "du grec odoús, « dent »",
+      "summary": "Peur du dentiste.",
+      "description": "Le fauteuil qui bascule, la lumière dans les yeux, et ce bruit de fraise qui résonne jusque dans le crâne.",
+      "annotation": "Dernier rendez-vous : reporté sept fois."
+    },
+    "en": {
+      "name": "Odontophobia",
+      "etymology": "from Greek odoús, “tooth”",
+      "summary": "Fear of the dentist.",
+      "description": "The chair tilting back, the light in your eyes, and that drill noise echoing inside your skull.",
+      "annotation": "Last appointment: postponed seven times."
+    },
+    "es": {
+      "name": "Odontofobia",
+      "etymology": "del griego odoús, «diente»",
+      "summary": "Miedo al dentista.",
+      "description": "El sillón que se inclina, la luz en los ojos y ese ruido de torno que resuena dentro del cráneo.",
+      "annotation": "Última cita: aplazada siete veces."
+    },
+    "de": {
+      "name": "Odontophobie",
+      "etymology": "von griechisch odoús, „Zahn“",
+      "summary": "Angst vor dem Zahnarzt.",
+      "description": "Der Stuhl, der nach hinten kippt, das Licht in den Augen und das Bohrgeräusch, das im Schädel widerhallt.",
+      "annotation": "Letzter Termin: siebenmal verschoben."
+    },
+    "it": {
+      "name": "Odontofobia",
+      "etymology": "dal greco odoús, «dente»",
+      "summary": "Paura del dentista.",
+      "description": "La poltrona che si inclina, la luce negli occhi e quel rumore di trapano che rimbomba nel cranio.",
+      "annotation": "Ultimo appuntamento: rimandato sette volte."
+    }
+  },
+  "images": [],
+  "video": null
+}

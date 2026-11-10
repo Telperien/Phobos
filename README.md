@@ -6,17 +6,8 @@ Trouve ta peur : un catalogue de phobies à explorer par exposition graduée (5 
 
 - .NET SDK 10 (version fixée par `global.json`)
 - Node.js 24
-- PostgreSQL 17 : `winget install PostgreSQL.PostgreSQL.17`
 
-### Base de données locale
-
-Une seule fois, créer l'utilisateur de développement (psql demande le mot de passe `postgres` choisi à l'installation) :
-
-```powershell
-& 'C:\Program Files\PostgreSQL\17\bin\psql.exe' -U postgres -h localhost -c "CREATE ROLE phobos LOGIN PASSWORD 'phobos_dev' CREATEDB;"
-```
-
-`phobos` / `phobos_dev` ne sert qu'en local. Au démarrage en développement, l'API crée la base `phobos`, applique les migrations et charge les 30 dossiers de `src/Phobos.Infrastructure/Seed/phobias.json` si la base est vide. Les tests créent et suppriment leurs propres bases `phobos_test_*` (variable `PHOBOS_TEST_DB` pour viser un autre serveur).
+Aucune base de données : le catalogue vit dans des fichiers du dépôt.
 
 ## Démarrer en local
 
@@ -31,7 +22,28 @@ npm install
 npm run dev                                # site sur http://localhost:5173 (proxy /api vers l'API)
 ```
 
-Les images vont dans `media/<slug>/<niveau>-<lettre>.webp` à la racine du dépôt (ignoré par git). Voir `content/prompts.md` pour les prompts de génération.
+## Contenu
+
+Chaque phobie est un fichier `content/phobias/<slug>.json` : numéro, catégorie, textes dans les 5 langues, images (niveaux 1 à 4) et vidéo YouTube (niveau 5). Le fichier est embarqué dans l'API ; une erreur (niveau impossible, identifiant YouTube mal formé, image du web sans licence…) fait échouer les tests et empêche l'API de démarrer, avec le nom du fichier fautif. `"published": false` garde un dossier en brouillon.
+
+```json
+"images": [
+  { "level": 1, "file": "arachnophobia/1-a.webp", "origin": "ai" },
+  { "level": 2, "file": "arachnophobia/2-a.webp", "origin": "web",
+    "author": "Jean Dupont", "license": "CC BY 4.0", "url": "https://commons.wikimedia.org/wiki/File:…" }
+],
+"video": { "youtube": "dQw4w9WgXcQ", "start": 30 }
+```
+
+Une image du web n'est publiable que si sa licence le permet (domaine public, CC0, CC BY, CC BY-SA, Unsplash, Pexels…) ; auteur, licence et lien s'affichent sous l'image. Une image IA n'a besoin que de `"origin": "ai"`.
+
+### Images
+
+1. Déposer les sources dans `media-src/<slug>/<niveau>-<lettre>.<png|jpg|jpeg|webp|avif>` (ignoré par git), par exemple `media-src/arachnophobia/3-b.png`.
+2. Depuis `web/` : `npm run media`. Le script liste les images non déclarées (avec l'entrée JSON à ajouter), convertit les images déclarées en `media/<slug>/<niveau>-<lettre>.webp` (1600 px au plus, métadonnées retirées) et s'arrête si une image déclarée manque ou si une image du web n'a pas sa licence. `npm run media -- --declare-ai` déclare d'office les images non déclarées comme images IA.
+3. En production : `./infra/upload-media.ps1` (prépare puis envoie `media/` sur Azure Files).
+
+Prompts de génération : `content/prompts.md`.
 
 ## Langues
 
@@ -56,17 +68,20 @@ Catégories : `animals`, `nature-and-spaces`, `body-and-health`, `strange`.
 src/
   Phobos.Domain/          règles métier, sans dépendance
   Phobos.Application/     cas d'usage et ports (interfaces vers l'extérieur)
-  Phobos.Infrastructure/  base de données (EF Core, PostgreSQL), stockage des médias, seed
+  Phobos.Infrastructure/  lecture du contenu (content/phobias, embarqué), stockage des images
   Phobos.Api/             endpoints HTTP
 tests/                    tests .NET (xUnit), un projet par couche
 web/                      site React (Vite, Tailwind, TanStack Router et Query)
-content/                  prompts des images IA
+content/phobias/          un fichier JSON par phobie
+content/prompts.md        prompts des images IA
+media-src/, media/        images sources et préparées (hors git)
+web/scripts/media.ts      préparation des images
 docs/journal.md           journal des décisions
 ```
 
 ## Déployer sur Azure
 
-Une seule App Service Linux (.NET 10, plan B1) sert l'API et le site buildé (`web/dist` copié dans `wwwroot`), PostgreSQL Flexible Server (B1ms) porte le catalogue, un partage Azure Files monté sur `/mounts/media` porte les images. Région `francecentral`. Coût indicatif : ~30 €/mois (≈ moitié App Service, moitié PostgreSQL).
+Une seule App Service Linux (.NET 10, plan B1) sert l'API, le catalogue embarqué et le site buildé (`web/dist` copié dans `wwwroot`) ; un partage Azure Files monté sur `/mounts/media` porte les images. Région `francecentral`. Coût indicatif : ~15 €/mois (l'App Service ; le stockage des images coûte quelques centimes).
 
 Une fois, depuis la racine (PowerShell, `az login` et `gh auth login` faits) :
 
@@ -74,9 +89,9 @@ Une fois, depuis la racine (PowerShell, `az login` et `gh auth login` faits) :
 ./infra/bootstrap.ps1
 ```
 
-Le script crée le groupe `rg-phobos` et les ressources (`infra/main.bicep`), une identité GitHub Actions sans secret (OIDC, droit `Website Contributor` sur le seul site), les variables du dépôt et l'environnement `production`, puis envoie `media/`. Relancer `-SkipMedia` pour ne mettre à jour que l'infra ; relancer sans pour renvoyer les images.
+Le script crée le groupe `rg-phobos` et les ressources (`infra/main.bicep`), une identité GitHub Actions sans secret (OIDC, droit `Website Contributor` sur le seul site), les variables du dépôt et l'environnement `production`, puis prépare et envoie les images (`infra/upload-media.ps1`). Relancer `-SkipMedia` pour ne mettre à jour que l'infra ; pour de nouvelles images seulement, `./infra/upload-media.ps1`.
 
-Ensuite, chaque push sur `main` passe par `.github/workflows/ci-cd.yml` : tests .NET (contre un PostgreSQL de service), tests, lint et build du front, publication, déploiement, puis vérification de `/api/health`. Les PR ne font que la partie build et tests. Au démarrage, l'API applique les migrations et charge le seed si la base est vide.
+Ensuite, chaque push sur `main` passe par `.github/workflows/ci-cd.yml` : tests .NET, tests, lint et build du front, publication, déploiement, puis vérification de `/api/health`. Les PR ne font que la partie build et tests. Ajouter ou modifier une phobie passe donc par un commit sur `main`.
 
 ## Vérifications
 
@@ -84,8 +99,8 @@ Back (depuis la racine) :
 
 ```bash
 dotnet test
-dotnet crapsharp . --threshold 10 --exclude Migrations
-npx --yes jscpd@5.4.2 src --format csharp --min-tokens 50 --min-lines 3 --threshold 0 --ignore "**/bin/**,**/obj/**,**/Migrations/**"
+dotnet crapsharp . --threshold 10
+npx --yes jscpd@5.4.2 src --format csharp --min-tokens 50 --min-lines 3 --threshold 0 --ignore "**/bin/**,**/obj/**"
 ```
 
 Mutation : depuis le dossier de tests de la couche touchée (`tests/Phobos.Domain.Tests`, etc.), qui contient son `stryker-config.json` (seuil 80 %) :

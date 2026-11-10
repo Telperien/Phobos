@@ -1,0 +1,44 @@
+{
+  "slug": "submechanophobia",
+  "caseNumber": 21,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Submécanophobie",
+      "etymology": "du latin sub, « sous », et du grec mēkhanē, « machine »",
+      "summary": "Peur des objets immergés.",
+      "description": "Une hélice sous la coque, une épave couverte d’algues, une chaîne qui plonge dans le vert. Des machines là où elles ne devraient pas être.",
+      "annotation": "Ne regarde jamais par le hublot du ferry."
+    },
+    "en": {
+      "name": "Submechanophobia",
+      "etymology": "from Latin sub, “under”, and Greek mēkhanē, “machine”",
+      "summary": "Fear of submerged man-made objects.",
+      "description": "A propeller under the hull, a wreck covered in weed, a chain sinking into green water. Machines where they should not be.",
+      "annotation": "Never looks through the ferry porthole."
+    },
+    "es": {
+      "name": "Submecanofobia",
+      "etymology": "del latín sub, «bajo», y del griego mēkhanē, «máquina»",
+      "summary": "Miedo a los objetos sumergidos.",
+      "description": "Una hélice bajo el casco, un pecio cubierto de algas, una cadena que se hunde en el verde. Máquinas donde no deberían estar.",
+      "annotation": "Nunca mira por el ojo de buey del ferry."
+    },
+    "de": {
+      "name": "Submechanophobie",
+      "etymology": "von lateinisch sub, „unter“, und griechisch mēchanē, „Maschine“",
+      "summary": "Angst vor versunkenen Objekten.",
+      "description": "Eine Schiffsschraube unter dem Rumpf, ein algenbedecktes Wrack, eine Kette, die ins Grün sinkt. Maschinen, wo sie nicht hingehören.",
+      "annotation": "Schaut nie durch das Bullauge der Fähre."
+    },
+    "it": {
+      "name": "Submeccanofobia",
+      "etymology": "dal latino sub, «sotto», e dal greco mēkhanē, «macchina»",
+      "summary": "Paura degli oggetti sommersi.",
+      "description": "Un’elica sotto lo scafo, un relitto coperto d’alghe, una catena che affonda nel verde. Macchine dove non dovrebbero essere.",
+      "annotation": "Non guarda mai dall’oblò del traghetto."
+    }
+  },
+  "images": [],
+  "video": null
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "phasmophobia",
+  "caseNumber": 29,
+  "category": "strange",
+  "translations": {
+    "fr": {
+      "name": "Phasmophobie",
+      "etymology": "du grec phásma, « apparition »",
+      "summary": "Peur des fantômes.",
+      "description": "Une porte qui grince toute seule, un froid soudain, une silhouette dans le miroir. On n’y croit pas, mais on ne regarde pas trop longtemps.",
+      "annotation": "Ne dort jamais dos à la porte."
+    },
+    "en": {
+      "name": "Phasmophobia",
+      "etymology": "from Greek phásma, “apparition”",
+      "summary": "Fear of ghosts.",
+      "description": "A door creaking by itself, a sudden chill, a figure in the mirror. You don’t believe in it, but you don’t look for too long.",
+      "annotation": "Never sleeps with their back to the door."
+    },
+    "es": {
+      "name": "Fasmofobia",
+      "etymology": "del griego phásma, «aparición»",
+      "summary": "Miedo a los fantasmas.",
+      "description": "Una puerta que chirría sola, un frío repentino, una silueta en el espejo. No crees en ello, pero no miras demasiado.",
+      "annotation": "Nunca duerme de espaldas a la puerta."
+    },
+    "de": {
+      "name": "Phasmophobie",
+      "etymology": "von griechisch phásma, „Erscheinung“",
+      "summary": "Angst vor Geistern.",
+      "description": "Eine Tür, die von selbst knarrt, eine plötzliche Kälte, eine Gestalt im Spiegel. Man glaubt nicht daran, aber man schaut nicht zu lange hin.",
+      "annotation": "Schläft nie mit dem Rücken zur Tür."
+    },
+    "it": {
+      "name": "Fasmofobia",
+      "etymology": "dal greco phásma, «apparizione»",
+      "summary": "Paura dei fantasmi.",
+      "description": "Una porta che cigola da sola, un freddo improvviso, una sagoma nello specchio. Non ci credi, ma non guardi troppo a lungo.",
+      "annotation": "Non dorme mai con le spalle alla porta."
+    }
+  },
+  "images": [],
+  "video": null
+}

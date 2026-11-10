@@ -1,0 +1,44 @@
+{
+  "slug": "trypanophobia",
+  "caseNumber": 23,
+  "category": "body-and-health",
+  "translations": {
+    "fr": {
+      "name": "Trypanophobie",
+      "etymology": "du grec trúpanon, « foret »",
+      "summary": "Peur des aiguilles et des piqûres.",
+      "description": "Prise de sang, vaccin, piercing. Certains s’évanouissent avant même que l’aiguille ne touche la peau.",
+      "annotation": "Regarde le plafond. Compte jusqu’à cent."
+    },
+    "en": {
+      "name": "Trypanophobia",
+      "etymology": "from Greek trúpanon, “drill”",
+      "summary": "Fear of needles and injections.",
+      "description": "Blood tests, vaccines, piercings. Some people faint before the needle even touches the skin.",
+      "annotation": "Stares at the ceiling. Counts to a hundred."
+    },
+    "es": {
+      "name": "Tripanofobia",
+      "etymology": "del griego trúpanon, «taladro»",
+      "summary": "Miedo a las agujas y las inyecciones.",
+      "description": "Análisis de sangre, vacunas, piercings. Hay quien se desmaya antes de que la aguja toque la piel.",
+      "annotation": "Mira al techo. Cuenta hasta cien."
+    },
+    "de": {
+      "name": "Trypanophobie",
+      "etymology": "von griechisch trýpanon, „Bohrer“",
+      "summary": "Angst vor Nadeln und Spritzen.",
+      "description": "Blutabnahme, Impfung, Piercing. Manche werden ohnmächtig, bevor die Nadel überhaupt die Haut berührt.",
+      "annotation": "Starrt an die Decke. Zählt bis hundert."
+    },
+    "it": {
+      "name": "Tripanofobia",
+      "etymology": "dal greco trúpanon, «trapano»",
+      "summary": "Paura degli aghi e delle iniezioni.",
+      "description": "Prelievi, vaccini, piercing. Alcuni svengono prima ancora che l’ago tocchi la pelle.",
+      "annotation": "Fissa il soffitto. Conta fino a cento."
+    }
+  },
+  "images": [],
+  "video": null
+}

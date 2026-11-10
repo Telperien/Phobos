@@ -1,0 +1,44 @@
+{
+  "slug": "hemophobia",
+  "caseNumber": 22,
+  "category": "body-and-health",
+  "translations": {
+    "fr": {
+      "name": "Hémophobie",
+      "etymology": "du grec haîma, « sang »",
+      "summary": "Peur du sang.",
+      "description": "La seule phobie qui fait baisser la tension au lieu de la monter. Une goutte, et la pièce se met à tourner.",
+      "annotation": "S’allonge par terre avant qu’on le demande."
+    },
+    "en": {
+      "name": "Hemophobia",
+      "etymology": "from Greek haîma, “blood”",
+      "summary": "Fear of blood.",
+      "description": "The only phobia that lowers your blood pressure instead of raising it. One drop, and the room starts spinning.",
+      "annotation": "Lies down on the floor before being asked."
+    },
+    "es": {
+      "name": "Hemofobia",
+      "etymology": "del griego haîma, «sangre»",
+      "summary": "Miedo a la sangre.",
+      "description": "La única fobia que baja la tensión en lugar de subirla. Una gota y la habitación empieza a girar.",
+      "annotation": "Se tumba en el suelo antes de que se lo pidan."
+    },
+    "de": {
+      "name": "Hämatophobie",
+      "etymology": "von griechisch haîma, „Blut“",
+      "summary": "Angst vor Blut.",
+      "description": "Die einzige Phobie, die den Blutdruck senkt statt hebt. Ein Tropfen, und der Raum beginnt sich zu drehen.",
+      "annotation": "Legt sich auf den Boden, bevor jemand darum bittet."
+    },
+    "it": {
+      "name": "Emofobia",
+      "etymology": "dal greco haîma, «sangue»",
+      "summary": "Paura del sangue.",
+      "description": "L’unica fobia che abbassa la pressione invece di alzarla. Una goccia, e la stanza inizia a girare.",
+      "annotation": "Si sdraia a terra prima che glielo chiedano."
+    }
+  },
+  "images": [],
+  "video": null
+}

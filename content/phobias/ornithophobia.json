@@ -1,0 +1,44 @@
+{
+  "slug": "ornithophobia",
+  "caseNumber": 8,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Ornithophobie",
+      "etymology": "du grec órnis, « oiseau »",
+      "summary": "Peur des oiseaux.",
+      "description": "Des yeux ronds qui ne clignent pas, des battements d’ailes en plein visage, une nuée qui tourne au-dessus de la place. Hitchcock avait compris.",
+      "annotation": "Ne nourrit jamais les pigeons. Jamais."
+    },
+    "en": {
+      "name": "Ornithophobia",
+      "etymology": "from Greek órnis, “bird”",
+      "summary": "Fear of birds.",
+      "description": "Round eyes that never blink, wings flapping in your face, a flock circling over the square. Hitchcock understood.",
+      "annotation": "Never feeds pigeons. Never."
+    },
+    "es": {
+      "name": "Ornitofobia",
+      "etymology": "del griego órnis, «pájaro»",
+      "summary": "Miedo a los pájaros.",
+      "description": "Ojos redondos que no parpadean, aleteos en plena cara, una bandada que gira sobre la plaza. Hitchcock lo entendió.",
+      "annotation": "Nunca da de comer a las palomas. Nunca."
+    },
+    "de": {
+      "name": "Ornithophobie",
+      "etymology": "von griechisch órnis, „Vogel“",
+      "summary": "Angst vor Vögeln.",
+      "description": "Runde Augen, die nie blinzeln, Flügelschläge mitten ins Gesicht, ein Schwarm, der über dem Platz kreist. Hitchcock wusste Bescheid.",
+      "annotation": "Füttert niemals Tauben. Niemals."
+    },
+    "it": {
+      "name": "Ornitofobia",
+      "etymology": "dal greco órnis, «uccello»",
+      "summary": "Paura degli uccelli.",
+      "description": "Occhi tondi che non sbattono mai, battiti d’ali in faccia, uno stormo che gira sopra la piazza. Hitchcock aveva capito.",
+      "annotation": "Non dà mai da mangiare ai piccioni. Mai."
+    }
+  },
+  "images": [],
+  "video": null
+}

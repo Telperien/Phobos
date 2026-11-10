@@ -1,0 +1,44 @@
+{
+  "slug": "lepidopterophobia",
+  "caseNumber": 13,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Lépidoptérophobie",
+      "etymology": "du grec lepís, « écaille », et pterón, « aile »",
+      "summary": "Peur des papillons et des mites.",
+      "description": "Ce qui émerveille les autres te glace : ces ailes poudrées qui frôlent la peau, ce vol erratique autour de la lampe.",
+      "annotation": "Éteint la lumière dès qu’une fenêtre est ouverte."
+    },
+    "en": {
+      "name": "Lepidopterophobia",
+      "etymology": "from Greek lepís, “scale”, and pterón, “wing”",
+      "summary": "Fear of butterflies and moths.",
+      "description": "What enchants others chills you: powdery wings brushing your skin, erratic flights around the lamp.",
+      "annotation": "Turns the light off as soon as a window is open."
+    },
+    "es": {
+      "name": "Lepidopterofobia",
+      "etymology": "del griego lepís, «escama», y pterón, «ala»",
+      "summary": "Miedo a mariposas y polillas.",
+      "description": "Lo que maravilla a otros a ti te hiela: alas empolvadas que rozan la piel, un vuelo errático alrededor de la lámpara.",
+      "annotation": "Apaga la luz en cuanto hay una ventana abierta."
+    },
+    "de": {
+      "name": "Lepidopterophobie",
+      "etymology": "von griechisch lepís, „Schuppe“, und pterón, „Flügel“",
+      "summary": "Angst vor Schmetterlingen und Motten.",
+      "description": "Was andere verzaubert, lässt dich erstarren: puderige Flügel auf der Haut, ein irrer Flug um die Lampe.",
+      "annotation": "Macht das Licht aus, sobald ein Fenster offen ist."
+    },
+    "it": {
+      "name": "Lepidotterofobia",
+      "etymology": "dal greco lepís, «squama», e pterón, «ala»",
+      "summary": "Paura di farfalle e falene.",
+      "description": "Ciò che incanta gli altri ti gela: ali polverose che sfiorano la pelle, un volo irregolare attorno alla lampada.",
+      "annotation": "Spegne la luce appena c’è una finestra aperta."
+    }
+  },
+  "images": [],
+  "video": null
+}

@@ -6,6 +6,7 @@ import { categoryName } from '../catalogue/categories'
 import { useLang, useT } from '../i18n/context'
 import { isFaced, type LogEntry } from '../logbook/logbook'
 import { saveExit, saveProgress, useLogbook } from '../logbook/store'
+import { ImageCredit } from '../media/ImageCredit'
 import { MediaPlaceholder } from '../media/MediaPlaceholder'
 import { YouTubeFacade } from '../media/YouTubeFacade'
 import { ActionButton, actionClasses } from '../ui/ActionButton'
@@ -197,13 +198,19 @@ function ImagePlates({
   return (
     <div className={`grid gap-2 ${media.length > 1 ? 'sm:grid-cols-2' : ''}`}>
       {media.map((item, index) => (
-        <img
-          key={item.source}
-          src={item.source}
-          alt={t.journey.imageAlt(name, `0${level}-${String.fromCharCode(65 + index)}`)}
-          className="aspect-[4/3] w-full border border-ash object-cover"
-          draggable={false}
-        />
+        <figure key={item.source} className="flex flex-col gap-1">
+          <img
+            src={item.source}
+            alt={t.journey.imageAlt(name, `0${level}-${String.fromCharCode(65 + index)}`)}
+            className="aspect-[4/3] w-full border border-ash object-cover"
+            draggable={false}
+          />
+          {item.credit && (
+            <figcaption>
+              <ImageCredit credit={item.credit} />
+            </figcaption>
+          )}
+        </figure>
       ))}
     </div>
   )

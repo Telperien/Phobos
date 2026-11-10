@@ -154,6 +154,8 @@ export const fr = {
     hold: 'Maintenir pour révéler',
     plate: (plate: string) => `Planche ${plate}`,
     imageAlt: (name: string, plate: string) => `${name}, planche ${plate}`,
+    credit: (author: string | null, license: string) =>
+      author ? `Photo : ${author} · ${license}` : `Photo · ${license}`,
     softPending: 'Image douce à venir.',
     harshPending: 'Images franches à venir. Profite du répit.',
     videoPending: 'Vidéo à venir. Le dossier est encore en cours d’instruction.',

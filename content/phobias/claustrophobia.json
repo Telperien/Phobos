@@ -1,0 +1,44 @@
+{
+  "slug": "claustrophobia",
+  "caseNumber": 15,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Claustrophobie",
+      "etymology": "du latin claustrum, « lieu fermé »",
+      "summary": "Peur des espaces clos.",
+      "description": "Les murs se rapprochent, l’air semble manquer. Ascenseur, IRM, grotte : partout où la sortie n’est pas visible.",
+      "annotation": "Repère les issues de secours avant de s’asseoir."
+    },
+    "en": {
+      "name": "Claustrophobia",
+      "etymology": "from Latin claustrum, “closed place”",
+      "summary": "Fear of enclosed spaces.",
+      "description": "The walls close in, the air seems to run out. Lifts, MRI scanners, caves: anywhere the exit is out of sight.",
+      "annotation": "Locates the emergency exits before sitting down."
+    },
+    "es": {
+      "name": "Claustrofobia",
+      "etymology": "del latín claustrum, «lugar cerrado»",
+      "summary": "Miedo a los espacios cerrados.",
+      "description": "Las paredes se acercan, parece faltar el aire. Ascensores, resonancias, cuevas: cualquier lugar donde no se vea la salida.",
+      "annotation": "Localiza las salidas de emergencia antes de sentarse."
+    },
+    "de": {
+      "name": "Klaustrophobie",
+      "etymology": "von lateinisch claustrum, „verschlossener Ort“",
+      "summary": "Angst vor engen Räumen.",
+      "description": "Die Wände rücken näher, die Luft scheint zu fehlen. Aufzug, MRT, Höhle: überall, wo der Ausgang nicht zu sehen ist.",
+      "annotation": "Sucht vor dem Hinsetzen die Notausgänge."
+    },
+    "it": {
+      "name": "Claustrofobia",
+      "etymology": "dal latino claustrum, «luogo chiuso»",
+      "summary": "Paura degli spazi chiusi.",
+      "description": "Le pareti si avvicinano, l’aria sembra mancare. Ascensori, risonanze, grotte: ovunque l’uscita non si veda.",
+      "annotation": "Individua le uscite di sicurezza prima di sedersi."
+    }
+  },
+  "images": [],
+  "video": null
+}

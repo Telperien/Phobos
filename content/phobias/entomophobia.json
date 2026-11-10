@@ -1,0 +1,44 @@
+{
+  "slug": "entomophobia",
+  "caseNumber": 3,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Entomophobie",
+      "etymology": "du grec éntomon, « insecte »",
+      "summary": "Peur des insectes.",
+      "description": "Ils sont des milliards pour chacun de nous. Des antennes, des carapaces, des ailes qui bourdonnent trop près de l’oreille.",
+      "annotation": "Dort avec une moustiquaire en plein hiver."
+    },
+    "en": {
+      "name": "Entomophobia",
+      "etymology": "from Greek éntomon, “insect”",
+      "summary": "Fear of insects.",
+      "description": "There are billions of them for each of us. Antennae, shells, wings buzzing far too close to your ear.",
+      "annotation": "Sleeps under a mosquito net in midwinter."
+    },
+    "es": {
+      "name": "Entomofobia",
+      "etymology": "del griego éntomon, «insecto»",
+      "summary": "Miedo a los insectos.",
+      "description": "Hay miles de millones por cada uno de nosotros. Antenas, caparazones, alas que zumban demasiado cerca del oído.",
+      "annotation": "Duerme con mosquitera en pleno invierno."
+    },
+    "de": {
+      "name": "Entomophobie",
+      "etymology": "von griechisch éntomon, „Insekt“",
+      "summary": "Angst vor Insekten.",
+      "description": "Auf jeden von uns kommen Milliarden. Fühler, Panzer, Flügel, die viel zu nah am Ohr summen.",
+      "annotation": "Schläft im tiefsten Winter unter einem Moskitonetz."
+    },
+    "it": {
+      "name": "Entomofobia",
+      "etymology": "dal greco éntomon, «insetto»",
+      "summary": "Paura degli insetti.",
+      "description": "Ce ne sono miliardi per ognuno di noi. Antenne, gusci, ali che ronzano troppo vicino all’orecchio.",
+      "annotation": "Dorme con la zanzariera in pieno inverno."
+    }
+  },
+  "images": [],
+  "video": null
+}

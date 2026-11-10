@@ -134,6 +134,7 @@ export const en: Messages = {
     hold: 'Hold to reveal',
     plate: (plate) => `Plate ${plate}`,
     imageAlt: (name, plate) => `${name}, plate ${plate}`,
+    credit: (author, license) => (author ? `Photo: ${author} · ${license}` : `Photo · ${license}`),
     softPending: 'Soft image coming soon.',
     harshPending: 'Raw images coming soon. Enjoy the respite.',
     videoPending: 'Video coming soon. The case is still under investigation.',

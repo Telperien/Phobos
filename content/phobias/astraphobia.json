@@ -1,0 +1,44 @@
+{
+  "slug": "astraphobia",
+  "caseNumber": 18,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Astraphobie",
+      "etymology": "du grec astrapē, « éclair »",
+      "summary": "Peur de l’orage et de la foudre.",
+      "description": "Compter les secondes entre l’éclair et le tonnerre, et sentir que le compte diminue. Le ciel devient une menace.",
+      "annotation": "Débranche tous les appareils dès le premier grondement."
+    },
+    "en": {
+      "name": "Astraphobia",
+      "etymology": "from Greek astrapē, “lightning”",
+      "summary": "Fear of thunder and lightning.",
+      "description": "Counting the seconds between lightning and thunder, and feeling the count go down. The sky becomes a threat.",
+      "annotation": "Unplugs every device at the first rumble."
+    },
+    "es": {
+      "name": "Astrafobia",
+      "etymology": "del griego astrapē, «relámpago»",
+      "summary": "Miedo a las tormentas y los rayos.",
+      "description": "Contar los segundos entre el relámpago y el trueno, y sentir que la cuenta baja. El cielo se vuelve una amenaza.",
+      "annotation": "Desenchufa todos los aparatos al primer trueno."
+    },
+    "de": {
+      "name": "Astraphobie",
+      "etymology": "von griechisch astrapē, „Blitz“",
+      "summary": "Angst vor Gewitter und Blitz.",
+      "description": "Die Sekunden zwischen Blitz und Donner zählen und spüren, wie es weniger werden. Der Himmel wird zur Bedrohung.",
+      "annotation": "Zieht beim ersten Grollen alle Stecker."
+    },
+    "it": {
+      "name": "Astrafobia",
+      "etymology": "dal greco astrapē, «lampo»",
+      "summary": "Paura di temporali e fulmini.",
+      "description": "Contare i secondi tra il lampo e il tuono, e sentire che il conto scende. Il cielo diventa una minaccia.",
+      "annotation": "Stacca tutte le spine al primo brontolio."
+    }
+  },
+  "images": [],
+  "video": null
+}

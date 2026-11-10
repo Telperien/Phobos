@@ -1,0 +1,44 @@
+{
+  "slug": "trypophobia",
+  "caseNumber": 26,
+  "category": "body-and-health",
+  "translations": {
+    "fr": {
+      "name": "Trypophobie",
+      "etymology": "du grec trúpa, « trou »",
+      "summary": "Malaise face aux trous groupés.",
+      "description": "Graines de lotus, éponges, nids d’abeilles. Une répulsion viscérale devant les motifs de petits trous serrés.",
+      "annotation": "Démangeaisons signalées à la simple évocation."
+    },
+    "en": {
+      "name": "Trypophobia",
+      "etymology": "from Greek trúpa, “hole”",
+      "summary": "Aversion to clusters of holes.",
+      "description": "Lotus seed pods, sponges, honeycombs. A gut-level revulsion at patterns of small, tightly packed holes.",
+      "annotation": "Reports itching at the mere mention."
+    },
+    "es": {
+      "name": "Tripofobia",
+      "etymology": "del griego trúpa, «agujero»",
+      "summary": "Rechazo a los agujeros agrupados.",
+      "description": "Semillas de loto, esponjas, panales. Una repulsión visceral ante patrones de pequeños agujeros apretados.",
+      "annotation": "Refiere picores con solo mencionarlo."
+    },
+    "de": {
+      "name": "Trypophobie",
+      "etymology": "von griechisch trýpa, „Loch“",
+      "summary": "Ekel vor gehäuften Löchern.",
+      "description": "Lotussamen, Schwämme, Honigwaben. Ein tiefer Ekel vor Mustern aus kleinen, dicht gedrängten Löchern.",
+      "annotation": "Meldet Juckreiz schon bei der bloßen Erwähnung."
+    },
+    "it": {
+      "name": "Tripofobia",
+      "etymology": "dal greco trúpa, «buco»",
+      "summary": "Repulsione per i buchi raggruppati.",
+      "description": "Semi di loto, spugne, favi. Una repulsione viscerale davanti a motivi di piccoli buchi ravvicinati.",
+      "annotation": "Riferisce prurito alla sola menzione."
+    }
+  },
+  "images": [],
+  "video": null
+}

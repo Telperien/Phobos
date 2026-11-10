@@ -1,0 +1,44 @@
+{
+  "slug": "scoleciphobia",
+  "caseNumber": 11,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Scoléciphobie",
+      "etymology": "du grec skōlēx, « ver »",
+      "summary": "Peur des vers.",
+      "description": "Des corps mous, segmentés, qui se tortillent dans la terre mouillée. Ils n’ont ni yeux ni visage, et c’est justement ça.",
+      "annotation": "Jardine avec des gants épais. Toute l’année."
+    },
+    "en": {
+      "name": "Scoleciphobia",
+      "etymology": "from Greek skōlēx, “worm”",
+      "summary": "Fear of worms.",
+      "description": "Soft, segmented bodies wriggling in wet soil. No eyes, no face, and that is precisely the problem.",
+      "annotation": "Gardens in thick gloves. All year round."
+    },
+    "es": {
+      "name": "Escolecifobia",
+      "etymology": "del griego skōlēx, «gusano»",
+      "summary": "Miedo a los gusanos.",
+      "description": "Cuerpos blandos y segmentados que se retuercen en la tierra mojada. Sin ojos, sin cara, y ese es justo el problema.",
+      "annotation": "Trabaja el jardín con guantes gruesos. Todo el año."
+    },
+    "de": {
+      "name": "Skolekiphobie",
+      "etymology": "von griechisch skōlēx, „Wurm“",
+      "summary": "Angst vor Würmern.",
+      "description": "Weiche, gegliederte Körper, die sich in nasser Erde winden. Keine Augen, kein Gesicht, und genau das ist es.",
+      "annotation": "Gärtnert mit dicken Handschuhen. Das ganze Jahr."
+    },
+    "it": {
+      "name": "Scolecifobia",
+      "etymology": "dal greco skōlēx, «verme»",
+      "summary": "Paura dei vermi.",
+      "description": "Corpi molli e segmentati che si contorcono nella terra bagnata. Niente occhi, niente volto, ed è proprio questo il punto.",
+      "annotation": "Fa giardinaggio con guanti spessi. Tutto l’anno."
+    }
+  },
+  "images": [],
+  "video": null
+}

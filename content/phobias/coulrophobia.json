@@ -1,0 +1,44 @@
+{
+  "slug": "coulrophobia",
+  "caseNumber": 27,
+  "category": "strange",
+  "translations": {
+    "fr": {
+      "name": "Coulrophobie",
+      "etymology": "du grec kōlobathristēs, « échassier »",
+      "summary": "Peur des clowns.",
+      "description": "Un sourire peint qui ne bouge jamais, des émotions qu’on ne peut pas lire. Le maquillage cache tout, c’est bien le problème.",
+      "annotation": "A quitté un anniversaire en courant (1998)."
+    },
+    "en": {
+      "name": "Coulrophobia",
+      "etymology": "from Greek kōlobathristēs, “stilt-walker”",
+      "summary": "Fear of clowns.",
+      "description": "A painted smile that never moves, emotions you cannot read. The make-up hides everything, and that is the problem.",
+      "annotation": "Ran out of a birthday party (1998)."
+    },
+    "es": {
+      "name": "Coulrofobia",
+      "etymology": "del griego kōlobathristēs, «zanquero»",
+      "summary": "Miedo a los payasos.",
+      "description": "Una sonrisa pintada que nunca se mueve, emociones imposibles de leer. El maquillaje lo esconde todo, y ese es el problema.",
+      "annotation": "Salió corriendo de un cumpleaños (1998)."
+    },
+    "de": {
+      "name": "Coulrophobie",
+      "etymology": "von griechisch kōlobathristēs, „Stelzengänger“",
+      "summary": "Angst vor Clowns.",
+      "description": "Ein aufgemaltes Lächeln, das sich nie bewegt, Gefühle, die man nicht lesen kann. Die Schminke verbirgt alles, genau das ist das Problem.",
+      "annotation": "Ist von einem Kindergeburtstag weggerannt (1998)."
+    },
+    "it": {
+      "name": "Coulrofobia",
+      "etymology": "dal greco kōlobathristēs, «trampoliere»",
+      "summary": "Paura dei clown.",
+      "description": "Un sorriso dipinto che non si muove mai, emozioni impossibili da leggere. Il trucco nasconde tutto, ed è proprio questo il problema.",
+      "annotation": "È scappato da una festa di compleanno (1998)."
+    }
+  },
+  "images": [],
+  "video": null
+}

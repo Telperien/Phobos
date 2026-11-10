@@ -1,0 +1,44 @@
+{
+  "slug": "pediophobia",
+  "caseNumber": 28,
+  "category": "strange",
+  "translations": {
+    "fr": {
+      "name": "Pédiophobie",
+      "etymology": "du grec paidíon, « petit enfant »",
+      "summary": "Peur des poupées.",
+      "description": "Des yeux de verre qui te suivent, un visage presque humain. Presque. Et cette impression qu’elle a bougé quand tu as tourné la tête.",
+      "annotation": "Range les poupées face au mur."
+    },
+    "en": {
+      "name": "Pediophobia",
+      "etymology": "from Greek paidíon, “little child”",
+      "summary": "Fear of dolls.",
+      "description": "Glass eyes that follow you, an almost human face. Almost. And the feeling it moved when you looked away.",
+      "annotation": "Turns dolls to face the wall."
+    },
+    "es": {
+      "name": "Pediofobia",
+      "etymology": "del griego paidíon, «niño pequeño»",
+      "summary": "Miedo a las muñecas.",
+      "description": "Ojos de cristal que te siguen, una cara casi humana. Casi. Y la sensación de que se movió cuando giraste la cabeza.",
+      "annotation": "Coloca las muñecas mirando a la pared."
+    },
+    "de": {
+      "name": "Pediophobie",
+      "etymology": "von griechisch paidíon, „kleines Kind“",
+      "summary": "Angst vor Puppen.",
+      "description": "Glasaugen, die dir folgen, ein fast menschliches Gesicht. Fast. Und das Gefühl, dass sie sich bewegt hat, als du weggeschaut hast.",
+      "annotation": "Dreht Puppen mit dem Gesicht zur Wand."
+    },
+    "it": {
+      "name": "Pediofobia",
+      "etymology": "dal greco paidíon, «bambino piccolo»",
+      "summary": "Paura delle bambole.",
+      "description": "Occhi di vetro che ti seguono, un volto quasi umano. Quasi. E l’impressione che si sia mossa quando hai girato la testa.",
+      "annotation": "Gira le bambole verso il muro."
+    }
+  },
+  "images": [],
+  "video": null
+}

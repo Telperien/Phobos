@@ -1,0 +1,44 @@
+{
+  "slug": "cynophobia",
+  "caseNumber": 7,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Cynophobie",
+      "etymology": "du grec kúōn, « chien »",
+      "summary": "Peur des chiens.",
+      "description": "« Il est gentil, il ne mord pas. » La phrase n’a jamais rassuré personne. Les crocs, l’aboiement soudain, la course vers toi.",
+      "annotation": "Change de trottoir devant chaque laisse."
+    },
+    "en": {
+      "name": "Cynophobia",
+      "etymology": "from Greek kúōn, “dog”",
+      "summary": "Fear of dogs.",
+      "description": "“He’s friendly, he doesn’t bite.” That sentence has never reassured anyone. The fangs, the sudden bark, the run towards you.",
+      "annotation": "Crosses the street at every leash."
+    },
+    "es": {
+      "name": "Cinofobia",
+      "etymology": "del griego kúōn, «perro»",
+      "summary": "Miedo a los perros.",
+      "description": "«Es bueno, no muerde.» Esa frase nunca ha tranquilizado a nadie. Los colmillos, el ladrido repentino, la carrera hacia ti.",
+      "annotation": "Cambia de acera ante cada correa."
+    },
+    "de": {
+      "name": "Kynophobie",
+      "etymology": "von griechisch kýōn, „Hund“",
+      "summary": "Angst vor Hunden.",
+      "description": "„Der tut nichts, der will nur spielen.“ Dieser Satz hat noch niemanden beruhigt. Die Zähne, das plötzliche Bellen, das Rennen auf dich zu.",
+      "annotation": "Wechselt bei jeder Leine die Straßenseite."
+    },
+    "it": {
+      "name": "Cinofobia",
+      "etymology": "dal greco kúōn, «cane»",
+      "summary": "Paura dei cani.",
+      "description": "«È buono, non morde.» Questa frase non ha mai rassicurato nessuno. Le zanne, l’abbaio improvviso, la corsa verso di te.",
+      "annotation": "Cambia marciapiede a ogni guinzaglio."
+    }
+  },
+  "images": [],
+  "video": null
+}

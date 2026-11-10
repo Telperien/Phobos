@@ -1,0 +1,44 @@
+{
+  "slug": "apiphobia",
+  "caseNumber": 5,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Apiphobie",
+      "etymology": "du latin apis, « abeille »",
+      "summary": "Peur des abeilles et des guêpes.",
+      "description": "Un bourdonnement suffit. Le corps se fige, puis s’agite, ce qui est précisément la pire chose à faire.",
+      "annotation": "Ne boit jamais de soda en terrasse."
+    },
+    "en": {
+      "name": "Apiphobia",
+      "etymology": "from Latin apis, “bee”",
+      "summary": "Fear of bees and wasps.",
+      "description": "A single buzz is enough. The body freezes, then flails, which is exactly the worst thing to do.",
+      "annotation": "Never drinks soda on a terrace."
+    },
+    "es": {
+      "name": "Apifobia",
+      "etymology": "del latín apis, «abeja»",
+      "summary": "Miedo a las abejas y avispas.",
+      "description": "Basta un zumbido. El cuerpo se paraliza y luego se agita, que es justo lo peor que se puede hacer.",
+      "annotation": "Nunca toma refrescos en una terraza."
+    },
+    "de": {
+      "name": "Apiphobie",
+      "etymology": "von lateinisch apis, „Biene“",
+      "summary": "Angst vor Bienen und Wespen.",
+      "description": "Ein Summen genügt. Der Körper erstarrt und fängt dann an zu fuchteln, genau das Falscheste.",
+      "annotation": "Trinkt draußen nie Limonade."
+    },
+    "it": {
+      "name": "Apifobia",
+      "etymology": "dal latino apis, «ape»",
+      "summary": "Paura di api e vespe.",
+      "description": "Basta un ronzio. Il corpo si blocca, poi si agita, che è esattamente la cosa peggiore da fare.",
+      "annotation": "Non beve mai bibite all’aperto."
+    }
+  },
+  "images": [],
+  "video": null
+}

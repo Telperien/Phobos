@@ -14,7 +14,6 @@ public sealed class PhobiaTests
     {
         var phobia = Arachnophobia();
 
-        Assert.NotEqual(Guid.Empty, phobia.Id);
         Assert.Equal("arachnophobia", phobia.Slug);
         Assert.Equal(1, phobia.CaseNumber);
         Assert.Equal(Category.Animals, phobia.Category);
@@ -30,8 +29,10 @@ public sealed class PhobiaTests
     [InlineData("arachnophobie-é")]
     public void Create_rejects_a_slug_that_is_not_lowercase_words_joined_by_hyphens(string slug)
     {
-        Assert.Throws<DomainRuleException>(() =>
+        var error = Assert.Throws<DomainRuleException>(() =>
             Phobia.Create(slug, 1, Category.Animals, [Translation(Language.Fr)]));
+
+        Assert.Contains($"'{slug}'", error.Message, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -47,8 +48,10 @@ public sealed class PhobiaTests
     [InlineData(1000)]
     public void Create_rejects_a_case_number_outside_1_to_999(int caseNumber)
     {
-        Assert.Throws<DomainRuleException>(() =>
+        var error = Assert.Throws<DomainRuleException>(() =>
             Phobia.Create("arachnophobia", caseNumber, Category.Animals, [Translation(Language.Fr)]));
+
+        Assert.Contains($"Case number {caseNumber} ", error.Message, StringComparison.Ordinal);
     }
 
     [Theory]
@@ -64,14 +67,18 @@ public sealed class PhobiaTests
     [Fact]
     public void Create_requires_at_least_one_translation()
     {
-        Assert.Throws<DomainRuleException>(() => Phobia.Create("arachnophobia", 1, Category.Animals, []));
+        var error = Assert.Throws<DomainRuleException>(() => Phobia.Create("arachnophobia", 1, Category.Animals, []));
+
+        Assert.Contains("at least one translation", error.Message, StringComparison.Ordinal);
     }
 
     [Fact]
     public void Create_rejects_two_translations_in_the_same_language()
     {
-        Assert.Throws<DomainRuleException>(() =>
+        var error = Assert.Throws<DomainRuleException>(() =>
             Arachnophobia(Translation(Language.Fr), Translation(Language.Fr, "Autre")));
+
+        Assert.Contains("one translation per language", error.Message, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -113,9 +120,9 @@ public sealed class PhobiaTests
     public void MediaForLevel_returns_the_media_of_that_level_in_the_order_they_were_added()
     {
         var phobia = Arachnophobia();
-        var cute = ExposureMedia.Image(1, "arachnophobia/1-a.webp");
-        var close = ExposureMedia.Image(2, "arachnophobia/2-a.webp");
-        var closer = ExposureMedia.Image(2, "arachnophobia/2-b.webp");
+        var cute = ExposureMedia.Image(1, "arachnophobia/1-a.webp", ImageCredit.Generated);
+        var close = ExposureMedia.Image(2, "arachnophobia/2-a.webp", ImageCredit.Generated);
+        var closer = ExposureMedia.Image(2, "arachnophobia/2-b.webp", ImageCredit.Generated);
         var video = ExposureMedia.YouTube("dQw4w9WgXcQ");
 
         phobia.AddMedia(close);

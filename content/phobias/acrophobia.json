@@ -1,0 +1,44 @@
+{
+  "slug": "acrophobia",
+  "caseNumber": 14,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Acrophobie",
+      "etymology": "du grec ákron, « sommet »",
+      "summary": "Peur du vide et des hauteurs.",
+      "description": "Les jambes qui flanchent au bord d’un balcon, l’envie absurde de sauter. Le vertige n’est qu’un symptôme.",
+      "annotation": "Prend l’escalier côté mur."
+    },
+    "en": {
+      "name": "Acrophobia",
+      "etymology": "from Greek ákron, “summit”",
+      "summary": "Fear of heights.",
+      "description": "Legs giving way at the edge of a balcony, the absurd urge to jump. Vertigo is only a symptom.",
+      "annotation": "Takes the stairs on the wall side."
+    },
+    "es": {
+      "name": "Acrofobia",
+      "etymology": "del griego ákron, «cima»",
+      "summary": "Miedo a las alturas.",
+      "description": "Las piernas que flaquean al borde de un balcón, las ganas absurdas de saltar. El vértigo es solo un síntoma.",
+      "annotation": "Sube la escalera pegado a la pared."
+    },
+    "de": {
+      "name": "Akrophobie",
+      "etymology": "von griechisch ákron, „Gipfel“",
+      "summary": "Höhenangst.",
+      "description": "Weiche Knie am Rand eines Balkons, der absurde Drang zu springen. Schwindel ist nur ein Symptom.",
+      "annotation": "Nimmt die Treppe auf der Wandseite."
+    },
+    "it": {
+      "name": "Acrofobia",
+      "etymology": "dal greco ákron, «cima»",
+      "summary": "Paura delle altezze.",
+      "description": "Gambe che cedono sul bordo di un balcone, l’assurda voglia di saltare. La vertigine è solo un sintomo.",
+      "annotation": "Fa le scale dal lato del muro."
+    }
+  },
+  "images": [],
+  "video": null
+}

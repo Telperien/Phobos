@@ -1,0 +1,44 @@
+{
+  "slug": "musophobia",
+  "caseNumber": 6,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Musophobie",
+      "etymology": "du latin mus, « souris »",
+      "summary": "Peur des souris et des rats.",
+      "description": "Un grattement derrière la cloison, une queue nue qui disparaît sous un meuble. Petits, rapides, toujours là où on ne regarde pas.",
+      "annotation": "Monte sur une chaise au moindre bruit."
+    },
+    "en": {
+      "name": "Musophobia",
+      "etymology": "from Latin mus, “mouse”",
+      "summary": "Fear of mice and rats.",
+      "description": "Scratching behind the wall, a bare tail vanishing under the furniture. Small, fast, always where you are not looking.",
+      "annotation": "Climbs on a chair at the slightest noise."
+    },
+    "es": {
+      "name": "Musofobia",
+      "etymology": "del latín mus, «ratón»",
+      "summary": "Miedo a ratones y ratas.",
+      "description": "Un arañazo tras la pared, una cola desnuda que desaparece bajo un mueble. Pequeños, rápidos, siempre donde no miras.",
+      "annotation": "Se sube a una silla al menor ruido."
+    },
+    "de": {
+      "name": "Musophobie",
+      "etymology": "von lateinisch mus, „Maus“",
+      "summary": "Angst vor Mäusen und Ratten.",
+      "description": "Ein Kratzen hinter der Wand, ein nackter Schwanz, der unter dem Schrank verschwindet. Klein, schnell, immer da, wo man nicht hinsieht.",
+      "annotation": "Steigt beim kleinsten Geräusch auf einen Stuhl."
+    },
+    "it": {
+      "name": "Musofobia",
+      "etymology": "dal latino mus, «topo»",
+      "summary": "Paura di topi e ratti.",
+      "description": "Un raschiare dietro la parete, una coda nuda che sparisce sotto un mobile. Piccoli, veloci, sempre dove non guardi.",
+      "annotation": "Sale su una sedia al minimo rumore."
+    }
+  },
+  "images": [],
+  "video": null
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "megalophobia",
+  "caseNumber": 20,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Mégalophobie",
+      "etymology": "du grec mégas, « grand »",
+      "summary": "Peur des objets gigantesques.",
+      "description": "Un paquebot vu du quai, une statue colossale, une éolienne dans le brouillard. Quelque chose de trop grand pour que le cerveau l’accepte.",
+      "annotation": "Ne lève jamais les yeux près des barrages."
+    },
+    "en": {
+      "name": "Megalophobia",
+      "etymology": "from Greek mégas, “large”",
+      "summary": "Fear of huge objects.",
+      "description": "A cruise ship seen from the dock, a colossal statue, a wind turbine in the fog. Something too big for the brain to accept.",
+      "annotation": "Never looks up near dams."
+    },
+    "es": {
+      "name": "Megalofobia",
+      "etymology": "del griego mégas, «grande»",
+      "summary": "Miedo a los objetos gigantescos.",
+      "description": "Un transatlántico visto desde el muelle, una estatua colosal, un aerogenerador en la niebla. Algo demasiado grande para que el cerebro lo acepte.",
+      "annotation": "Nunca mira hacia arriba cerca de una presa."
+    },
+    "de": {
+      "name": "Megalophobie",
+      "etymology": "von griechisch mégas, „groß“",
+      "summary": "Angst vor riesigen Objekten.",
+      "description": "Ein Kreuzfahrtschiff vom Kai aus, eine kolossale Statue, ein Windrad im Nebel. Etwas zu Großes, als dass das Gehirn es annehmen könnte.",
+      "annotation": "Schaut in der Nähe von Staudämmen nie nach oben."
+    },
+    "it": {
+      "name": "Megalofobia",
+      "etymology": "dal greco mégas, «grande»",
+      "summary": "Paura degli oggetti giganteschi.",
+      "description": "Una nave da crociera vista dal molo, una statua colossale, una pala eolica nella nebbia. Qualcosa di troppo grande perché il cervello lo accetti.",
+      "annotation": "Non alza mai lo sguardo vicino alle dighe."
+    }
+  },
+  "images": [],
+  "video": null
+}

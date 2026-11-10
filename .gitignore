@@ -12,6 +12,7 @@ coverage/
 
 # Local media storage (dev)
 /media/
+/media-src/
 
 # OS / editors
 .DS_Store

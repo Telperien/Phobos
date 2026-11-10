@@ -134,6 +134,7 @@ export const de: Messages = {
     hold: 'Gedrückt halten zum Aufdecken',
     plate: (plate) => `Tafel ${plate}`,
     imageAlt: (name, plate) => `${name}, Tafel ${plate}`,
+    credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
     softPending: 'Sanftes Bild folgt.',
     harshPending: 'Ungeschönte Bilder folgen. Genieß die Pause.',
     videoPending: 'Video folgt. Die Akte wird noch bearbeitet.',

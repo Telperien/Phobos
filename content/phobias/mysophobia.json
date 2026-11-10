@@ -1,0 +1,44 @@
+{
+  "slug": "mysophobia",
+  "caseNumber": 24,
+  "category": "body-and-health",
+  "translations": {
+    "fr": {
+      "name": "Mysophobie",
+      "etymology": "du grec músos, « souillure »",
+      "summary": "Peur des germes et de la saleté.",
+      "description": "Une poignée de porte, une barre de métro, une main tendue. Le monde entier devient une surface contaminée.",
+      "annotation": "Ouvre les portes avec le coude."
+    },
+    "en": {
+      "name": "Mysophobia",
+      "etymology": "from Greek músos, “filth”",
+      "summary": "Fear of germs and dirt.",
+      "description": "A door handle, a subway pole, an outstretched hand. The whole world becomes a contaminated surface.",
+      "annotation": "Opens doors with an elbow."
+    },
+    "es": {
+      "name": "Misofobia",
+      "etymology": "del griego músos, «suciedad»",
+      "summary": "Miedo a los gérmenes y la suciedad.",
+      "description": "Un pomo, una barra del metro, una mano tendida. El mundo entero se vuelve una superficie contaminada.",
+      "annotation": "Abre las puertas con el codo."
+    },
+    "de": {
+      "name": "Mysophobie",
+      "etymology": "von griechisch mýsos, „Schmutz“",
+      "summary": "Angst vor Keimen und Schmutz.",
+      "description": "Eine Türklinke, eine Haltestange in der U-Bahn, eine ausgestreckte Hand. Die ganze Welt wird zur verseuchten Oberfläche.",
+      "annotation": "Öffnet Türen mit dem Ellbogen."
+    },
+    "it": {
+      "name": "Misofobia",
+      "etymology": "dal greco músos, «sporcizia»",
+      "summary": "Paura dei germi e dello sporco.",
+      "description": "Una maniglia, un palo della metro, una mano tesa. Il mondo intero diventa una superficie contaminata.",
+      "annotation": "Apre le porte con il gomito."
+    }
+  },
+  "images": [],
+  "video": null
+}

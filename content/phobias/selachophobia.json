@@ -1,0 +1,44 @@
+{
+  "slug": "selachophobia",
+  "caseNumber": 12,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Sélachophobie",
+      "etymology": "du grec sélakhos, « requin »",
+      "summary": "Peur des requins.",
+      "description": "Un aileron qui fend la surface, et tout l’océan devient suspect. Merci, Spielberg.",
+      "annotation": "Ne se baigne que là où il voit ses pieds."
+    },
+    "en": {
+      "name": "Selachophobia",
+      "etymology": "from Greek sélakhos, “shark”",
+      "summary": "Fear of sharks.",
+      "description": "One fin cutting the surface, and the whole ocean becomes suspicious. Thanks, Spielberg.",
+      "annotation": "Only swims where they can see their feet."
+    },
+    "es": {
+      "name": "Selacofobia",
+      "etymology": "del griego sélakhos, «tiburón»",
+      "summary": "Miedo a los tiburones.",
+      "description": "Una aleta que corta la superficie y todo el océano se vuelve sospechoso. Gracias, Spielberg.",
+      "annotation": "Solo se baña donde ve sus pies."
+    },
+    "de": {
+      "name": "Selachophobie",
+      "etymology": "von griechisch sélachos, „Hai“",
+      "summary": "Angst vor Haien.",
+      "description": "Eine Flosse, die die Oberfläche durchschneidet, und der ganze Ozean wird verdächtig. Danke, Spielberg.",
+      "annotation": "Badet nur dort, wo die Füße sichtbar sind."
+    },
+    "it": {
+      "name": "Selacofobia",
+      "etymology": "dal greco sélakhos, «squalo»",
+      "summary": "Paura degli squali.",
+      "description": "Una pinna che taglia la superficie, e tutto l’oceano diventa sospetto. Grazie, Spielberg.",
+      "annotation": "Fa il bagno solo dove vede i propri piedi."
+    }
+  },
+  "images": [],
+  "video": null
+}

@@ -1,0 +1,44 @@
+{
+  "slug": "ophidiophobia",
+  "caseNumber": 2,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Ophiophobie",
+      "etymology": "du grec óphis, « serpent »",
+      "summary": "Peur des serpents.",
+      "description": "Pas de pattes, une langue qui goûte l’air, un corps qui glisse sans bruit. Une peur si ancienne qu’on la croit gravée dans nos gènes.",
+      "annotation": "Évite les hautes herbes, même en ville."
+    },
+    "en": {
+      "name": "Ophidiophobia",
+      "etymology": "from Greek óphis, “snake”",
+      "summary": "Fear of snakes.",
+      "description": "No legs, a tongue that tastes the air, a body that slides without a sound. A fear so old it may be written in our genes.",
+      "annotation": "Avoids tall grass, even in the city."
+    },
+    "es": {
+      "name": "Ofidiofobia",
+      "etymology": "del griego óphis, «serpiente»",
+      "summary": "Miedo a las serpientes.",
+      "description": "Sin patas, una lengua que saborea el aire, un cuerpo que se desliza sin ruido. Un miedo tan antiguo que quizá esté en nuestros genes.",
+      "annotation": "Evita la hierba alta, incluso en la ciudad."
+    },
+    "de": {
+      "name": "Ophidiophobie",
+      "etymology": "von griechisch óphis, „Schlange“",
+      "summary": "Angst vor Schlangen.",
+      "description": "Keine Beine, eine Zunge, die die Luft schmeckt, ein Körper, der lautlos gleitet. Eine Angst, so alt, dass sie vielleicht in unseren Genen steckt.",
+      "annotation": "Meidet hohes Gras, sogar in der Stadt."
+    },
+    "it": {
+      "name": "Ofidiofobia",
+      "etymology": "dal greco óphis, «serpente»",
+      "summary": "Paura dei serpenti.",
+      "description": "Niente zampe, una lingua che assaggia l’aria, un corpo che scivola senza rumore. Una paura così antica da sembrare scritta nei geni.",
+      "annotation": "Evita l’erba alta, anche in città."
+    }
+  },
+  "images": [],
+  "video": null
+}

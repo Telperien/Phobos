@@ -12,7 +12,8 @@
     "lint": "biome check .",
     "format": "biome check --write .",
     "api:types": "npx --yes openapi-typescript@7.13.0 http://localhost:5080/openapi/v1.json -o src/api/schema.d.ts && biome format --write src/api/schema.d.ts",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "media": "node scripts/media.ts"
   },
   "dependencies": {
     "@fontsource-variable/big-shoulders": "^5.3.0",
@@ -37,6 +38,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "jsdom": "^31.0.0",
+    "sharp": "0.35.5",
     "tailwindcss": "^4.3.5",
     "typescript": "~7.0.2",
     "vite": "^8.3.6",

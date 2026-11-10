@@ -10,8 +10,6 @@ builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.N
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-await app.Services.PrepareDatabaseAsync(app.Configuration);
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
 

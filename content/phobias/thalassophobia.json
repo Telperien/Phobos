@@ -1,0 +1,44 @@
+{
+  "slug": "thalassophobia",
+  "caseNumber": 16,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Thalassophobie",
+      "etymology": "du grec thálassa, « mer »",
+      "summary": "Peur des eaux profondes.",
+      "description": "Pas la peur de l’eau : la peur de ce qu’il y a dessous. Le bleu qui devient noir, l’immensité qu’on ne voit pas.",
+      "annotation": "Refuse de nager sans avoir pied."
+    },
+    "en": {
+      "name": "Thalassophobia",
+      "etymology": "from Greek thálassa, “sea”",
+      "summary": "Fear of deep water.",
+      "description": "Not the fear of water: the fear of what lies beneath. Blue turning to black, a vastness you cannot see.",
+      "annotation": "Refuses to swim out of their depth."
+    },
+    "es": {
+      "name": "Talasofobia",
+      "etymology": "del griego thálassa, «mar»",
+      "summary": "Miedo a las aguas profundas.",
+      "description": "No es miedo al agua: es miedo a lo que hay debajo. El azul que se vuelve negro, una inmensidad que no se ve.",
+      "annotation": "Se niega a nadar donde no hace pie."
+    },
+    "de": {
+      "name": "Thalassophobie",
+      "etymology": "von griechisch thálassa, „Meer“",
+      "summary": "Angst vor tiefem Wasser.",
+      "description": "Nicht die Angst vor Wasser, sondern vor dem, was darunter liegt. Blau, das zu Schwarz wird, eine Weite, die man nicht sieht.",
+      "annotation": "Schwimmt nie dorthin, wo die Füße keinen Grund finden."
+    },
+    "it": {
+      "name": "Talassofobia",
+      "etymology": "dal greco thálassa, «mare»",
+      "summary": "Paura delle acque profonde.",
+      "description": "Non la paura dell’acqua: la paura di ciò che c’è sotto. Il blu che diventa nero, un’immensità che non si vede.",
+      "annotation": "Rifiuta di nuotare dove non tocca."
+    }
+  },
+  "images": [],
+  "video": null
+}

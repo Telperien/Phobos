@@ -1,0 +1,44 @@
+{
+  "slug": "nyctophobia",
+  "caseNumber": 17,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Nyctophobie",
+      "etymology": "du grec núx, « nuit »",
+      "summary": "Peur du noir.",
+      "description": "Ce n’est pas l’obscurité qui fait peur, c’est ce qu’elle pourrait cacher. Une forme dans le coin, un bruit sans origine.",
+      "annotation": "Dort avec une veilleuse. Depuis 31 ans."
+    },
+    "en": {
+      "name": "Nyctophobia",
+      "etymology": "from Greek núx, “night”",
+      "summary": "Fear of the dark.",
+      "description": "It is not the darkness that scares you, it is what it could hide. A shape in the corner, a noise from nowhere.",
+      "annotation": "Sleeps with a night light. For 31 years."
+    },
+    "es": {
+      "name": "Nictofobia",
+      "etymology": "del griego núx, «noche»",
+      "summary": "Miedo a la oscuridad.",
+      "description": "No da miedo la oscuridad, sino lo que podría esconder. Una forma en el rincón, un ruido sin origen.",
+      "annotation": "Duerme con una lucecita. Desde hace 31 años."
+    },
+    "de": {
+      "name": "Nyktophobie",
+      "etymology": "von griechisch nýx, „Nacht“",
+      "summary": "Angst vor der Dunkelheit.",
+      "description": "Nicht die Dunkelheit macht Angst, sondern was sie verbergen könnte. Eine Gestalt in der Ecke, ein Geräusch ohne Ursprung.",
+      "annotation": "Schläft mit Nachtlicht. Seit 31 Jahren."
+    },
+    "it": {
+      "name": "Nictofobia",
+      "etymology": "dal greco núx, «notte»",
+      "summary": "Paura del buio.",
+      "description": "Non è il buio a spaventare, ma ciò che potrebbe nascondere. Una forma nell’angolo, un rumore senza origine.",
+      "annotation": "Dorme con la lucina accesa. Da 31 anni."
+    }
+  },
+  "images": [],
+  "video": null
+}

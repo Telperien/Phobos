@@ -1,0 +1,44 @@
+{
+  "slug": "katsaridaphobia",
+  "caseNumber": 4,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Katsaridaphobie",
+      "etymology": "du grec katsarída, « cafard »",
+      "summary": "Peur des cafards.",
+      "description": "Ils sortent la nuit, courent trop vite et survivent à tout. Et parfois, ils volent.",
+      "annotation": "Allume la lumière de la cuisine depuis le couloir."
+    },
+    "en": {
+      "name": "Katsaridaphobia",
+      "etymology": "from Greek katsarída, “cockroach”",
+      "summary": "Fear of cockroaches.",
+      "description": "They come out at night, run too fast and survive everything. And sometimes, they fly.",
+      "annotation": "Switches the kitchen light on from the hallway."
+    },
+    "es": {
+      "name": "Katsaridafobia",
+      "etymology": "del griego katsarída, «cucaracha»",
+      "summary": "Miedo a las cucarachas.",
+      "description": "Salen de noche, corren demasiado rápido y sobreviven a todo. Y a veces, vuelan.",
+      "annotation": "Enciende la luz de la cocina desde el pasillo."
+    },
+    "de": {
+      "name": "Katsaridaphobie",
+      "etymology": "von griechisch katsarída, „Kakerlake“",
+      "summary": "Angst vor Kakerlaken.",
+      "description": "Sie kommen nachts heraus, rennen zu schnell und überleben alles. Und manchmal fliegen sie.",
+      "annotation": "Schaltet das Küchenlicht vom Flur aus ein."
+    },
+    "it": {
+      "name": "Katsaridafobia",
+      "etymology": "dal greco katsarída, «scarafaggio»",
+      "summary": "Paura degli scarafaggi.",
+      "description": "Escono di notte, corrono troppo veloci e sopravvivono a tutto. E a volte volano.",
+      "annotation": "Accende la luce della cucina dal corridoio."
+    }
+  },
+  "images": [],
+  "video": null
+}

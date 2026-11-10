@@ -51,9 +51,7 @@ public sealed class PhobiaQueries(IPhobiaCatalogue catalogue, IRandomIndex rando
     {
         var text = phobia.TranslationFor(language);
         var levels = LevelNumbers
-            .Select(number => new ExposureLevelView(number, phobia.Media
-                .Where(media => (media.Kind == MediaKind.YouTube ? ExposureMedia.VideoLevel : media.Level) == number)
-                .Select(View).ToList()))
+            .Select(number => new ExposureLevelView(number, phobia.MediaForLevel(number).Select(View).ToList()))
             .ToList();
         return new PhobiaDetail(
             phobia.Slug, phobia.CaseNumber, CategoryCodes.Code(phobia.Category), Languages.Code(text.Language),
@@ -62,7 +60,12 @@ public sealed class PhobiaQueries(IPhobiaCatalogue catalogue, IRandomIndex rando
 
     private static MediaView View(ExposureMedia media) => media.Kind switch
     {
-        MediaKind.Image => new MediaView("image", $"/media/{media.Source}", 0),
+        MediaKind.Image => new MediaView("image", $"/media/{media.Source}", 0, CreditFor(media.Credit)),
         _ => new MediaView("youtube", media.Source, media.StartSeconds),
     };
+
+    private static MediaCredit? CreditFor(ImageCredit? credit) =>
+        credit is { Origin: ImageOrigin.Web, License: { } license, Source: { } source }
+            ? new MediaCredit(credit.Author, license, source.ToString())
+            : null;
 }

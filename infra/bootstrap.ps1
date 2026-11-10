@@ -6,8 +6,8 @@
 .DESCRIPTION
   Prérequis : Azure CLI (`az login` fait, bon abonnement sélectionné), GitHub CLI (`gh auth login`).
   Relançable : Bicep ne recrée rien, l'identité et ses droits sont réutilisés.
-  Chaque lancement génère un nouveau mot de passe PostgreSQL et le pousse à la fois au serveur
-  et à la chaîne de connexion de l'App Service : il n'est jamais affiché ni stocké ailleurs.
+  Pas de base de données : le catalogue est embarqué dans l'API (content/phobias/).
+  Pour envoyer seulement de nouvelles images : ./infra/upload-media.ps1
 
 .EXAMPLE
   ./infra/bootstrap.ps1
@@ -19,18 +19,11 @@ param(
     [string]$Location = 'francecentral',
     [string]$Repo = 'Telperien/Phobos',
     [string]$AppServicePlanId = '',
-    [string]$MediaFolder = (Join-Path $PSScriptRoot '..' 'media'),
     [switch]$SkipMedia
 )
 
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
-
-function New-Password {
-    $chars = [char[]]'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-    $bytes = [System.Security.Cryptography.RandomNumberGenerator]::GetBytes(32)
-    'Pg1-' + -join ($bytes | ForEach-Object { $chars[$_ % $chars.Length] })
-}
 
 $subscriptionId = az account show --query id -o tsv
 $tenantId = az account show --query tenantId -o tsv
@@ -39,15 +32,13 @@ Write-Host "Abonnement : $(az account show --query name -o tsv) ($subscriptionId
 Write-Host "1/5 Groupe de ressources $ResourceGroup ($Location)"
 az group create --name $ResourceGroup --location $Location --output none
 
-Write-Host '2/5 Ressources (App Service, PostgreSQL, stockage) — compter 5 à 10 minutes la première fois'
-$postgresPassword = New-Password
+Write-Host '2/5 Ressources (App Service, stockage des images)'
 $outputs = az deployment group create `
     --resource-group $ResourceGroup `
     --template-file (Join-Path $PSScriptRoot 'main.bicep') `
-    --parameters "postgresAdminPassword=$postgresPassword" "appServicePlanId=$AppServicePlanId" `
+    --parameters "appServicePlanId=$AppServicePlanId" `
     --query properties.outputs -o json | ConvertFrom-Json
 $webAppName = $outputs.webAppName.value
-$storageName = $outputs.storageAccountName.value
 $webAppId = az webapp show --resource-group $ResourceGroup --name $webAppName --query id -o tsv
 
 Write-Host '3/5 Identité de déploiement GitHub Actions (OIDC, sans secret)'
@@ -83,13 +74,11 @@ gh variable set AZURE_TENANT_ID --repo $Repo --body $tenantId
 gh variable set AZURE_SUBSCRIPTION_ID --repo $Repo --body $subscriptionId
 gh variable set AZURE_WEBAPP_NAME --repo $Repo --body $webAppName
 
-if ($SkipMedia -or -not (Test-Path $MediaFolder)) {
-    Write-Host "5/5 Images : ignoré (dossier $MediaFolder absent ou -SkipMedia)"
+if ($SkipMedia) {
+    Write-Host '5/5 Images : ignoré (-SkipMedia)'
 } else {
-    Write-Host "5/5 Envoi des images de $MediaFolder vers le partage 'media'"
-    $key = az storage account keys list --account-name $storageName --query '[0].value' -o tsv
-    az storage file upload-batch --account-name $storageName --account-key $key `
-        --destination media --source $MediaFolder --output none
+    Write-Host '5/5 Images'
+    & (Join-Path $PSScriptRoot 'upload-media.ps1') -ResourceGroup $ResourceGroup
 }
 
 Write-Host ''

@@ -1,8 +1,10 @@
 using System.Net;
 using System.Net.Http.Json;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Phobos.Application;
 using Phobos.Domain;
+using Phobos.Infrastructure.Content;
 
 namespace Phobos.Api.Tests;
 
@@ -44,6 +46,7 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
         using var response = await GetAsync("/api/en/phobias?category=monsters");
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Contains("'monsters'", await response.Content.ReadAsStringAsync(), StringComparison.Ordinal);
     }
 
     [Theory]
@@ -75,19 +78,19 @@ public sealed class PhobiaEndpointsTests(PhobosApiFactory factory) : IClassFixtu
     }
 
     [Fact]
-    public async Task Serves_the_media_stored_with_a_case_file()
+    public async Task Serves_the_media_listed_in_a_case_file()
     {
-        await factory.WithDatabaseAsync(async db =>
-        {
-            var phobia = await db.Phobias.SingleAsync(candidate => candidate.Slug == "selachophobia");
-            phobia.AddMedia(ExposureMedia.Image(1, "selachophobia/1-a.webp"));
-            phobia.AddMedia(ExposureMedia.YouTube("dQw4w9WgXcQ", startSeconds: 30));
-            await db.SaveChangesAsync();
-        });
+        var sharks = PhobiaContent.LoadShipped().Single(phobia => phobia.Slug == "selachophobia");
+        sharks.AddMedia(ExposureMedia.Image(1, "selachophobia/1-a.webp", ImageCredit.Generated));
+        sharks.AddMedia(ExposureMedia.YouTube("dQw4w9WgXcQ", startSeconds: 30));
+        using var client = factory
+            .WithWebHostBuilder(builder => builder.ConfigureTestServices(services =>
+                services.AddSingleton<IPhobiaCatalogue>(new ContentPhobiaCatalogue([sharks]))))
+            .CreateClient();
 
-        var detail = await GetJsonAsync<PhobiaDetail>("/api/it/phobias/selachophobia");
+        var detail = await client.GetFromJsonAsync<PhobiaDetail>(new Uri("/api/it/phobias/selachophobia", UriKind.Relative));
 
-        Assert.Equal([new MediaView("image", "/media/selachophobia/1-a.webp", 0)], detail.Levels[0].Media);
+        Assert.Equal([new MediaView("image", "/media/selachophobia/1-a.webp", 0)], detail!.Levels[0].Media);
         Assert.Empty(detail.Levels[1].Media);
         Assert.Equal([new MediaView("youtube", "dQw4w9WgXcQ", 30)], detail.Levels[4].Media);
     }

@@ -1,0 +1,44 @@
+{
+  "slug": "chiroptophobia",
+  "caseNumber": 9,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Chiroptophobie",
+      "etymology": "du grec kheír, « main », et pterón, « aile »",
+      "summary": "Peur des chauves-souris.",
+      "description": "Des ailes de peau tendues sur des doigts, un vol en zigzag au crépuscule, des grappes suspendues tête en bas dans le noir.",
+      "annotation": "Ferme les volets avant le coucher du soleil."
+    },
+    "en": {
+      "name": "Chiroptophobia",
+      "etymology": "from Greek kheír, “hand”, and pterón, “wing”",
+      "summary": "Fear of bats.",
+      "description": "Skin wings stretched over fingers, zigzag flights at dusk, clusters hanging upside down in the dark.",
+      "annotation": "Closes the shutters before sunset."
+    },
+    "es": {
+      "name": "Quiroptofobia",
+      "etymology": "del griego kheír, «mano», y pterón, «ala»",
+      "summary": "Miedo a los murciélagos.",
+      "description": "Alas de piel tensadas sobre dedos, vuelos en zigzag al anochecer, racimos colgados boca abajo en la oscuridad.",
+      "annotation": "Cierra las persianas antes del atardecer."
+    },
+    "de": {
+      "name": "Chiroptophobie",
+      "etymology": "von griechisch cheír, „Hand“, und pterón, „Flügel“",
+      "summary": "Angst vor Fledermäusen.",
+      "description": "Hautflügel, über Finger gespannt, Zickzackflüge in der Dämmerung, Trauben, die kopfüber im Dunkeln hängen.",
+      "annotation": "Schließt die Fensterläden vor Sonnenuntergang."
+    },
+    "it": {
+      "name": "Chirottofobia",
+      "etymology": "dal greco kheír, «mano», e pterón, «ala»",
+      "summary": "Paura dei pipistrelli.",
+      "description": "Ali di pelle tese sulle dita, voli a zigzag al tramonto, grappoli appesi a testa in giù nel buio.",
+      "annotation": "Chiude le persiane prima del tramonto."
+    }
+  },
+  "images": [],
+  "video": null
+}

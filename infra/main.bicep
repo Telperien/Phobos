@@ -1,6 +1,6 @@
-// Phobos en production : une App Service Linux (.NET 10) qui sert l'API et le site,
-// PostgreSQL Flexible Server pour le catalogue, un partage Azure Files monté pour les images.
-// Déploiement : voir infra/bootstrap.sh.
+// Phobos en production : une App Service Linux (.NET 10) qui sert l'API, le site et le catalogue
+// (fichiers content/phobias/ embarqués dans l'API, sans base de données), et un partage Azure Files monté pour les images.
+// Déploiement : voir infra/bootstrap.ps1.
 
 @description('Préfixe des noms de ressources (minuscules, sans tiret pour le stockage).')
 @minLength(3)
@@ -8,12 +8,6 @@
 param prefix string = 'phobos'
 
 param location string = resourceGroup().location
-
-@description('Administrateur PostgreSQL. L\'API se connecte avec ce compte (v1).')
-param postgresAdminLogin string = 'phobosadmin'
-
-@secure()
-param postgresAdminPassword string
 
 @description('Plan App Service existant à partager (id complet, même région). Vide : un plan dédié est créé.')
 param appServicePlanId string = ''
@@ -48,34 +42,6 @@ resource mediaShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-
   properties: { shareQuota: 5 }
 }
 
-resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' = {
-  name: '${prefix}-pg-${suffix}'
-  location: location
-  sku: { name: 'Standard_B1ms', tier: 'Burstable' }
-  properties: {
-    version: '17'
-    administratorLogin: postgresAdminLogin
-    administratorLoginPassword: postgresAdminPassword
-    storage: { storageSizeGB: 32, autoGrow: 'Disabled' }
-    backup: { backupRetentionDays: 7, geoRedundantBackup: 'Disabled' }
-    highAvailability: { mode: 'Disabled' }
-    network: { publicNetworkAccess: 'Enabled' }
-  }
-}
-
-// Autorise les services Azure (dont l'App Service) ; aucune IP publique n'est ouverte.
-resource postgresAzureAccess 'Microsoft.DBforPostgreSQL/flexibleServers/firewallRules@2024-08-01' = {
-  parent: postgres
-  name: 'AllowAllAzureServicesAndResourcesWithinAzureIps'
-  properties: { startIpAddress: '0.0.0.0', endIpAddress: '0.0.0.0' }
-}
-
-resource database 'Microsoft.DBforPostgreSQL/flexibleServers/databases@2024-08-01' = {
-  parent: postgres
-  name: 'phobos'
-  properties: { charset: 'UTF8', collation: 'en_US.utf8' }
-}
-
 // Plan existant : seulement référencé, jamais modifié (ni taille, ni réglages, ni autres sites).
 resource plan 'Microsoft.Web/serverfarms@2024-04-01' = if (empty(appServicePlanId)) {
   name: '${prefix}-plan-${suffix}'
@@ -101,17 +67,7 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
       healthCheckPath: '/api/health'
       appSettings: [
         { name: 'ASPNETCORE_ENVIRONMENT', value: 'Production' }
-        { name: 'Database__MigrateOnStartup', value: 'true' }
-        { name: 'Database__SeedOnStartup', value: 'true' }
         { name: 'Media__RootPath', value: mediaMountPath }
-      ]
-      connectionStrings: [
-        {
-          // Type Custom : exposé en CUSTOMCONNSTR_Phobos, lu par .NET comme ConnectionStrings:Phobos.
-          name: 'Phobos'
-          type: 'Custom'
-          connectionString: 'Host=${postgres.properties.fullyQualifiedDomainName};Database=${database.name};Username=${postgresAdminLogin};Password=${postgresAdminPassword};Ssl Mode=Require'
-        }
       ]
     }
   }
@@ -134,4 +90,3 @@ resource mediaMount 'Microsoft.Web/sites/config@2024-04-01' = {
 output webAppName string = webApp.name
 output webAppUrl string = 'https://${webApp.properties.defaultHostName}'
 output storageAccountName string = storage.name
-output postgresServerName string = postgres.name

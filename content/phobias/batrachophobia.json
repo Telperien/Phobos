@@ -1,0 +1,44 @@
+{
+  "slug": "batrachophobia",
+  "caseNumber": 10,
+  "category": "animals",
+  "translations": {
+    "fr": {
+      "name": "Batrachophobie",
+      "etymology": "du grec bátrakhos, « grenouille »",
+      "summary": "Peur des grenouilles et des crapauds.",
+      "description": "Une peau humide et froide, un saut imprévisible, une gorge qui gonfle. Le conte de la princesse n’a pas aidé.",
+      "annotation": "Refuse de marcher près des mares après la pluie."
+    },
+    "en": {
+      "name": "Batrachophobia",
+      "etymology": "from Greek bátrakhos, “frog”",
+      "summary": "Fear of frogs and toads.",
+      "description": "Cold, damp skin, an unpredictable jump, a swelling throat. The fairy tale about the princess did not help.",
+      "annotation": "Refuses to walk near ponds after rain."
+    },
+    "es": {
+      "name": "Batracofobia",
+      "etymology": "del griego bátrakhos, «rana»",
+      "summary": "Miedo a ranas y sapos.",
+      "description": "Piel húmeda y fría, un salto imprevisible, una garganta que se hincha. El cuento de la princesa no ayudó.",
+      "annotation": "Se niega a pasar junto a charcas tras la lluvia."
+    },
+    "de": {
+      "name": "Batrachophobie",
+      "etymology": "von griechisch bátrachos, „Frosch“",
+      "summary": "Angst vor Fröschen und Kröten.",
+      "description": "Kalte, feuchte Haut, ein unberechenbarer Sprung, eine Kehle, die anschwillt. Das Märchen vom Froschkönig hat nicht geholfen.",
+      "annotation": "Meidet Teiche nach dem Regen."
+    },
+    "it": {
+      "name": "Batracofobia",
+      "etymology": "dal greco bátrakhos, «rana»",
+      "summary": "Paura di rane e rospi.",
+      "description": "Pelle fredda e umida, un salto imprevedibile, una gola che si gonfia. La fiaba della principessa non ha aiutato.",
+      "annotation": "Rifiuta di passare vicino agli stagni dopo la pioggia."
+    }
+  },
+  "images": [],
+  "video": null
+}

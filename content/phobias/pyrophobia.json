@@ -1,0 +1,44 @@
+{
+  "slug": "pyrophobia",
+  "caseNumber": 19,
+  "category": "nature-and-spaces",
+  "translations": {
+    "fr": {
+      "name": "Pyrophobie",
+      "etymology": "du grec pûr, « feu »",
+      "summary": "Peur du feu.",
+      "description": "Une flamme qui danse, puis qui grandit. Ce qui réchauffe peut tout dévorer en quelques minutes.",
+      "annotation": "Vérifie trois fois que le gaz est coupé."
+    },
+    "en": {
+      "name": "Pyrophobia",
+      "etymology": "from Greek pûr, “fire”",
+      "summary": "Fear of fire.",
+      "description": "A flame that dances, then grows. What keeps you warm can devour everything in minutes.",
+      "annotation": "Checks three times that the gas is off."
+    },
+    "es": {
+      "name": "Pirofobia",
+      "etymology": "del griego pûr, «fuego»",
+      "summary": "Miedo al fuego.",
+      "description": "Una llama que baila y luego crece. Lo que te calienta puede devorarlo todo en minutos.",
+      "annotation": "Comprueba tres veces que el gas está cerrado."
+    },
+    "de": {
+      "name": "Pyrophobie",
+      "etymology": "von griechisch pŷr, „Feuer“",
+      "summary": "Angst vor Feuer.",
+      "description": "Eine Flamme, die tanzt und dann wächst. Was wärmt, kann in Minuten alles verschlingen.",
+      "annotation": "Prüft dreimal, ob der Herd aus ist."
+    },
+    "it": {
+      "name": "Pirofobia",
+      "etymology": "dal greco pûr, «fuoco»",
+      "summary": "Paura del fuoco.",
+      "description": "Una fiamma che danza, poi cresce. Ciò che scalda può divorare tutto in pochi minuti.",
+      "annotation": "Controlla tre volte che il gas sia chiuso."
+    }
+  },
+  "images": [],
+  "video": null
+}

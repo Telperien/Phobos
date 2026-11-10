@@ -134,6 +134,7 @@ export const it: Messages = {
     hold: 'Tieni premuto per svelare',
     plate: (plate) => `Tavola ${plate}`,
     imageAlt: (name, plate) => `${name}, tavola ${plate}`,
+    credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
     softPending: 'Immagine dolce in arrivo.',
     harshPending: 'Immagini crude in arrivo. Goditi la tregua.',
     videoPending: 'Video in arrivo. Il fascicolo è ancora in istruttoria.',

@@ -134,6 +134,7 @@ export const es: Messages = {
     hold: 'Mantén pulsado para revelar',
     plate: (plate) => `Lámina ${plate}`,
     imageAlt: (name, plate) => `${name}, lámina ${plate}`,
+    credit: (author, license) => (author ? `Foto: ${author} · ${license}` : `Foto · ${license}`),
     softPending: 'Imagen suave en camino.',
     harshPending: 'Imágenes crudas en camino. Aprovecha el respiro.',
     videoPending: 'Vídeo en camino. El expediente sigue en instrucción.',
